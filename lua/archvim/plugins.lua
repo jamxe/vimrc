@@ -146,10 +146,10 @@ local plugins = {
         "folke/todo-comments.nvim",
         config = function() require"todo-comments".setup{} end
     },
-    {
-        'chentoast/marks.nvim',
-        config = function() require"archvim/config/marks" end,
-    },
+    -- {
+    --     'chentoast/marks.nvim',
+    --     config = function() require"archvim/config/marks" end,
+    -- },
 
     -- zen-mode
     "folke/zen-mode.nvim",
@@ -171,6 +171,7 @@ local plugins = {
         'rcarriga/nvim-dap-ui',
         requires = {
             'mfussenegger/nvim-dap',
+            'nvim-neotest/nvim-nio',
             'theHamsta/nvim-dap-virtual-text',
         },
         config = function() require"archvim/config/nvim-dap" end,
@@ -273,11 +274,11 @@ local plugins = {
 	},
 
     -- session and projects
-    {
-        "Shatur/neovim-session-manager",
-        requires = "nvim-lua/plenary.nvim",
-        config = function() require'archvim/config/neovim-session-manager' end,
-    },
+    -- {
+    --     "Shatur/neovim-session-manager",
+    --     requires = "nvim-lua/plenary.nvim",
+    --     config = function() require'archvim/config/neovim-session-manager' end,
+    -- },
     -- {
     --     "startup-nvim/startup.nvim",
     --     requires = {"nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim"},
@@ -452,7 +453,7 @@ local plugins = {
         config = function() vim.cmd [[
 let g:mdip_imgdir = 'img' " save image in ./img
 let g:mdip_imgname = 'image'
-autocmd FileType markdown nnoremap <silent> gsp :call mdip#MarkdownClipboardImage()<CR>
+autocmd FileType markdown nnoremap <silent> mp :call mdip#MarkdownClipboardImage()<CR>
         ]] end,
         ft = { "markdown" },
     },

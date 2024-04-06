@@ -176,8 +176,8 @@ dap.listeners.before.event_exited["dapui_config"] = function()
   dapui.close()
 end
 
-vim.cmd [[vnoremap gsK <Cmd>lua require("dapui").eval()<CR>]]
-vim.cmd [[nnoremap gsK <Cmd>lua require("dapui").eval()<CR>]]
+-- vim.cmd [[vnoremap gsK <Cmd>lua require("dapui").eval()<CR>]]
+-- vim.cmd [[nnoremap gsK <Cmd>lua require("dapui").eval()<CR>]]
 
 vim.fn.sign_define('DapBreakpoint', {text='🔴', texthl='', linehl='', numhl=''})
 vim.fn.sign_define('DapBreakpointCondition', {text='⭕', texthl='', linehl='', numhl=''})

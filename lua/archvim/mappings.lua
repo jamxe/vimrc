@@ -158,7 +158,7 @@ vim.keymap.set({'v', 'n'}, 'gK', function ()
     vim.lsp.buf.signature_help()
 end)
 
-vim.keymap.set({'v', 'n'}, 'ga', function ()
+vim.keymap.set({'v', 'n'}, 'gw', function ()
     vim.lsp.buf.code_action({
         -- context = {
         --     only = {
@@ -179,5 +179,7 @@ vim.keymap.set({'n'}, '<S-Tab>', '<C-o>')
 -- autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
 -- autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
 -- ]]
+
+vim.cmd [[au! BufRead,BufNewFile *.cppm,*.ixx setfiletype cpp]]
 
 return vim.keymap.set
