@@ -1,5 +1,5 @@
 require'genius'.setup {
-    default_bot = 'deepseek',
+    default_bot = 'openai',
     completion_delay_ms = -1,
 }
 

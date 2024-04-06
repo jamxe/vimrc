@@ -8,6 +8,6 @@ int main() {
     std::wcout << L"宽你好，世界" << std::endl;
     std::cout << "窄你好，世界" << std::endl;
     std::wprintf(L"宽老你好，世界\n");
-    std::printf("窄老你好，世界\n");
+    std::printf("窄老你好，世界\n"
     return 0;
 }

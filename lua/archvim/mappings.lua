@@ -154,6 +154,10 @@ vim.keymap.set({'v', 'n'}, 'K', function ()
     vim.lsp.buf.hover()
 end)
 
+vim.keymap.set({'v', 'n'}, 'gK', function ()
+    vim.lsp.buf.signature_help()
+end)
+
 vim.keymap.set({'v', 'n'}, 'ga', function ()
     vim.lsp.buf.code_action({
         -- context = {
