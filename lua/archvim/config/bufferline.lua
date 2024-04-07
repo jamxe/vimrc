@@ -1,5 +1,12 @@
+local plain = not os.getenv('NERD_FONTS')
+
 require'bufferline'.setup {
     options = {
+        buffer_close_icon = plain and 'x' or nil,
+        modified_icon = plain and '*' or nil,
+        close_icon = plain and 'x' or nil,
+        left_trunc_marker = plain and '<' or nil,
+        right_trunc_marker = plain and '>' or nil,
         offsets = {
             {
                 filetype = "NvimTree",

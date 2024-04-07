@@ -26,11 +26,7 @@ curl -sLf http://142857.red/nvimrc-install.sh | bash
 
 > 小彭老师用的是 JetBrainsMono Nerd Font Regular，字号 16，这是一款专为程序员打造的等宽字体。
 
-## 旧版本 Vimrc
-
-本分支为最新 NeoVim 版插件整合包，对于来自 BV1H44y1V7DW 视频想领取老版 Vim 插件的同学，请移步 [main 分支](https://github.com/archibate/vimrc/tree/main)。
-
-## 支持的 Linux 发行版
+### 支持的 Linux 发行版
 
 - Arch Linux（亲测可用）
 - Ubuntu (亲测 20.04 可用)
@@ -44,7 +40,7 @@ curl -sLf http://142857.red/nvimrc-install.sh | bash
 - Deepin (感谢 @zhangasia 大佬)
 - MacOS (暂未支持，还在开发中)
 
-## 脚本会创建或修改的文件
+### 脚本会创建或修改的文件
 
 ```
 /usr/bin/nvim
@@ -58,6 +54,10 @@ curl -sLf http://142857.red/nvimrc-install.sh | bash
 * 请勿以 sudo 模式运行本脚本，本脚本内部自动会在需要时采取 sudo。
 
 欲了解本整合包安装与打包原理，请看 [`compile.sh`](compile.sh)。
+
+## shoudonganzhuang
+
+TODO
 
 ## 内含插件
 
@@ -74,10 +74,14 @@ c,cpp,cmake,lua,python,html,javascript,css,json,regex
 ### 默认安装的 LSP 服务器（用于补全）
 
 ```
-clangd,pyright,cmake-language-server
+clangd,pyright,cmake-language-server,lua_ls,tsserver
 ```
 
 可以通过执行 `:Mason` 或修改 [`lua/archvim/config/lspconfig.lua`](lua/archvim/config/lspconfig.lua) 来安装更多语言的 LSP 补全支持。
+
+## 旧版本 Vimrc
+
+本分支为最新 NeoVim 版插件整合包，对于来自 BV1H44y1V7DW 视频想领取老版 Vim 插件的同学，请移步 [main 分支](https://github.com/archibate/vimrc/tree/main)。
 
 ## 以下为小彭老师自己看的
 
