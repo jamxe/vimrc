@@ -459,6 +459,7 @@ autocmd FileType markdown nnoremap <silent> mp :call mdip#MarkdownClipboardImage
     },
 
     -- pinyin input method
+    'h-hg/fcitx.nvim',
     -- {
     --     'ZSaberLv0/ZFVimIM',
     --     requires = {
