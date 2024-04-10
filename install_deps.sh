@@ -97,11 +97,12 @@ install_pacman() {
     pacman -S --noconfirm gcc
     pacman -S --noconfirm python
     pacman -S --noconfirm curl
-    pacman -S --noconfirm clangd
+    pacman -S --noconfirm clang
+    pacman -S --noconfirm nodejs
+    pacman -S --noconfirm npm
     pacman -S --noconfirm lua-language-server
     pacman -S --noconfirm pyright
-    pacman -S --noconfirm nerd-fonts
-    python -m pip install cmake-language-server || true
+    #python -m pip install cmake-language-server || true
 }
 
 install_apt() {
@@ -115,9 +116,11 @@ install_apt() {
     apt-get install -y gcc
     apt-get install -y python
     apt-get install -y curl
-    apt-get install -y clangd
-    python3 -m pip install pyright || true
-    python3 -m pip install cmake-language-server || true
+    apt-get install -y clangd || true
+    apt-get install -y nodejs || true
+    apt-get install -y npm || true
+    #python3 -m pip install pyright || true
+    #python3 -m pip install cmake-language-server || true
 }
 
 install_yum() {
@@ -130,9 +133,11 @@ install_yum() {
     yum install -y gcc
     yum install -y python
     yum install -y curl
-    yum install -y clangd
-    python3 -m pip install pyright || true
-    python3 -m pip install cmake-language-server || true
+    yum install -y clangd || true
+    yum install -y nodejs || true
+    yum install -y npm || true
+    #python3 -m pip install pyright || true
+    #python3 -m pip install cmake-language-server || true
 }
 
 
@@ -145,10 +150,12 @@ install_brew() {
     brew install gcc
     brew install python
     brew install curl
-    brew install clangd
-    brew install lua-language-server
-    python3 -m pip install pyright || true
-    python3 -m pip install cmake-language-server || true
+    brew install clangd || true
+    brew install node || true
+    brew install npm || true
+    brew install lua-language-server || true
+    #python3 -m pip install pyright || true
+    #python3 -m pip install cmake-language-server || true
 }
 
 
@@ -161,12 +168,12 @@ install_dnf() {
     dnf install -y gcc
     dnf install -y python
     dnf install -y curl
-    dnf install -y clangd
-    python3 -m pip install pyright || true
-    python3 -m pip install cmake-language-server || true
+    dnf install -y clangd || true
+    dnf install -y nodejs || true
+    dnf install -y npm || true
+    #python3 -m pip install pyright || true
+    #python3 -m pip install cmake-language-server || true
 }
-
-    python3 -m pip install cmake-language-server || true
 
 install_zypper() {
     zypper in --no-confirm ripgrep || true
@@ -177,9 +184,11 @@ install_zypper() {
     zypper in --no-confirm gcc
     zypper in --no-confirm python
     zypper in --no-confirm curl
-    zypper in --no-confirm clangd
-    python3 -m pip install pyright || true
-    python3 -m pip install cmake-language-server || true
+    zypper in --no-confirm clangd || true
+    zypper in --no-confirm nodejs || true
+    zypper in --no-confirm npm || true
+    #python3 -m pip install pyright || true
+    #python3 -m pip install cmake-language-server || true
 }
 
 do_install() {
