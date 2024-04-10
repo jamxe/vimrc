@@ -40,13 +40,15 @@ base64 --version > /dev/null
 tar --version > /dev/null
 rm -rf /tmp/_extract_.\$\$ /tmp/_extract_.\$\$.tar
 mkdir -p /tmp/_extract_.\$\$
-echo '-- Unpacking bundled data...'
+echo '-- Fetching bundled data...'
+echo '-- 正在下载插件包，请稍等...'
 cat > /tmp/_extract_.\$\$.tar.gz.b64 << __VIMRC_PAYLOAD_EOF__\n" > "$script"
 
 base64 "$payload" >> "$script"
 
 printf "\n__VIMRC_PAYLOAD_EOF__
 cd /tmp/_extract_.\$\$
+echo '-- Extracting bundled data...'
 base64 -d < /tmp/_extract_.\$\$.tar.gz.b64 | tar -zxv
 test -f ./install_deps.sh || echo \"ERROR: cannot extract file, make sure you have base64 and tar working\"
 fix_nvim_appimage() {

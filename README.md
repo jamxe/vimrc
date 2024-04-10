@@ -28,14 +28,18 @@ curl -sLf http://142857.red/nvimrc-install.sh | bash
 
 ## 手动安装
 
-如果你有稳定的 GitHub 连接，也可以考虑手动安装（好处是你以后只需 `git pull` 就可以更新上小彭老师最新改动）：
+如果你有稳定的 GitHub 连接，也可以考虑手动安装：
 
 ```bash
 test -f ~/.config/nvim && mv ~/.config/nvim{,.backup}
 git clone https://github.com/archibate/vimrc ~/.config/nvim
 ```
 
+> 手动安装的好处是你以后只需 `git pull` 就可以更新上小彭老师最新改动。
+
 初次进入会有一些报错，提示你包缺失，输入 `:PackerInstall` 即可自动安装全部所需的包（需要连接 GitHub），重启后稍等片刻，即可开始使用 nvim。
+
+> 若需要自己定制插件参数或添加更多插件，可以编辑 `./lua/archvim/plugins.lua`。
 
 ### 支持的 Linux 发行版
 
