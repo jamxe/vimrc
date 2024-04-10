@@ -1,0 +1,1 @@
+ffmpeg -y -hwaccel cuda -c:v h264_cuvid -i ${1-/tmp/out.mp4} -filter_complex "[0:v]setpts=$(python -c "print(1/${3-1.5})")*PTS [v]; [0:a]atempo=${3-1.5} [a]" -map "[v]" -map "[a]" -c:v h264_nvenc ${2-/tmp/out2.mp4}
