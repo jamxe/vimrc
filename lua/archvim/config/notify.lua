@@ -12,6 +12,9 @@ vim.notify = function(msg, ...)
     if msg:match("warning: multiple different client offset_encodings") then
         return
     end
+    if msg:match("Clipboard: target") then
+        return
+    end
 
     old_notify(msg, ...)
 end

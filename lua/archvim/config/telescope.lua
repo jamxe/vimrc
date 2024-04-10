@@ -51,6 +51,8 @@ vim.keymap.set("n", "<leader>C", "<cmd>Telescope git_branches<CR>")
 vim.keymap.set("n", "<leader>a", "<cmd>Telescope diagnostics<CR>")
 -- 查找本文件中所有动态编译报错
 vim.keymap.set("n", "<leader>q", "<cmd>Telescope quickfix<CR>")
+-- 查看所有 Vim 通知
+vim.keymap.set("n", "<leader>n", "<cmd>Telescope notify<CR>")
 
 -- 查找符号定义（LSP）
 vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>")

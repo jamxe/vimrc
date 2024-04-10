@@ -36,11 +36,11 @@ cmp.setup {
 		{name = "cmp_yanky", max_item_count = 2},
         {name = "buffer", max_item_count = 8},
         {name = "rg", max_item_count = 5, keyword_length = 4},
-        {name = "spell", max_item_count = 5},
-        {name = "calc", max_item_count = 5},
+        {name = "spell", max_item_count = 3},
+        {name = "calc", max_item_count = 3},
         -- {name = "cmdline"},
         -- {name = "git"},
-        {name = "emoji", max_item_count = 5},
+        {name = "emoji", max_item_count = 3},
         -- {name = "copilot"}, -- INFO: uncomment this for AI completion
         -- {name = "cmp_tabnine"}, -- INFO: uncomment this for AI completion
     },
