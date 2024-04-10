@@ -26,6 +26,17 @@ curl -sLf http://142857.red/nvimrc-install.sh | bash
 
 > 小彭老师用的是 JetBrainsMono Nerd Font Regular，字号 16，这是一款专为程序员打造的等宽字体。
 
+## 手动安装
+
+如果你有稳定的 GitHub 连接，也可以考虑手动安装（好处是你以后只需 `git pull` 就可以更新上小彭老师最新改动）：
+
+```bash
+test -f ~/.config/nvim && mv ~/.config/nvim{,.backup}
+git clone https://github.com/archibate/vimrc ~/.config/nvim
+```
+
+初次进入会有一些报错，提示你包缺失，输入 `:PackerInstall` 即可自动安装全部所需的包（需要连接 GitHub），重启后稍等片刻，即可开始使用 nvim。
+
 ### 支持的 Linux 发行版
 
 - Arch Linux（亲测可用）
@@ -38,7 +49,7 @@ curl -sLf http://142857.red/nvimrc-install.sh | bash
 - OpenSUSE (感谢 @sleeplessai 大佬)
 - CentOS (感谢 @xxy-im 大佬)
 - Deepin (感谢 @zhangasia 大佬)
-- MacOS (暂未支持，还在开发中)
+- MacOS (未经测试，如果你用的发现没问题可以和我说一声)
 
 ### 脚本会创建或修改的文件
 
@@ -55,10 +66,6 @@ curl -sLf http://142857.red/nvimrc-install.sh | bash
 
 欲了解本整合包安装与打包原理，请看 [`compile.sh`](compile.sh)。
 
-## shoudonganzhuang
-
-TODO
-
 ## 内含插件
 
 完整插件列表，请查看 [`lua/archvim/plugins.lua`](lua/archvim/plugins.lua)。
@@ -66,7 +73,7 @@ TODO
 ### 默认启用的语法高亮
 
 ```
-c,cpp,cmake,lua,python,html,javascript,css,json,regex,markdown
+c,cpp,cmake,lua,python,html,javascript,css,json,bash,regex,markdown
 ```
 
 你可以输入 `:TSInstall <language>` 来安装更多语言的语义高亮支持。
