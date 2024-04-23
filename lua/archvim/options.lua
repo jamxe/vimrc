@@ -9,7 +9,8 @@ set et sts=0 ts=4 sw=4
 set signcolumn=number
 " set bri wrap
 set listchars=tab:▸\ ,trail:⋅,extends:❯,precedes:❮
-set cinoptions=j1,(0,ws,Ws,g0,:1,=0
+set cinoptions=j1,(0,ws,Ws,g0,:0,=0,l1
+set cinwords=if,else,switch,case,for,while,do
 set showbreak=↪
 set list
 set clipboard+=unnamedplus

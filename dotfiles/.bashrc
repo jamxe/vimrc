@@ -119,20 +119,20 @@ bind 'set show-all-if-unmodified on'
 
 FZF_ALT_C_COMMAND= eval "$(fzf --bash)"
 
-export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix'
+# export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_DEFAULT_OPTS='--bind "tab:down" --bind "btab:up" --cycle --reverse'
 export FZF_COMPLETION_TRIGGER='**'
 export FZF_COMPLETION_AUTO_COMMON_PREFIX=true
 export FZF_COMPLETION_AUTO_COMMON_PREFIX_PART=true
 
-_fzf_compgen_path() {
-    fd --type f --strip-cwd-prefix "$1"
-}
+# _fzf_compgen_path() {
+#     fd --type f --strip-cwd-prefix "$1"
+# }
 
-_fzf_compgen_dir() {
-    fd --type d --strip-cwd-prefix --follow "$1"
-}
+# _fzf_compgen_dir() {
+#     fd --type d --strip-cwd-prefix --follow "$1"
+# }
 
 _fzf_comprun() {
   local command=$1
@@ -144,10 +144,10 @@ _fzf_comprun() {
   esac
 }
 
-__fzf_compfile() {
-    _fzf_complete --reverse -- "$@" < <(_fzf_compgen_path)
-}
-complete -F __fzf_compfile -o default -o bashdefault b
+# __fzf_compfile() {
+#     _fzf_complete --reverse -- "$@" < <(_fzf_compgen_path)
+# }
+# complete -F __fzf_compfile -o default -o bashdefault b
 
 __j_cd() {
     builtin cd "$@" || return

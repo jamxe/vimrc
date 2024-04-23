@@ -122,7 +122,7 @@ local plugins = {
     -- lint and error signs
     {
         "folke/trouble.nvim",
-        config = function() require("trouble").setup{} end,
+        config = function() require'archvim/config/trouble' end,
     },
     {
         'kevinhwang91/nvim-bqf',
