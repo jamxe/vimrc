@@ -44,17 +44,23 @@ else
 fi
 
 __exit_status() {
-    x="$?"
+    local x="$?"
     if [[ "x$x" != "x0" ]]; then
         printf "$1" "$x"
     fi
 }
 __afb1="$(tput bold)$(tput setaf 1)"
 __afb4="$(tput bold)$(tput setaf 4)"
+__af7="$(tput setaf 7)"
+__cuf999="$(tput cuf 999)"
+__cub999="$(tput cub 999)"
+__cub1="$(tput cub 1)"
 __af6="$(tput setaf 6)"
 __af5="$(tput setaf 5)"
+__af4="$(tput setaf 4)"
 __af3="$(tput setaf 3)"
 __af2="$(tput setaf 2)"
+__af1="$(tput setaf 1)"
 __rst="$(tput sgr0)"
 
 __bash_root_pid="${BASHPID}"
@@ -84,21 +90,28 @@ __mem_usage() {
 export PS1='\[${__rst}\]$(__exit_status "\[${__afb1}\]%s\[${__rst}\] ")$(__cmd_end "\[${__af6}\]%ss\[${__rst}\] ")\[${__afb4}\]\W\[${__rst}\]$(__git_ps1 " \[${__af2}\](%s)\[${__rst}\]") \[${__af3}\]\$\[${__rst}\] '
 export PS0='$(__cmd_start)\[${__rst}\]'
 
-FZF_ALT_C_COMMAND= eval "$(fzf --bash)"
+eval "$(fzf --bash)"
 
 # export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+# export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_DEFAULT_OPTS='--bind "tab:down" --bind "btab:up" --cycle --reverse'
 export FZF_COMPLETION_TRIGGER="**"
 export FZF_COMPLETION_AUTO_COMMON_PREFIX=true
 export FZF_COMPLETION_AUTO_COMMON_PREFIX_PART=true
 
-_fzf_compgen_path() {
-    fd "$1" --hidden --type f --strip-cwd-prefix --follow
-}
+# _fzf_compgen_path() {
+#     fd "$1" --hidden --type f --strip-cwd-prefix --follow
+# }
+#
+# _fzf_compgen_dir() {
+#     fd "$1" --hidden --type d --strip-cwd-prefix --follow
+# }
 
-_fzf_compgen_dir() {
-    fd "$1" --hidden --type d --strip-cwd-prefix --follow
+_fzf_compgen_history() {
+    local output opts script
+    script='BEGIN { getc; $/ = "\n\t"; $HISTCOUNT = $ENV{last_hist} + 1 } s/^[ *]//; print $HISTCOUNT - $. . "\t$_" if !$seen{$_}++'
+    output=$(set +o pipefail; builtin fc -lnr -2147483648 | last_hist=$(HISTTIMEFORMAT='' builtin history 1) command perl -n -e "$script") || return
+    echo "${output#*$'\t'}"
 }
 
 _fzf_comprun() {
@@ -112,9 +125,25 @@ _fzf_comprun() {
 }
 
 __fzf_compfile() {
-    _fzf_complete --reverse -- "$@" < <(_fzf_compgen_path)
+    if [[ "x$1" == "x_EmptycmD_" ]]; then
+        COMP_WORDS=()
+    else
+        _fzf_complete --reverse -- "$@" < <(fd . --hidden --type f --strip-cwd-prefix --follow)
+    fi
 }
-complete -F __fzf_compfile -o default -o bashdefault b
+
+# __fzf_comphist() {
+#     COMP_WORDS=()
+#     # if [[ "x$1" == "x_EmptycmD_" ]]; then
+#         # echo ".[$COMP_WORDS]" >&2
+#     # fi
+#     # _fzf_complete --reverse -- "" < <(builtin history | tac | command sed '/^[[:space:]]*$/d' | command sed 's/^\s\s[0-9]\+\s\s//' | command sed '/^\s/d' | uniq)
+#     # echo ".[$COMP_WORDS]" >&2
+# }
+
+complete -D -F __fzf_compfile -o default -o bashdefault __fzf_compfile
+# complete -I -F __fzf_compcomd -o default -o bashdefault __fzf_compcomd
+# complete -E -F __fzf_comphist -o default -o bashdefault __fzf_comphist
 
 __j_cd() {
     builtin cd "$@" || return
@@ -146,6 +175,10 @@ j() {
     fi
 }
 
+# cd() {
+#     __j_cd "$@"
+# }
+
 if (( BASH_VERSINFO[0] >= 4 )); then
 
     __toggle_sudo() {
@@ -167,11 +200,15 @@ if (( BASH_VERSINFO[0] >= 4 )); then
     bind -m vi-insert -x '"\C-x": __toggle_sudo'
 
     __toggle_complete() {
-        if [[ -z $READLINE_LINE ]]; then
-            READLINE_LINE="$(fc -ln -1 | command sed 's/^[[:space:]]\{1,\}//')"
-            READLINE_POINT=${#READLINE_LINE}
+        if [[ -z $READLINE_LINE ]] || [[ "$READLINE_LINE" != *" "* ]] || [[ "$READLINE_LINE" == *'$'* ]]; then
+            __dismiss_complete
             return
         fi
+        # if [[ -z $READLINE_LINE ]]; then
+        #     READLINE_LINE="$(fc -ln -1 | command sed 's/^[[:space:]]\{1,\}//')"
+        #     READLINE_POINT=${#READLINE_LINE}
+        #     return
+        # fi
         if [[ "$READLINE_LINE" = *"$FZF_COMPLETION_TRIGGER" ]]; then
             READLINE_LINE="${READLINE_LINE%"$FZF_COMPLETION_TRIGGER"}"
             READLINE_POINT=${#READLINE_LINE}
@@ -185,11 +222,12 @@ if (( BASH_VERSINFO[0] >= 4 )); then
     }
 
     __dismiss_complete() {
+        if [[ "$READLINE_LINE" = *\  ]]; then
+            READLINE_LINE="${READLINE_LINE%\ }"
+            READLINE_POINT=${#READLINE_LINE}
+        fi
         if [[ "$READLINE_LINE" = *"$FZF_COMPLETION_TRIGGER" ]]; then
             READLINE_LINE="${READLINE_LINE%"$FZF_COMPLETION_TRIGGER"}"
-            READLINE_POINT=${#READLINE_LINE}
-        elif [[ "$READLINE_LINE" = *"$FZF_COMPLETION_TRIGGER"\  ]]; then
-            READLINE_LINE="${READLINE_LINE%"$FZF_COMPLETION_TRIGGER"\ }"
             READLINE_POINT=${#READLINE_LINE}
         fi
     }
@@ -199,16 +237,18 @@ if (( BASH_VERSINFO[0] >= 4 )); then
     bind -m vi-insert '"\e[3T": redraw-current-line'
     bind -m vi-insert -x '"\e[4T": __dismiss_complete'
     bind -m vi-insert 'Tab: "\e[2T\e[1T"'
-    bind -m vi-insert '"\e[0n": "\e[4T"'
+    bind -m vi-insert '"\e[0n": "\e[3T\e[4T"'
 
 else
-    bind -m vi-insert '"\e[Z": complete'
-    bind -m vi-insert 'Tab: "'$FZF_COMPLETION_TRIGGER'\e[Z"'
+    # bind -m vi-insert '"\e[Z": complete'
+    # bind -m vi-insert 'Tab: "'$FZF_COMPLETION_TRIGGER'\e[Z"'
+    bind -m vi-insert 'Tab: complete'
     bind -m vi-insert '"\e[0n": redraw-current-line'
 fi
 
 set -o vi
-bind -m vi-command '"\e": "\C-k\C-u\C-k\C-u"'
+bind -m vi-command '"\e": "\C-k\C-u\C-k\C-u\C-d"'
+bind -m vi-command 'q: "\C-d"'
 bind -m vi-command 'K: history-search-backward'
 bind -m vi-command 'J: history-search-forward'
 bind -m vi-command 'H: beginning-of-line'
@@ -219,6 +259,10 @@ bind -m vi-insert '"\M-[A": previous-history'
 bind -m vi-insert '"\M-[B": next-history'
 bind -m vi-insert '"\M-[D": backward-char'
 bind -m vi-insert '"\M-[C": forward-char'
+bind -m vi-insert '"\e[1;5A": history-search-backward'
+bind -m vi-insert '"\e[1;5B": history-search-forward'
+bind -m vi-insert '"\e[1;5D": backward-word'
+bind -m vi-insert '"\e[1;5C": forward-word'
 bind -m vi-insert '"\C-a": beginning-of-line'
 bind -m vi-insert '"\C-e": end-of-line'
 bind -m vi-insert '"\C-k": kill-line'
@@ -233,7 +277,7 @@ bind -m vi-insert '"\C-f": forward-word'
 bind 'set completion-ignore-case on'
 bind 'set show-mode-in-prompt on'
 bind 'set vi-ins-mode-string \1\e[6 q\2'
-bind 'set vi-cmd-mode-string \1\e[2 q\2'
+bind 'set vi-cmd-mode-string \1\e[2 q'"$__cuf999$__cub1$__af7:)$__rst$__cub999"'\2'
 bind 'set keyseq-timeout 10'
 bind 'set match-hidden-files off'
 bind 'set bell-style visible'
