@@ -82,6 +82,6 @@ vim.keymap.set({"v", "n", "i"}, "<C-F15>", "<cmd>BufferLineCloseRight<CR>", { si
 -- ]]
 
 
-if not os.getenv("NERD_FONTS") or true then
+if not os.getenv("NERD_FONTS") then
     require'bufferline.groups'.builtin.pinned.icon = '-'
 end

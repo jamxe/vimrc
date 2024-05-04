@@ -28,6 +28,8 @@ alias gda='git diff HEAD^'
 alias gm='git merge'
 alias gl='git log'
 alias gll='git log --graph --oneline --decorate'
+alias gt='git stash'
+alias gtp='git stash pop'
 alias gcl='git clone'
 alias gcl1='git clone --depth=1'
 alias g='git'
@@ -107,12 +109,12 @@ export FZF_COMPLETION_AUTO_COMMON_PREFIX_PART=true
 #     fd "$1" --hidden --type d --strip-cwd-prefix --follow
 # }
 
-_fzf_compgen_history() {
-    local output opts script
-    script='BEGIN { getc; $/ = "\n\t"; $HISTCOUNT = $ENV{last_hist} + 1 } s/^[ *]//; print $HISTCOUNT - $. . "\t$_" if !$seen{$_}++'
-    output=$(set +o pipefail; builtin fc -lnr -2147483648 | last_hist=$(HISTTIMEFORMAT='' builtin history 1) command perl -n -e "$script") || return
-    echo "${output#*$'\t'}"
-}
+# _fzf_compgen_history() {
+#     local output opts script
+#     script='BEGIN { getc; $/ = "\n\t"; $HISTCOUNT = $ENV{last_hist} + 1 } s/^[ *]//; print $HISTCOUNT - $. . "\t$_" if !$seen{$_}++'
+#     output=$(set +o pipefail; builtin fc -lnr -2147483648 | last_hist=$(HISTTIMEFORMAT='' builtin history 1) command perl -n -e "$script") || return
+#     echo "${output#*$'\t'}"
+# }
 
 _fzf_comprun() {
   local command=$1
@@ -124,13 +126,13 @@ _fzf_comprun() {
   esac
 }
 
-__fzf_compfile() {
-    if [[ "x$1" == "x_EmptycmD_" ]]; then
-        COMP_WORDS=()
-    else
-        _fzf_complete --reverse -- "$@" < <(fd . --hidden --type f --strip-cwd-prefix --follow)
-    fi
-}
+# __fzf_compfile() {
+#     if [[ "x$1" == "x_EmptycmD_" ]]; then
+#         COMP_WORDS=()
+#     else
+#         _fzf_complete --reverse -- "$@" < <(_fzf_compgen_path)
+#     fi
+# }
 
 # __fzf_comphist() {
 #     COMP_WORDS=()
@@ -141,7 +143,7 @@ __fzf_compfile() {
 #     # echo ".[$COMP_WORDS]" >&2
 # }
 
-complete -D -F __fzf_compfile -o default -o bashdefault __fzf_compfile
+complete -D -F _fzf_path_completion -o default -o bashdefault _fzf_path_completion
 # complete -I -F __fzf_compcomd -o default -o bashdefault __fzf_compcomd
 # complete -E -F __fzf_comphist -o default -o bashdefault __fzf_comphist
 

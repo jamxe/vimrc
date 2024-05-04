@@ -101,3 +101,4 @@ clangd,pyright,cmake-language-server,lua_ls,tsserver
 我会运行 `docker run -v $PWD/.build_cache:/mnt -it --rm ubuntu:20.04` 来测试兼容性。
 
 在 Ubuntu 容器中，我会用 `NODEP=1 bash nvimrc-install.sh` 避免使用包管理器，加速安装，方便测试。
+
