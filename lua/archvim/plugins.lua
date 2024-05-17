@@ -124,14 +124,14 @@ local plugins = {
         "folke/trouble.nvim",
         config = function() require'archvim/config/trouble' end,
     },
-    {
-        'kevinhwang91/nvim-bqf',
-        ft = 'qf',
-        config = function() require('bqf').setup{} end,
-        requires = {
-            {'junegunn/fzf', run = function() vim.fn['fzf#install']() end},
-        },
-    },
+    -- {
+    --     'kevinhwang91/nvim-bqf',
+    --     ft = 'qf',
+    --     config = function() require('bqf').setup{} end,
+    --     requires = {
+    --         {'junegunn/fzf', run = function() vim.fn['fzf#install']() end},
+    --     },
+    -- },
     -- {   -- uncomment to enable cpplint
     --     'mfussenegger/nvim-lint',
     --     config = function() require"archvim/config/nvim-lint" end,

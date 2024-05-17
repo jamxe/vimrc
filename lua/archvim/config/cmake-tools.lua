@@ -29,11 +29,11 @@ require("cmake-tools").setup {
         opts = {}, -- the options the executor will get, possible values depend on the executor type. See `default_opts` for possible values.
         default_opts = { -- a list of default and possible values for executors
             quickfix = {
-                show = "only_on_error", -- "always", "only_on_error"
-                position = "belowright", -- "bottom", "top"
+                show = "always", -- "always", "only_on_error"
+                position = "botright", -- "bottom", "top", "belowright"
                 size = 10,
                 encoding = "utf-8",
-                auto_close_when_success = false, -- typically, you can use it with the "always" option; it will auto-close the quickfix buffer if the execution is successful.
+                auto_close_when_success = true, -- typically, you can use it with the "always" option; it will auto-close the quickfix buffer if the execution is successful.
             },
             toggleterm = {
                 direction = "horizontal", -- 'vertical' | 'horizontal' | 'tab' | 'float'
@@ -103,9 +103,17 @@ require("cmake-tools").setup {
     },
 }
 
+local function is_cmake_tools_running()
+    local job = require'cmake-tools.utils'.get_executor(require'cmake-tools.utils'.executor.name).job
+    return not job or job.is_shutdown
+end
+
 local _terminal = require'cmake-tools.terminal'
+local _quickfix = require'cmake-tools.quickfix'
 local osys = require'cmake-tools.osys'
 local notification = require'cmake-tools.notification'
+
+vim.uv = vim.loop
 
 local function shlex_quote(s)
     if s == "" then
@@ -292,6 +300,10 @@ function _terminal.new_instance(term_name, opts)
   return -1
 end
 
+-- function _quickfix.scroll_to_bottom()
+--   vim.api.nvim_command("cbottom")
+-- end
+
 local notification_blacklist = {
     ['Exited with code 0'] = true,
     ['cmake'] = true,
@@ -301,6 +313,22 @@ function notification.notify(msg, lvl, opts)
   if msg ~= nil and not notification_blacklist[msg] then
     return old_notification_notify(msg, lvl, opts)
   end
+end
+
+function _quickfix.has_active_job(opts)
+  if not _quickfix.job or _quickfix.job.is_shutdown then
+    return false
+  end
+  local log = require("cmake-tools.log")
+  log.info("Stop running CMake job...")
+  _quickfix.stop()
+  -- local log = require("cmake-tools.log")
+  -- log.error(
+  --   "A CMake task is already running: "
+  --     .. _quickfix.job.command
+  --     .. " Stop it before trying to run a new CMake task."
+  -- )
+  return true
 end
 
 -- vim.cmd [[
