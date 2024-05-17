@@ -26,7 +26,7 @@ vim.keymap.set("n", "<leader>k", "<cmd>Telescope live_grep initial_mode=insert<C
 -- 模糊查找当前文件中的文字
 vim.keymap.set("n", "<leader><leader>", "<cmd>Telescope current_buffer_fuzzy_find initial_mode=insert<CR>")
 -- 查找所有已打开文件
-vim.keymap.set("n", "<leader>g", "<cmd>Telescope buffers<CR>")
+vim.keymap.set("n", "<leader>h", "<cmd>Telescope buffers<CR>")
 -- 查找 vim 的跳转记录
 vim.keymap.set("n", "<leader>j", "<cmd>Telescope jumplist initial_mode=insert<CR>")
 -- 查找 vim 的标记
@@ -39,8 +39,10 @@ vim.keymap.set("n", "<leader>:", "<cmd>Telescope command_history initial_mode=in
 vim.keymap.set("n", "<leader>;", "<cmd>Telescope commands initial_mode=insert<CR>")
 -- 查找帮助文档
 vim.keymap.set("n", "<leader>?", "<cmd>Telescope help_tags initial_mode=insert<CR>")
--- 查找 todo 等事项
-vim.keymap.set("n", "<leader>t", "<cmd>TodoTelescope initial_mode=insert<CR>")
+if pcall(require, "todo-comments") then
+    -- 查找 todo 等事项
+    vim.keymap.set("n", "<leader>t", "<cmd>TodoTelescope initial_mode=insert<CR>")
+end
 -- 查找本文件中所有文本对象
 vim.keymap.set("n", "<leader>z", "<cmd>Telescope treesitter initial_mode=insert<CR>")
 -- 查找 git 仓库的 commit 历史

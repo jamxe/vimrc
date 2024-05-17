@@ -142,10 +142,10 @@ local plugins = {
     -- },
 
     -- marks and todos
-    {
-        "folke/todo-comments.nvim",
-        config = function() require"todo-comments".setup{} end
-    },
+    -- {
+    --     "folke/todo-comments.nvim",
+    --     config = function() require"todo-comments".setup{} end
+    -- },
     -- {
     --     'chentoast/marks.nvim',
     --     config = function() require"archvim/config/marks" end,
@@ -430,14 +430,14 @@ local plugins = {
     -- },
 
     -- markdown editing
-    -- {
-    --     'iamcco/markdown-preview.nvim',
-    --     run = function() vim.fn["mkdp#util#install"]() end,
-    --     setup = function() vim.g.mkdp_filetypes = { "markdown" } end,
-    --     config = function() vim.cmd [[let g:mkdp_browser = '/usr/bin/chromium']] end,
-    --     ft = { "markdown" },
-    --     requires = 'iamcco/mathjax-support-for-mkdp',
-    -- },
+    {
+        'iamcco/markdown-preview.nvim',
+        run = function() vim.fn["mkdp#util#install"]() end,
+        setup = function() vim.g.mkdp_filetypes = { "markdown" } end,
+        config = function() vim.cmd [[let g:mkdp_browser = '/usr/bin/chromium']] end,
+        ft = { "markdown" },
+        requires = 'iamcco/mathjax-support-for-mkdp',
+    },
     {
         'mzlogin/vim-markdown-toc',
         ft = { "markdown" },

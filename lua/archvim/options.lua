@@ -7,7 +7,7 @@ set updatetime=1000
 set nu nornu ru ls=2
 set et sts=0 ts=4 sw=4
 set signcolumn=number
-" set bri wrap
+set bri wrap
 set listchars=tab:▸\ ,trail:⋅,extends:❯,precedes:❮
 set cinoptions=j1,(0,ws,Ws,g0,:0,=0,l1
 set cinwords=if,else,switch,case,for,while,do
@@ -30,6 +30,17 @@ augroup disable_swap_exists_warning
 autocmd!
 autocmd SwapExists * let v:swapchoice = "e"
 augroup end
+]]
+
+vim.cmd [[
+augroup quickfix_setlocal
+autocmd!
+autocmd FileType qf setlocal wrap
+autocmd FileType qf vnoremap <buffer> <F6> <cmd>cclose<CR>
+autocmd FileType qf nnoremap <buffer> <F6> <cmd>cclose<CR>
+autocmd FileType qf vnoremap <buffer> <F18> <cmd>cclose<CR>
+autocmd FileType qf nnoremap <buffer> <F18> <cmd>cclose<CR>
+augroup END
 ]]
 
 vim.cmd [[

@@ -10,6 +10,7 @@ alias gs='git status'
 alias ga='git add --all'
 alias gad='git add'
 alias gc='git commit -m'
+alias gco='git checkout'
 alias gcm='git commit'
 alias gca='git commit --amend'
 alias gq='git pull'
@@ -170,16 +171,16 @@ __j_fzf() {
 j() {
     [[ "$#" -ne 0 ]] && __j_cd "$@" 2> /dev/null && return
     if [[ -f ~/.bash_history_cd ]]; then
-        local dir="$(cat ~/.bash_history_cd | grep -Gv "^$(printf '%s\n' "$PWD" | sed -e 's/[]$*.^[]/\\&/g')$" | grep -G -- "$1" | __j_fzf)"
+        local dir="$(cat ~/.bash_history_cd | grep -Gv "^$(printf '%s\n' "$PWD" | sed -e 's/[]$*.^[]/\\&/g')$" | grep -G -- "$1[^/]*$" | __j_fzf)"
         if [[ -n "$dir" ]]; then
             __j_cd "$dir"
         fi
     fi
 }
 
-# cd() {
-#     __j_cd "$@"
-# }
+cd() {
+    __j_cd "$@"
+}
 
 if (( BASH_VERSINFO[0] >= 4 )); then
 

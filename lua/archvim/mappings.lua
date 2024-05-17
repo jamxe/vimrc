@@ -13,15 +13,52 @@
 --     vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 -- end
 
+local function is_quickfix_open()
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    if vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(win), 'buftype') == 'quickfix' then
+      return true
+    end
+  end
+  return false
+end
+
+local function get_current_quickfix_entry()
+  local qflist = vim.fn.getqflist({ idx = 0 })
+  local current_idx = qflist.idx
+  local entry = vim.fn.getqflist({ id = qflist.id, items = 0 }).items[current_idx]
+  return entry
+end
+
 vim.keymap.set({"v", "n"}, "_", "+", { noremap = true })
 vim.keymap.set({"v", "n"}, "gh", "(v:count == 0 || v:count == 1 ? '^^' : '^^' . (v:count - 1) . 'l')", { silent = true, expr = true })
 vim.keymap.set({"v", "n"}, "gl", "(v:count == 0 || v:count == 1 ? '^$' : '^$' . (v:count - 1) . 'h')", { silent = true, expr = true })
 vim.keymap.set({"v", "n"}, "gm", "gM", { noremap = true })
 vim.keymap.set({"v", "n"}, "gM", "gm", { noremap = true })
 vim.keymap.set({"v", "n", "i"}, "<F4>", "<cmd>wa<CR>")
+vim.keymap.set({"v", "n", "i"}, "<F6>", function ()
+    if is_quickfix_open() then
+        if get_current_quickfix_entry() then
+            return "<cmd>cn<CR>"
+        else
+            return "<cmd>cc<CR>"
+        end
+    else
+        return "<cmd>copen<CR>"
+    end
+end, { noremap = true, expr = true })
+vim.keymap.set({"v", "n", "i"}, "<F18>", function ()
+    if is_quickfix_open() then
+        if get_current_quickfix_entry() then
+            return "<cmd>cp<CR>"
+        else
+            return "<cmd>cc<CR>"
+        end
+    else
+        return "<cmd>copen<CR>"
+    end
+end, { noremap = true, expr = true })
 vim.keymap.set({"v", "n", "i", "t"}, "<F7>", "<cmd>NvimTreeFindFileToggle<CR>", { silent = true })
 vim.keymap.set({"v", "n", "i", "t"}, "<F9>", "<cmd>TroubleToggle<CR>", { silent = true })
--- vim.keymap.set({"v", "n", "i", "t"}, "<F19>", "<cmd>TroubleToggle<CR>")
 if pcall(require, "cmake-tools") then
     vim.keymap.set({"v", "n", "i", "t"}, "<F5>", "<cmd>wa<CR><cmd>if luaeval('require\"cmake-tools\".is_cmake_project()')|call execute('CMakeRun')|else|call execute('TermExec cmd=!!')|endif<CR>", { silent = true })
     vim.keymap.set({"v", "n", "i", "t"}, "<F17>", "<cmd>wa<CR><cmd>if luaeval('require\"cmake-tools\".is_cmake_project()')|call execute('CMakeStop')|else|call execute('TermExec cmd=\\<C-c>')|endif<CR>", { silent = true })
@@ -182,5 +219,6 @@ vim.keymap.set({'n'}, '<S-Tab>', '<C-o>')
 -- ]]
 
 vim.cmd [[au! BufRead,BufNewFile *.cppm,*.ixx setfiletype cpp]]
+vim.cmd [[au! BufRead,BufNewFile *.vert,*.frag,*.comp,*.geom,*.tess setfiletype glsl]]
 
 return vim.keymap.set
