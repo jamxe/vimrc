@@ -1,4 +1,20 @@
-require'lspconfig'.pyright.setup{}
+local function pyright_on_attach(client, bufnr)
+    local function organize_imports()
+        local params = {
+            command = 'pyright.organizeimports',
+            arguments = { vim.uri_from_bufnr(0) },
+        }
+        vim.lsp.buf.execute_command(params)
+    end
+
+    if client.name == "pyright" then
+        vim.api.nvim_create_user_command("PyrightOrganizeImports", organize_imports, {desc = 'Organize Imports'})
+    end
+end
+
+require'lspconfig'.pyright.setup{
+    on_attach = pyright_on_attach,
+}
 -- require'lspconfig'.clangd.setup{}
 require'lspconfig'.lua_ls.setup{}
 require'lspconfig'.rust_analyzer.setup{}

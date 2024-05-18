@@ -102,7 +102,8 @@ install_pacman() {
     pacman -S --noconfirm npm
     pacman -S --noconfirm lua-language-server
     pacman -S --noconfirm pyright
-    #python -m pip install cmake-language-server || true
+    python -m pip install cmake-language-server --break-system-packages || true
+    python -m pip install pynvim --break-system-packages || true
 }
 
 install_apt() {
@@ -119,8 +120,9 @@ install_apt() {
     apt-get install -y clangd || true
     apt-get install -y nodejs || true
     apt-get install -y npm || true
-    #python3 -m pip install pyright || true
-    #python3 -m pip install cmake-language-server || true
+    python3 -m pip install pyright || true
+    python3 -m pip install cmake-language-server || true
+    python3 -m pip install pynvim || true
 }
 
 install_yum() {
@@ -136,8 +138,9 @@ install_yum() {
     yum install -y clangd || true
     yum install -y nodejs || true
     yum install -y npm || true
-    #python3 -m pip install pyright || true
-    #python3 -m pip install cmake-language-server || true
+    python3 -m pip install pyright || true
+    python3 -m pip install cmake-language-server || true
+    python3 -m pip install pynvim || true
 }
 
 
@@ -154,8 +157,9 @@ install_brew() {
     brew install node || true
     brew install npm || true
     brew install lua-language-server || true
-    #python3 -m pip install pyright || true
-    #python3 -m pip install cmake-language-server || true
+    python3 -m pip install pyright || true
+    python3 -m pip install cmake-language-server || true
+    python3 -m pip install pynvim || true
 }
 
 
@@ -171,8 +175,9 @@ install_dnf() {
     dnf install -y clangd || true
     dnf install -y nodejs || true
     dnf install -y npm || true
-    #python3 -m pip install pyright || true
-    #python3 -m pip install cmake-language-server || true
+    python3 -m pip install pyright || true
+    python3 -m pip install cmake-language-server || true
+    python3 -m pip install pynvim || true
 }
 
 install_zypper() {
@@ -187,8 +192,9 @@ install_zypper() {
     zypper in --no-confirm clangd || true
     zypper in --no-confirm nodejs || true
     zypper in --no-confirm npm || true
-    #python3 -m pip install pyright || true
-    #python3 -m pip install cmake-language-server || true
+    python3 -m pip install pyright || true
+    python3 -m pip install cmake-language-server || true
+    python3 -m pip install pynvim || true
 }
 
 do_install() {

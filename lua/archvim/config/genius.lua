@@ -7,6 +7,6 @@ require'genius'.setup {
     } or nil,
 }
 
-vim.cmd [[
-inoremap <C-Space> <Cmd>GeniusComplete<CR>
-]]
+-- vim.cmd [[
+-- inoremap <C-Space> <Cmd>GeniusComplete<CR>
+-- ]]

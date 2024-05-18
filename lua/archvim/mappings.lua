@@ -66,6 +66,8 @@ else
     vim.keymap.set({"v", "n", "i", "t"}, "<F5>", "<cmd>wa<CR><cmd>call execute('TermExec cmd=!!<')CR>", { silent = true })
     vim.keymap.set({"v", "n", "i", "t"}, "<F17>", "<cmd>wa<CR><cmd>call execute('TermExec cmd=\\<C-c>')<CR>", { silent = true })
 end
+vim.keymap.set({"v", "n", "i", "t"}, "<F10>", "<cmd>Neogit<CR><cmd>set foldtext='+'<CR>", { silent = true })
+vim.keymap.set({"v", "n", "i", "t"}, "<F12>", "<cmd>NoiceAll<CR>", { silent = true })
 -- vim.keymap.set({"v", "n", "i", "t"}, "<F10>", "<cmd>DapToggleBreakpoint<CR>", { silent = true })
 -- vim.keymap.set({"v", "n", "i", "t"}, "<F22>", "<cmd>DapToggleRepl<CR>", { silent = true })
 -- vim.keymap.set({"v", "n", "i", "t"}, "<F12>", "<cmd>DapStepOver<CR>", { silent = true })
@@ -126,7 +128,8 @@ vim.keymap.set({'v', 'n', 'i', 't'}, '<M-.>', [[<Cmd>wincmd ><CR>]])
 vim.keymap.set({'v', 'n', 'i', 't'}, '<C-q>', [[<Cmd>wincmd q<CR>]])
 vim.keymap.set({'v', 'n', 'i', 't'}, '<M-q>', [[<Cmd>wincmd q<CR>]])
 vim.keymap.set('n', '<Esc>', [[<Cmd>nohls<CR><Esc>]], { noremap = true })
-vim.keymap.set('t', '<C-\\>', [[<C-\><C-n>]], { noremap = true })
+-- vim.keymap.set('t', '<C-\\>', [[<C-\><C-n>]], { noremap = true })
+vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], { noremap = true })
 -- vim.keymap.set('t', [[<Esc>]], [[<Esc>]], { noremap = true })
 -- vim.keymap.set('t', 'jk', [[<C-\><C-n>]], opts)
 

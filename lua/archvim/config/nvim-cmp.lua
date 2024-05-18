@@ -14,13 +14,10 @@ cmp.setup {
         expand = function(args)
             -- -- For `vsnip` users.
             -- vim.fn["vsnip#anonymous"](args.body)
-    
             -- For `luasnip` users.
             require('luasnip').lsp_expand(args.body)
-    
             -- For `ultisnips` users.
             -- vim.fn["UltiSnips#Anon"](args.body)
-    
             -- For `snippy` users.
             -- require'snippy'.expand_snippet(args.body)
         end,
@@ -30,13 +27,21 @@ cmp.setup {
     sources = cmp.config.sources {
         {name = "nvim_lsp", max_item_count = 10},
         {name = "nvim_lsp_signature_help", max_item_count = 1},
-        {name = "luasnip", max_item_count = 10},
+        {name = "luasnip", max_item_count = 8},
         {name = "path"},
         -- {name = "codeium"}, -- INFO: uncomment this for AI completion
-		{name = "cmp_yanky", max_item_count = 2},
-        {name = "buffer", max_item_count = 8},
+        {name = "buffer", max_item_count = 8, keyword_length = 3},
         {name = "rg", max_item_count = 5, keyword_length = 4},
         {name = "spell", max_item_count = 3},
+		{name = "cmp_yanky", max_item_count = 2},
+        {
+            name = 'rime',
+            option = {
+                shared_data_dir = '/usr/share/rime-data',
+                user_data_dir = vim.fn.getenv('HOME') .. '/.local/share/cmp-rime',
+                max_candidates = 10, -- 设置过高会影响补全速度
+            },
+        },
         {name = "calc", max_item_count = 3},
         -- {name = "cmdline"},
         -- {name = "git"},

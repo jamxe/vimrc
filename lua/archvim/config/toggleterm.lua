@@ -9,16 +9,20 @@ require("toggleterm").setup{
   end,
   open_mapping = [[<F8>]],
   hide_numbers = true, -- hide the number column in toggleterm buffers
-  shade_filetypes = {},
-  shade_terminals = true,
-  shading_factor = '1', -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
+  -- shade_filetypes = {},
+  autochdir = true,
+  shade_terminals = false,
+  -- shading_factor = '1', -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
   start_in_insert = true,
   insert_mappings = true, -- whether or not the open mapping applies in insert mode
   terminal_mappings = true, -- whether or not the open mapping applies in the opened terminals
   persist_size = true,
-  direction = 'vertical',
+  persist_mode = true,
+  -- direction = 'vertical',
+  direction = 'tab',
   -- direction = 'vertical',
   close_on_exit = true, -- close the terminal window when the process exits
+  auto_scroll = false, -- automatically scroll to the bottom on terminal output
   -- This field is only relevant if direction is set to 'float'
   float_opts = {
     -- The border key is *almost* the same as 'nvim_open_win'
@@ -26,10 +30,29 @@ require("toggleterm").setup{
     -- the 'curved' border is a custom border type
     -- not natively supported but implemented in this plugin.
     border = 'curved',
-    width = 80,
-    height = 25,
+    width = 70,
+    height = 18,
     winblend = 3,
-  }
+  },
+    -- highlights = {
+    --     -- highlights which map to a highlight group name and a table of it's values
+    --     -- NOTE: this is only a subset of values, any group placed here will be set for the terminal window split
+    --     Normal = {
+    --         guibg = "none",
+    --     },
+    --     NormalFloat = {
+    --         link = 'Normal',
+    --     },
+    --     FloatBorder = {
+    --         guibg = "none",
+    --     },
+    -- },
+  winbar = {
+    enabled = false,
+    name_formatter = function(term) --  term: Terminal
+      return term.name
+    end
+  },
 }
 
 -- local Terminal = require('toggleterm.terminal').Terminal
@@ -37,7 +60,7 @@ require("toggleterm").setup{
 function _G.set_terminal_keymaps()
   local opts = {buffer = 0}
   vim.keymap.set('n', '<Esc>', [[<Cmd>quit<CR>]], opts)
-  vim.keymap.set('n', '<C-\\>', [[<Cmd>quit<CR>]], opts)
+  -- vim.keymap.set('n', '<C-\\>', [[<Cmd>quit<CR>]], opts)
   vim.keymap.set('n', 'q', [[<Cmd>quit<CR>]], opts)
   vim.keymap.set('n', '<C-c>', [[<Cmd>startinsert<CR><C-c>]], opts)
   vim.keymap.set('n', '<CR>', [[<Cmd>startinsert<CR>]], opts)
@@ -45,7 +68,7 @@ function _G.set_terminal_keymaps()
   vim.keymap.set('n', '<Down>', [[<Cmd>startinsert<CR><Down>]], opts)
   vim.keymap.set('n', '<Right>', [[<Cmd>startinsert<CR><Right>]], opts)
   vim.keymap.set('n', '<Left>', [[<Cmd>startinsert<CR><Left>]], opts)
-  -- vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], opts)
+  vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], opts)
   -- vim.keymap.set('t', 'jk', [[<C-\><C-n>]], opts)
   -- vim.keymap.set('t', 'kj', [[<C-\><C-n>]], opts)
   -- vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)

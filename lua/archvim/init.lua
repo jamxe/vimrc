@@ -3,3 +3,4 @@
 require('archvim/plugins')
 require('archvim/mappings')
 require('archvim/options')
+require('archvim/rime')

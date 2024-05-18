@@ -16,6 +16,8 @@ set list
 set clipboard+=unnamedplus
 set switchbuf=useopen
 set exrc
+set foldtext='+--'
+set wrap
 ]]
 
 vim.cmd [[
@@ -31,6 +33,13 @@ autocmd!
 autocmd SwapExists * let v:swapchoice = "e"
 augroup end
 ]]
+
+-- vim.cmd [[
+-- augroup neogit_setlocal
+-- autocmd!
+-- autocmd FileType NeogitStatus set foldtext='+--'
+-- augroup END
+-- ]]
 
 vim.cmd [[
 augroup quickfix_setlocal

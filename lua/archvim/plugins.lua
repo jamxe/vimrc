@@ -44,7 +44,10 @@ local plugins = {
             'roobert/tailwindcss-colorizer-cmp.nvim',
             "lukas-reineke/cmp-under-comparator",
             -- 'hrsh7th/cmp-copilot', -- INFO: uncomment this for AI completion
-            -- {"tzachar/cmp-tabnine", run = "./install.sh"}, -- INFO: uncomment this for AI completion
+            {
+                'Ninlives/cmp-rime',
+                run = ':UpdateRemotePlugins | !rm -rf /tmp/tmp-pyrime && git clone https://github.com/Ninlives/pyrime /tmp/tmp-pyrime && cd /tmp/tmp-pyrime && python setup.py install --prefix ~/.local',
+            },
             'saadparwaiz1/cmp_luasnip',
             {
                 'L3MON4D3/LuaSnip',
@@ -225,6 +228,7 @@ local plugins = {
     -- 'tpope/vim-fugitive',
     {
         "NeogitOrg/neogit",
+        tag = 'v0.0.1',
         requires = {
             "nvim-lua/plenary.nvim",         -- required
             "nvim-telescope/telescope.nvim", -- optional
