@@ -3,4 +3,7 @@
 require('archvim/plugins')
 require('archvim/mappings')
 require('archvim/options')
-require('archvim/rime')
+
+function print(...)
+    vim.notify(vim.inspect({...}))
+end

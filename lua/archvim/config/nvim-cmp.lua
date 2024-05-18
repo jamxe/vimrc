@@ -37,9 +37,11 @@ cmp.setup {
         {
             name = 'rime',
             option = {
+                rime_server_cmd = '/home/bate/Codes/co_async/build/rime_server',
+                rime_server_address = '127.0.0.1:47992',
                 shared_data_dir = '/usr/share/rime-data',
-                user_data_dir = vim.fn.getenv('HOME') .. '/.local/share/cmp-rime',
-                max_candidates = 10, -- 设置过高会影响补全速度
+                user_data_dir = vim.fn.getenv('HOME') .. '/.config/fcitx/rime',
+                max_candidates = 5, -- 设置过高会影响补全速度
             },
         },
         {name = "calc", max_item_count = 3},
@@ -60,8 +62,8 @@ cmp.setup {
             require("cmp-under-comparator").under,
             -- require("cmp_tabnine.compare"), -- INFO: uncomment this for AI completion
             cmp.config.compare.kind,
-            cmp.config.compare.length,
             cmp.config.compare.sort_text,
+            cmp.config.compare.length,
             cmp.config.compare.order,
         }
     },
@@ -118,7 +120,7 @@ cmp.setup {
             -- mode = 'symbol',
             with_text = false, -- do not show text alongside icons
             maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-            before = function (entry, vim_item)
+            -- before = function (entry, vim_item)
                 -- Source 显示提示来源
                 -- vim_item.menu = "["..string.upper(entry.source.name).."]"
                 before = function(entry, vim_item)
@@ -144,8 +146,8 @@ cmp.setup {
                     vim_item = require("tailwindcss-colorizer-cmp").formatter(entry, vim_item)
                     return vim_item
                 end
-                return vim_item
-            end,
+                -- return vim_item
+            -- end,
             -- ellipsis_char = '...',
             -- symbol_map = { Codeium = "", },
         } or nil,
