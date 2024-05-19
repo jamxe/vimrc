@@ -105,6 +105,7 @@ require("cmake-tools").setup {
         spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }, -- icons used for progress display
         refresh_rate_ms = 100, -- how often to iterate icons
     },
+    cmake_virtual_text_support = false,
 }
 
 local function is_cmake_tools_running()

@@ -2,6 +2,11 @@ local plain = not os.getenv('NERD_FONTS')
 
 require'bufferline'.setup {
     options = {
+        -- indicator = {
+        --     style = 'underline',
+        -- },
+        -- separator_style = "slant",
+        -- show_buffer_icons = false,
         buffer_close_icon = plain and 'x' or nil,
         modified_icon = plain and '*' or nil,
         close_icon = plain and 'x' or nil,
@@ -45,13 +50,43 @@ require'bufferline'.setup {
     }
 }
 
+-- Function to close empty and unnamed buffers
+local function close_empty_unnamed_buffers()
+    -- Get a list of all buffers
+    local buffers = vim.api.nvim_list_bufs()
+
+    -- Iterate over each buffer
+    for _, bufnr in ipairs(buffers) do
+        -- Check if the buffer is empty and doesn't have a name
+        if vim.api.nvim_buf_is_loaded(bufnr) and vim.api.nvim_buf_get_name(bufnr) == '' and
+            vim.api.nvim_buf_get_option(bufnr, 'buftype') == '' then
+
+            -- Close the buffer if it's empty:
+            if vim.api.nvim_buf_line_count(bufnr) == 1 and #vim.api.nvim_buf_get_lines(bufnr, 0, 1, false)[0] == 0 then
+                vim.api.nvim_buf_delete(bufnr, {
+                    force = true,
+                })
+            end
+        end
+    end
+end
+
+-- Clear the mandatory, empty, unnamed buffer when a real file is opened:
+-- vim.api.nvim_command('autocmd BufReadPost * lua require("config.bufferline_setup").close_empty_unnamed_buffers()')
+vim.api.nvim_create_autocmd({"BufReadPost"}, {
+    callback = function (data)
+        close_empty_unnamed_buffers()
+    end,
+})
+
+
 vim.keymap.set({"v", "n"}, "g<Tab>", "<cmd>BufferLineTogglePin<CR>", { silent = true })
 vim.keymap.set({"v", "n"}, "gb", "<cmd>BufferLineCyclePrev<CR>", { silent = true })
 vim.keymap.set({"v", "n"}, "gt", "<cmd>BufferLineCycleNext<CR>", { silent = true })
 vim.keymap.set({"v", "n"}, "g<Space>", "<cmd>BufferLinePick<CR>", { silent = true })
 vim.keymap.set({"v", "n"}, "g<BS>", "<cmd>bdelete<CR>", { silent = true })
--- vim.keymap.set({"v", "n"}, "go", "<cmd>blast<CR>", { silent = true })
--- vim.keymap.set({"v", "n"}, "gO", "<cmd>bfirst<CR>", { silent = true })
+vim.keymap.set({"v", "n"}, "go", "<cmd>blast<CR>", { silent = true })
+vim.keymap.set({"v", "n"}, "gO", "<cmd>bfirst<CR>", { silent = true })
 vim.keymap.set({"v", "n"}, "gB", "<cmd>BufferLineMovePrev<CR>", { silent = true })
 vim.keymap.set({"v", "n"}, "gT", "<cmd>BufferLineMoveNext<CR>", { silent = true })
 vim.keymap.set({"v", "n"}, "g<S-Tab>", "<cmd>BufferLineCloseOthers<CR>", { silent = true })

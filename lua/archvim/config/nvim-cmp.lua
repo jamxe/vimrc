@@ -41,9 +41,10 @@ cmp.setup {
                 rime_server_address = '127.0.0.1:47992',
                 shared_data_dir = '/usr/share/rime-data',
                 user_data_dir = vim.fn.getenv('HOME') .. '/.config/fcitx/rime',
-                max_candidates = 5, -- 设置过高会影响补全速度
+                max_candidates = 8, -- 设置过高会影响补全速度
             },
         },
+        -- {name = 'rime_punct', max_item_count = 2},
         {name = "calc", max_item_count = 3},
         -- {name = "cmdline"},
         -- {name = "git"},

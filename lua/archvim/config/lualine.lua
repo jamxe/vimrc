@@ -157,23 +157,23 @@ local c = {
         end
     },
 }
-local xmake_component = {
-    function()
-        local xmake = require("xmake.project_config").info
-        if xmake.target.tg == "" then
-            return ""
-        end
-        return xmake.target.tg .. "(" .. xmake.mode .. ")"
-    end,
-
-    cond = function()
-        return pcall(require, 'xmake.project_config') -- and vim.o.columns > 100
-    end,
-
-    on_click = function()
-        require("xmake.project_config._menu").init() -- Add the on-click ui
-    end,
-}
+-- local xmake_component = {
+--     function()
+--         local xmake = require("xmake.project_config").info
+--         if xmake.target.tg == "" then
+--             return ""
+--         end
+--         return xmake.target.tg .. "(" .. xmake.mode .. ")"
+--     end,
+--
+--     cond = function()
+--         return pcall(require, 'xmake.project_config') -- and vim.o.columns > 100
+--     end,
+--
+--     on_click = function()
+--         require("xmake.project_config._menu").init() -- Add the on-click ui
+--     end,
+-- }
 
 local diagnostics = {
     'diagnostics',
@@ -234,7 +234,7 @@ require'lualine'.setup {
     sections = {
         lualine_a = {'mode'},
         lualine_b = {branch, diff, diagnostics},
-        lualine_c = {'filename', c[1], c[2], c[3], c[4], xmake_component},
+        lualine_c = {'filename', c[1], c[2], c[3], c[4]},
         lualine_x = {cdate, ctime, encoding},
         lualine_y = {'searchcount', 'progress'},
         lualine_z = {'location'},
