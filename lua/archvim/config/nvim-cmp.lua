@@ -27,28 +27,39 @@ cmp.setup {
     sources = cmp.config.sources {
         {name = "nvim_lsp", max_item_count = 10},
         {name = "nvim_lsp_signature_help", max_item_count = 1},
-        {name = "luasnip", max_item_count = 8},
-        {name = "path"},
-        -- {name = "codeium"}, -- INFO: uncomment this for AI completion
         {name = "buffer", max_item_count = 8, keyword_length = 3},
         {name = "rg", max_item_count = 5, keyword_length = 4},
-        {name = "spell", max_item_count = 3},
-		{name = "cmp_yanky", max_item_count = 2},
         {
             name = 'rime',
             option = {
-                rime_server_cmd = '/home/bate/Codes/co_async/build/rime_server',
+                enable = 'auto',
+                context_range = 15,
+                force_enable_prefix = 'rime',
+                rime_server_cmd = './rime_server',
                 rime_server_address = '127.0.0.1:47992',
                 shared_data_dir = '/usr/share/rime-data',
-                user_data_dir = vim.fn.getenv('HOME') .. '/.config/fcitx/rime',
-                max_candidates = 8, -- 设置过高会影响补全速度
+                -- user_data_dir = vim.fn.getenv('HOME') .. '/.config/fcitx/rime',
+                user_data_dir = vim.fn.getenv('HOME') .. '/.local/share/cmp-rime',
+                max_candidates = 8,
             },
         },
-        -- {name = 'rime_punct', max_item_count = 2},
+        {
+            name = 'rime_punct',
+            option = {
+                enable = 'auto',
+                context_range = 5,
+                force_enable_prefix = 'rime',
+            },
+        },
+        {name = "luasnip", max_item_count = 8},
+        {name = "path"},
+        -- {name = "codeium"}, -- INFO: uncomment this for AI completion
+        {name = "spell", max_item_count = 3},
+		{name = "cmp_yanky", max_item_count = 2},
         {name = "calc", max_item_count = 3},
         -- {name = "cmdline"},
         -- {name = "git"},
-        {name = "emoji", max_item_count = 3},
+        -- {name = "emoji", max_item_count = 3},
         -- {name = "copilot"}, -- INFO: uncomment this for AI completion
         -- {name = "cmp_tabnine"}, -- INFO: uncomment this for AI completion
     },
