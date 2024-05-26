@@ -33,7 +33,7 @@ require("noice").setup {
             filter = { pattern = "^:%s*!", icon = os.getenv('NERD_FONTS') and "" or '$', lang = "bash" },
             lua = { pattern = { "^:%s*lua%s+", "^:%s*lua%s*=%s*", "^:%s*=%s*" }, icon = os.getenv('NERD_FONTS') and "" or 'l', lang = "lua" },
             inc_rename = { pattern = { "^:%s*IncRename%s+" }, icon = os.getenv('NERD_FONTS') and "" or '>' },
-            help = { pattern = "^:%s*he?l?p?%s+", icon = os.getenv('NERD_FONTS') and "" or 'h' },
+            help = { pattern = "^:%s*he?l?p?%s+", icon = os.getenv('NERD_FONTS') and "󰋗" or 'h' },
             input = {}, -- Used by input()
             -- lua = false, -- to disable a format, set to `false`
         },

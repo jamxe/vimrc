@@ -216,6 +216,31 @@ local encoding = {
         return vim.fn.winwidth(0) > 80 and 'utf-8' ~= vim.o.fileencoding
     end,
 }
+
+-- local fcitx_cmd = nil
+-- if vim.fn.executable('fcitx-remote') == 1 then
+--   fcitx_cmd = 'fcitx-remote 2>&1'
+-- elseif vim.fn.executable('fcitx5-remote') == 1 then
+--   fcitx_cmd = 'fcitx5-remote 2>&1'
+-- end
+--
+-- local fcitx = {
+--     function()
+--         local state = 0
+--         if fcitx_cmd then
+--             state = tonumber(vim.fn.system(fcitx_cmd)) or 0
+--         end
+--         if state == 2 then
+--             return '中'
+--         elseif state == 1 then
+--             return '英'
+--         end
+--     end,
+--     cond = function()
+--         return vim.fn.winwidth(0) > 80
+--     end,
+-- }
+
 if os.getenv('NERD_FONTS') then
     -- diagnostics.symbols = { error = icons.diagnostics.Error, warn = icons.diagnostics.Warning, info = icons.diagnostics.Information, hint = icons.diagnostics.Question }
     branch.icon = icons.git.Branch
@@ -236,7 +261,7 @@ require'lualine'.setup {
         lualine_b = {branch, diff, diagnostics},
         lualine_c = {'filename', c[1], c[2], c[3], c[4]},
         lualine_x = {cdate, ctime, encoding},
-        lualine_y = {'searchcount', 'progress'},
+        lualine_y = {'searchcount', 'quickfix', 'progress'},
         lualine_z = {'location'},
     },
     inactive_sections = {

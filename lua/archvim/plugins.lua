@@ -41,7 +41,7 @@ local plugins = {
             'chrisgrieser/cmp_yanky',
             -- 'petertriho/cmp-git',
             'lukas-reineke/cmp-rg',
-            'roobert/tailwindcss-colorizer-cmp.nvim',
+            -- 'roobert/tailwindcss-colorizer-cmp.nvim',
             "lukas-reineke/cmp-under-comparator",
             -- 'hrsh7th/cmp-copilot', -- INFO: uncomment this for AI completion
             -- {
@@ -78,9 +78,10 @@ local plugins = {
     {
         'neovim/nvim-lspconfig',
         config = function() require'archvim/config/lspconfig' end,
-        -- requires = {
-        --     'ray-x/lsp_signature.nvim',
-        -- },
+    },
+    {
+        'ray-x/lsp_signature.nvim',
+        config = function() require'archvim/config/lsp-signature' end,
     },
     -- {
     --     "tami5/lspsaga.nvim",

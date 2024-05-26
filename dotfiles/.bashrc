@@ -1,3 +1,4 @@
+export PATH="$PATH:$HOME/.local/bin"
 [[ -f ~/.bashenv ]] && source ~/.bashenv
 [[ $- == *i* ]] || exit
 
@@ -97,7 +98,7 @@ eval "$(fzf --bash)"
 
 # export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix'
 # export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_DEFAULT_OPTS='--bind "tab:down" --bind "btab:up" --cycle --reverse'
+export FZF_DEFAULT_OPTS='--bind "tab:down" --bind "btab:up" --cycle --reverse --walker=file,dir,follow --scheme=path'
 export FZF_COMPLETION_TRIGGER="**"
 export FZF_COMPLETION_AUTO_COMMON_PREFIX=true
 export FZF_COMPLETION_AUTO_COMMON_PREFIX_PART=true
