@@ -90,6 +90,20 @@ clangd,pyright,cmake-language-server,lua_ls,tsserver
 
 可以通过执行 `:Mason` 或修改 [`lua/archvim/config/lspconfig.lua`](lua/archvim/config/lspconfig.lua) 来安装更多语言的 LSP 补全支持。
 
+### 常见问题
+
+- Q: 不想要部分插件，或想安装其他插件？
+- A: 修改 [`~/.config/nvim/lua/archvim/plugins.lua`](lua/archvim/plugins.lua) 中的 `plugins` 列表即可。
+
+- Q: 不想要部分 LSP 服务器？
+- A: 修改 [`~/.config/nvim/lua/archvim/config/mason.lua`](lua/archvim/config/mason.lua) 中的 `ensure_installed` 字段即可。
+
+- Q: 不想要部分语法高亮？
+- A: 修改 [`~/.config/nvim/lua/archvim/config/tree-sitter.lua`](lua/archvim/config/tree-sitter.lua) 中的 `ensure_installed` 字段即可。
+
+- Q: 出现乱码，无法正确显示符号？
+- A: 安装 [Nerd Font](https://www.cnblogs.com/zi-wang/p/12566898.html) 字体，并把终端设置为该字体，然后设置环境变量 `export NERD_FONTS=1`，这样就可以显示文件类型图标了。
+
 ## 旧版本 Vimrc
 
 本分支为最新 NeoVim 版插件整合包，对于来自 BV1H44y1V7DW 视频想领取老版 Vim 插件的同学，请移步 [main 分支](https://github.com/archibate/vimrc/tree/main)。

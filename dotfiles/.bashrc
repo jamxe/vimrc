@@ -2,6 +2,8 @@ export PATH="$PATH:$HOME/.local/bin"
 [[ -f ~/.bashenv ]] && source ~/.bashenv
 [[ $- == *i* ]] || exit
 
+export LANG=C.UTF-8
+
 alias grep='grep --color=auto'
 alias ls='ls --color=auto'
 alias la='ls -la'
