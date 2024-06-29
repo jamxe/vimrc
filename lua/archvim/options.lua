@@ -54,6 +54,13 @@ augroup END
 ]]
 
 vim.cmd [[
+augroup trouble_setlocal
+autocmd!
+autocmd FileType trouble setlocal wrap
+augroup END
+]]
+
+vim.cmd [[
 set termguicolors
 colorscheme gruvbox
 hi Normal guibg=none

@@ -20,7 +20,7 @@ require("auto-session").setup {
     pre_save_cmds = {
         -- [[tabdo GPTClose]],
         [[tabdo NvimTreeClose]],
-        [[tabdo TroubleClose]],
+        [[tabdo cclose]],
         -- [[tabdo noautocmd bufdo exec "if &bt == 'terminal' | bdelete | endif"]],
     },
     post_restore_cmds = {

@@ -58,12 +58,13 @@ vim.keymap.set({"v", "n", "i"}, "<F18>", function ()
     end
 end, { noremap = true, expr = true })
 vim.keymap.set({"v", "n", "i", "t"}, "<F7>", "<cmd>NvimTreeFindFileToggle<CR>", { silent = true })
-vim.keymap.set({"v", "n", "i", "t"}, "<F9>", "<cmd>TroubleToggle<CR>", { silent = true })
+vim.keymap.set({"v", "n", "i", "t"}, "<F9>", "<cmd>Trouble diagnostics toggle focus=false filter.buf=0<CR>", { silent = true })
+vim.keymap.set({"v", "n", "i", "t"}, "<F21>", "<cmd>Trouble diagnostics toggle focus=false<CR>", { silent = true })
 if pcall(require, "cmake-tools") then
-    vim.keymap.set({"v", "n", "i", "t"}, "<F5>", "<cmd>wa<CR><cmd>if luaeval('require\"cmake-tools\".is_cmake_project()')|call execute('CMakeRun')|else|call execute('TermExec cmd=!!')|endif<CR>", { silent = true })
+    vim.keymap.set({"v", "n", "i", "t"}, "<F5>", "<cmd>wa<CR><cmd>if luaeval('require\"cmake-tools\".is_cmake_project()')|call execute('CMakeRun')|else|call execute('TermExec cmd=./run.sh')|endif<CR>", { silent = true })
     vim.keymap.set({"v", "n", "i", "t"}, "<F17>", "<cmd>wa<CR><cmd>if luaeval('require\"cmake-tools\".is_cmake_project()')|call execute('CMakeStopRunner')|call execute('CMakeStopExecutor')|else|call execute('TermExec cmd=\\<C-c>')|endif<CR>", { silent = true })
 else
-    vim.keymap.set({"v", "n", "i", "t"}, "<F5>", "<cmd>wa<CR><cmd>call execute('TermExec cmd=!!')<CR>", { silent = true })
+    vim.keymap.set({"v", "n", "i", "t"}, "<F5>", "<cmd>wa<CR><cmd>call execute('TermExec cmd=./run.sh')<CR>", { silent = true })
     vim.keymap.set({"v", "n", "i", "t"}, "<F17>", "<cmd>wa<CR><cmd>call execute('TermExec cmd=\\<C-c>')<CR>", { silent = true })
 end
 vim.keymap.set({"v", "n", "i", "t"}, "<F10>", "<cmd>Neogit<CR><cmd>set foldtext='+'<CR>", { silent = true })
