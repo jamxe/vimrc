@@ -466,6 +466,12 @@ autocmd FileType markdown nnoremap <silent> mp :call mdip#MarkdownClipboardImage
         ]] end,
         ft = { "markdown" },
     },
+    {
+        'chomosuke/typst-preview.nvim',
+        tag = 'v0.3.*',
+        run = function() require 'typst-preview'.update() end,
+        -- ft = { "typst" },
+    },
 
     -- pinyin input method
     'h-hg/fcitx.nvim',

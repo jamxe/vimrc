@@ -1,0 +1,7 @@
+{ "lsp_signatur handler", {
+    code = -32602,
+    message = "trying to get preamble for non-added document",
+    <metatable> = {
+      __tostring = <function 1>
+    }
+  } }
