@@ -7,7 +7,7 @@
 无需克隆本仓库，直接在命令行中输入以下命令即可安装：
 
 ```bash
-curl -sLf http://142857.red/nvimrc-install.sh | bash
+curl -sSLf https://142857.red/files/nvimrc-install.sh | bash
 ```
 
 如果安装遇到问题，欢迎通过 [GitHub issue](github.com/archibate/vimrc/issues) 反映，我会尽快帮您解决。

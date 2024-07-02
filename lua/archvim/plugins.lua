@@ -48,10 +48,10 @@ local plugins = {
             --     'Ninlives/cmp-rime',
             --     run = ':UpdateRemotePlugins | !rm -rf /tmp/tmp-pyrime && git clone https://github.com/Ninlives/pyrime /tmp/tmp-pyrime && cd /tmp/tmp-pyrime && python setup.py install --prefix ~/.local',
             -- },
-            {
-                os.getenv('ARCHIBATE_COMPUTER') and '/home/bate/Codes/cmp-rime' or 'archibate/cmp-rime',
-                run = 'make',
-            },
+            -- {
+            --     os.getenv('ARCHIBATE_COMPUTER') and '/home/bate/Codes/cmp-rime' or 'archibate/cmp-rime',
+            --     run = 'make',
+            -- },
             'saadparwaiz1/cmp_luasnip',
             {
                 'L3MON4D3/LuaSnip',

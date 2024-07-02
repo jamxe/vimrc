@@ -15,7 +15,7 @@ cp -r "$cache"/archvim-build/predownload "$cache"/archvim-release/lua/archvim
 rm -rf "$cache"/archvim-release.tar.gz
 cd "$cache"/archvim-release
 mkdir -p "$cache"/archvim-release/parser
-for x in ~/.local/share/nvim/site/pack/packer/start/nvim-treesitter/parser/{c,cpp,cmake,lua,python,html,javascript,css,json,bash,regex,markdown,diff,glsl,vim,vimdoc}.so; do
+for x in ~/.local/share/nvim/site/pack/packer/start/nvim-treesitter/parser/{c,cpp,cmake,lua,python,html,javascript,css,json,bash,regex,markdown,diff,glsl,vim,vimdoc,typst}.so; do
     cp "$x" "$cache"/archvim-release/parser
 done
 for x in "$cache"/archvim-release/parser/*.so; do
@@ -111,5 +111,6 @@ chmod +x "$script"
 echo -- finished with "$script"
 if [ "x$1" != "x" ]; then
     echo -- deploying to https://142857.red/nvimrc-install.sh
-    scp "$cache"/nvimrc-install.sh root@142857.red:/root/142857.red/nvimrc-install.sh
+    scp "$cache"/nvimrc-install.sh root@142857.red:/root/www/files/nvimrc-install.sh
+    # curl -X PUT https://142857.red/files/nvimrc-install.sh -F file=@"$cache"/nvimrc-install.sh -F token="$SEVEN_TOKEN"
 fi
