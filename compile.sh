@@ -75,7 +75,7 @@ rm -rf ~/.config/nvim
 cp -r . ~/.config/nvim
 if [ \"x\$NODEP\" == \"x\" ]; then
     echo '-- Installing dependencies...'
-    bash ~/.config/nvim/install_deps.sh || echo -e \"\\n\\n--\\n--\\n-- WARNING: some dependency installation failed, please check your internet connection.\\n-- ArchVim can still run without those dependencies, though.\\n-- You can always try run dependency installation again by running: bash ~/.config/nvim/install_deps.sh\\n\\n\"
+    \$SUDO bash ~/.config/nvim/install_deps.sh || echo -e \"\\n\\n--\\n--\\n-- WARNING: some dependency installation failed, please check your internet connection.\\n-- ArchVim can still run without those dependencies, though.\\n-- You can always try run dependency installation again by running: sudo bash ~/.config/nvim/install_deps.sh\\n\\n\"
 fi
 echo '-- Synchronizing packer.nvim...'
 # rm -rf ~/.local/share/nvim/site/pack/packer
