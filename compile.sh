@@ -111,5 +111,5 @@ chmod +x "$script"
 echo -- finished with "$script"
 if [ "x$1" != "x" ]; then
     echo -- deploying to https://142857.red/nvimrc-install.sh
-    scp "$cache"/nvimrc-install.sh root@142857.red:/root/142857.red/nvimrc-install.sh
+    scp "$cache"/nvimrc-install.sh root@142857.red:/var/www/html/files/nvimrc-install.sh
 fi

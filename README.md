@@ -85,7 +85,7 @@ c,cpp,cmake,lua,python,html,javascript,css,json,bash,regex,markdown,glsl,vim,vim
 ### 默认安装的 LSP 服务器（用于补全）
 
 ```
-clangd,pyright,cmake-language-server,lua_ls,tsserver
+clangd,pyright,lua_ls,tsserver
 ```
 
 可以通过执行 `:Mason` 或修改 [`lua/archvim/config/lspconfig.lua`](lua/archvim/config/lspconfig.lua) 来安装更多语言的 LSP 补全支持。
