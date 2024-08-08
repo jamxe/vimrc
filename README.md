@@ -77,7 +77,7 @@ git clone https://github.com/archibate/vimrc ~/.config/nvim
 ### 默认启用的语法高亮
 
 ```
-c,cpp,cmake,lua,python,html,javascript,css,json,bash,regex,markdown,glsl,vim,vimdoc
+c,cpp,cuda,cmake,lua,python,html,javascript,css,json,bash,regex,markdown,glsl,vim,vimdoc
 ```
 
 你可以输入 `:TSInstall <language>` 来安装更多语言的语义高亮支持。

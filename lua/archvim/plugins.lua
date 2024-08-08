@@ -418,6 +418,7 @@ local plugins = {
     --     requires = { 'nvim-telescope/telescope.nvim' },
     --     config = function() require"archvim/config/nvim-gpt" end,
     -- },
+    -- os.getenv('ARCHIBATE_COMPUTER') and '/home/bate/Codes/gpt4o.nvim' or 'archibate/gpt4o.nvim',
     {
         os.getenv('ARCHIBATE_COMPUTER') and '/home/bate/Codes/genius.nvim' or 'archibate/genius.nvim',
         requires = {
@@ -426,6 +427,7 @@ local plugins = {
         },
         config = function() require"archvim/config/genius" end,
     },
+    -- 'madox2/vim-ai',
     -- 'Exafunction/codeium.vim',
     -- {
     --     "Exafunction/codeium.nvim",

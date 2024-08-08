@@ -226,4 +226,10 @@ vim.keymap.set({'i'}, '<C-Space>', '<Space>')
 vim.cmd [[au! BufRead,BufNewFile *.cppm,*.ixx setfiletype cpp]]
 vim.cmd [[au! BufRead,BufNewFile *.vert,*.frag,*.comp,*.geom,*.tess setfiletype glsl]]
 
+vim.keymap.set({'v', 'n'}, 'gp', ':GPT<Space>')
+vim.keymap.set({'v', 'n'}, 'gP', ':GPT!<Space>')
+vim.keymap.set({'i'}, '<C-Space>', ':GPT<CR>')
+vim.keymap.set({'i', 'n'}, '<C-t>', '<Cmd>-8,+8GPT refactor this code<CR>')
+vim.keymap.set({'v'}, '<C-t>', '<Cmd>GPT refactor this code<CR>')
+
 return vim.keymap.set
