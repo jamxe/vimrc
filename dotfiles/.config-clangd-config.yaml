@@ -1,0 +1,10 @@
+# 把本文件放到 ~/.config/clangd/config.yaml
+CompileFlags:
+  Add:
+    - --cuda-gpu-arch=sm_86
+    - -std=c++20
+    - -D__clangd__
+  Remove:
+    - -forward-unknown-to-host-compiler
+    - --generate-code=*
+    - -arch=*

@@ -8,17 +8,17 @@ nvim --headless --cmd "let g:archvim_predownload=2 | let g:archvim_predownload_c
 git --version > /dev/null
 rm -rf "$cache"/archvim-release
 mkdir -p "$cache"/archvim-release
-cp -r ./lua ./init.vim ./install_deps.sh "$cache"/archvim-release
+cp -r ./lua ./init.vim ./install_deps.sh ./after ./dotfiles "$cache"/archvim-release
 sed -i "s/\"let g:archvim_predownload=1/let g:archvim_predownload=1/" "$cache"/archvim-release/init.vim
 rm -rf "$cache"/archvim-release/lua/archvim/predownload
 cp -r "$cache"/archvim-build/predownload "$cache"/archvim-release/lua/archvim
 rm -rf "$cache"/archvim-release.tar.gz
 cd "$cache"/archvim-release
-mkdir -p "$cache"/archvim-release/parser
+mkdir -p "$cache"/archvim-release/nvim-treesitter-parser
 for x in ~/.local/share/nvim/site/pack/packer/start/nvim-treesitter/parser/{c,cpp,cuda,cmake,lua,python,html,javascript,css,json,bash,regex,markdown,diff,glsl,vim,vimdoc}.so; do
-    cp "$x" "$cache"/archvim-release/parser
+    cp "$x" "$cache"/archvim-release/nvim-treesitter-parser
 done
-for x in "$cache"/archvim-release/parser/*.so; do
+for x in "$cache"/archvim-release/nvim-treesitter-parser/*.so; do
     strip -s "$x"
 done
 cp -r ~/.local/share/nvim/mason/registries/github/mason-org/mason-registry "$cache"/archvim-release
@@ -83,11 +83,21 @@ nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerClean'
 echo '-- Copying language supports...'
 mkdir -p ~/.local/share/nvim/site/pack/packer/start/nvim-treesitter/parser
-mv ~/.config/nvim/parser/*.so ~/.local/share/nvim/site/pack/packer/start/nvim-treesitter/parser/
-rmdir ~/.config/nvim/parser
+mv ~/.config/nvim/nvim-treesitter-parser/*.so ~/.local/share/nvim/site/pack/packer/start/nvim-treesitter/parser/
+rmdir ~/.config/nvim/nvim-treesitter-parser
+echo '-- Copying mason registries...'
 mkdir -p ~/.local/share/nvim/mason/github/mason-org/mason-registry
 mv ~/.config/nvim/mason-registry/* ~/.local/share/nvim/mason/github/mason-org/mason-registry/
 rmdir ~/.config/nvim/mason-registry
+echo '-- Copying clangd configurations...'
+if [ ! -f ~/.config/clangd/config.yaml ]; then
+    mkdir -p ~/.config/clangd/
+    ln -sf ~/.config/nvim/dotfiles/.config-clangd-config.yaml ~/.config/clangd/config.yaml
+fi
+if [ ! -f ~/.clang-format ]; then
+    ln -sf ~/.config/nvim/dotfiles/.clang-format ~/.clang-format
+fi
+echo '-- Finishing installation...'
 rm -rf /tmp/_extract_.\$\$ /tmp/_extract_.\$\$.tar.gz.b64
 echo
 echo \"--\"
