@@ -43,7 +43,7 @@ curl -sSLf https://142857.red/files/nvimrc-install.sh | bash
 - A: 安装 [Nerd Font](https://www.cnblogs.com/zi-wang/p/12566898.html) 字体，并把终端设置为该字体，然后运行 `echo export NERD_FONTS=1 >> ~/.bashrc && source ~/.bashrc`，这样以后就可以显示文件类型图标了。
 
 - Q: 编辑 C/C++ 源码时不识别头文件目录，“飙红线”，怎么办？
-- A: 要么在 NeoVim 中用 `:CMakeGenerate` 命令，要么指定 `-DCMAKE_EXPORT_COMPILE_COMMANDS=ON` 参数，详见下方的 “C/C++/CMake 配置” 章节。
+- A: 要么在 NeoVim 中用 `:CMakeGenerate` 命令，要么给 `cmake` 指定 `-DCMAKE_EXPORT_COMPILE_COMMANDS=ON` 参数，详见下方的 “C/C++/CMake 配置” 章节。
 
 - Q: 支持（非 Neo 的）Vim 吗？
 - A: 本分支只有 NeoVim 配置，对于来自 BV1H44y1V7DW 视频想领取老版 Vim 插件的同学，请移步 [main 分支](https://github.com/archibate/vimrc/tree/main)。
@@ -85,16 +85,16 @@ cmake -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 ```yaml
 CompileFlags:
   Add:
-    - --cuda-gpu-arch=sm_86
-    - -std=c++20
-    - -D__clangd__
-    - 这里添加你的自定义选项1
-    - 这里添加你的自定义选项2
+    - --no-cuda-version-check
+    - -D__clangd__  # 添加你的自定义选项
   Remove:
     - -forward-unknown-to-host-compiler
-    - --generate-code=*
+    - --expt-*
+    - -gencode*
+    - --generate-code*
+    - -Xfatbin*
     - -arch=*
-    - 这里添加你想移除的默认选项
+    - -rdc=*
 ```
 
 ## 内含插件列表
@@ -176,3 +176,4 @@ $ ls -A dotfiles
 
 在 Ubuntu 容器中，我会用 `NODEP=1 bash nvimrc-install.sh` 避免使用包管理器，加速安装，方便测试。
 
+TODO: 适配 nvim v0.10.0？

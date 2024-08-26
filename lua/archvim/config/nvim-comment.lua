@@ -1,13 +1,12 @@
 local function update_commentstring()
     require("ts_context_commentstring.internal").update_commentstring()
     if vim.bo.commentstring == '' then
-        if vim.bo.filetype == 'glsl' then
+        if vim.bo.filetype == 'glsl' or vim.bo.filetype == 'cuda' then
             vim.bo.commentstring = '//%s'
         else
             vim.bo.commentstring = '#%s'
         end
     end
-    -- end
 end
 
 -- vim.api.nvim_create_autocmd("BufEnter", {
