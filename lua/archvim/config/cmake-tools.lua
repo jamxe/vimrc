@@ -133,25 +133,25 @@ local function shlex_quote(s)
 end
 
 -- !!cihou neogit:
-vim.uv = vim.loop
-function vim.system(cmd)
-    for i, c in ipairs(cmd) do
-        cmd[i] = shlex_quote(c)
-    end
-    cmd = table.concat(cmd, ' ')
-    local f = assert(io.popen(cmd, 'r'))
-    return {
-        wait = function(_)
-            local stdout = assert(f:read('*all'))
-            -- how to get the exit code?
-            local ok, code, signal = f:close()
-            return {
-                code = ok and 0 or (code or signal),
-                stdout = stdout,
-            }
-        end,
-    }
-end
+-- vim.uv = vim.loop
+-- function vim.system(cmd)
+--     for i, c in ipairs(cmd) do
+--         cmd[i] = shlex_quote(c)
+--     end
+--     cmd = table.concat(cmd, ' ')
+--     local f = assert(io.popen(cmd, 'r'))
+--     return {
+--         wait = function(_)
+--             local stdout = assert(f:read('*all'))
+--             -- how to get the exit code?
+--             local ok, code, signal = f:close()
+--             return {
+--                 code = ok and 0 or (code or signal),
+--                 stdout = stdout,
+--             }
+--         end,
+--     }
+-- end
 
 -- function _terminal.prepare_cmd_for_run(cmd, env, args, cwd)
 --     local full_cmd = ""

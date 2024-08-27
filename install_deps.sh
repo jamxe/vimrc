@@ -115,7 +115,7 @@ install_apt() {
     apt-get install -y make
     apt-get install -y git
     apt-get install -y gcc
-    apt-get install -y python
+    apt-get install -y python3
     apt-get install -y curl
     apt-get install -y clangd || true
     apt-get install -y nodejs || true
@@ -133,7 +133,7 @@ install_yum() {
     yum install -y make
     yum install -y git
     yum install -y gcc
-    yum install -y python
+    yum install -y python3 || yum install -y python
     yum install -y curl
     yum install -y clangd || true
     yum install -y nodejs || true
@@ -170,7 +170,7 @@ install_dnf() {
     dnf install -y make
     dnf install -y git
     dnf install -y gcc
-    dnf install -y python
+    dnf install -y python3 || dnf install -y python
     dnf install -y curl
     dnf install -y clangd || true
     dnf install -y nodejs || true

@@ -119,13 +119,13 @@ local plugins = {
         'smjonas/inc-rename.nvim',
         config = function() require"inc_rename".setup{} end,
     },
-    {
-        'folke/noice.nvim',
-        config = function() require'archvim/config/noice' end,
-        requires = {
-            "MunifTanjim/nui.nvim",
-        },
-    },
+    -- {
+    --     'folke/noice.nvim',
+    --     config = function() require'archvim/config/noice' end,
+    --     requires = {
+    --         "MunifTanjim/nui.nvim",
+    --     },
+    -- },
 
     -- lint and error signs
     {
@@ -233,7 +233,6 @@ local plugins = {
     -- 'tpope/vim-fugitive',
     {
         "NeogitOrg/neogit",
-        tag = 'v0.0.1',
         requires = {
             "nvim-lua/plenary.nvim",         -- required
             "nvim-telescope/telescope.nvim", -- optional

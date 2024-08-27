@@ -6,13 +6,12 @@ if [ "x$ARCHIBATE_COMPUTER" == "x" ]; then
     echo "-- 警告: 此脚本仅用于编译插件包，而非末端用户！"
     echo "-- 警告: 末端用户请使用此命令安装："
     echo "curl -sSLf https://142857.red/files/nvimrc-install.sh | bash"
-    sleep 10
+    exit 1
 fi
 unset ARCHIBATE_COMPUTER
 export ARCHIBATE_COMPUTER
 cache="$PWD/.build_cache"
 version_min=090
-version_max=099
 mkdir -p "$cache"
 nvim --headless --cmd "let g:archvim_predownload=2 | let g:archvim_predownload_cachedir='$cache/archvim-build'" -c 'q'
 git --version > /dev/null
@@ -52,8 +51,7 @@ rm -rf /tmp/_extract_.\$\$ /tmp/_extract_.\$\$.tar
 mkdir -p /tmp/_extract_.\$\$
 echo '-- Fetching bundled data...'
 echo '-- 正在下载插件包，请稍等...'
-pv --version > /dev/null 2> /dev/null && CAT=pv || CAT=cat
-\$CAT > /tmp/_extract_.\$\$.tar.gz.b64 << __VIMRC_PAYLOAD_EOF__\n" > "$script"
+cat > /tmp/_extract_.\$\$.tar.gz.b64 << __VIMRC_PAYLOAD_EOF__\n" > "$script"
 
 base64 "$payload" >> "$script"
 
@@ -79,7 +77,7 @@ echo '-- Checking NeoVim version...'
 stat \"\$(which nvim)\" || true
 \$SUDO chmod +x \"\$(which nvim)\" || true
 version=\"1\$(nvim --version | head -n1 | cut -f2 -dv | sed s/\\\\.//g)\"
-(nvim --version && [ \"\$version\" -ge 1$version_min ] && [ \"\$version\" -le 1$version_max ]) || install_nvim
+(nvim --version && [ \"\$version\" -ge 1$version_min ] ${version_max-" && [ \"\$version\" -le 1$version_max ]"}) || install_nvim
 nvim --version
 test -d ~/.config/nvim && mv ~/.config/nvim ~/.config/.nvim.backup.\$\$
 mkdir -p ~/.config
