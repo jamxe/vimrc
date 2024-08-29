@@ -151,18 +151,16 @@ bash ~/.config/nvim/install_deps.sh
 
 ## 其他软件的配置文件参考
 
-[`dotfiles/`](dotfiles/) 文件夹下有其他常用的配置文件，欢迎参考。
+[`dotfiles/`](dotfiles/) 文件夹下有其他小彭老师自用的配置文件，欢迎参考。
 
 ```bash
 $ ls -A dotfiles
-.bashrc  .clang-format  .gdbinit  .inputrc  .zshrc
+.bashrc  .clang-format  .gdbinit  .inputrc  .zshrc  .config/
 ```
 
-> 如果安装本配置后，想要全部采纳以上配置，可以通过 `ln -sf ~/.config/nvim/dotfiles/.* ~/` 命令（会覆盖你的旧配置，记得备份旧文件）。
+其中 `.clang-format` 是我推荐的 C/C++ 代码格式化方案，如果你是一键安装脚本那已经自动帮你拷贝到 `~` 了。
 
-其中 `.clang-format` 是我推荐的 C/C++ 代码格式化方案，你可以运行 `cp ~/.config/nvim/.clang-format ~/.clang-format` 命令来应用他（如果你是一键安装脚本那已经自动安装了）。
-
-这样以后，当你在一个 C++ 源码中运行 `:Neoformat` 命令时，会采用其中的方案。但如果当前项目根目录下有 `.clang-format` 文件，则优先采用当前项目的。
+安装以后，当你在一个 C++ 源码中运行 `:Neoformat` 命令时，会采用其中的方案。但如果当前项目根目录下有 `.clang-format` 文件，则优先采用当前项目的。
 
 ## 旧版本 Vimrc
 

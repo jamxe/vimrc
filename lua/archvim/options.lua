@@ -61,13 +61,20 @@ augroup END
 ]]
 
 vim.cmd [[
+augroup trouble_setlocal
+autocmd!
+autocmd ColorScheme * hi Normal guibg=none
+" | hi NormalFloat guifg=#928374 guibg=#282828
+" | hi WinSeparator guibg=none
+" | hi TreesitterContext gui=NONE guibg=#282828
+" | hi TreesitterContextBottom gui=underline guisp=Grey
+augroup END
+]]
+
+vim.cmd [[
 set termguicolors
-colorscheme gruvbox
-hi Normal guibg=none
-" hi NormalFloat guifg=#928374 guibg=#282828
-" hi WinSeparator guibg=none
-" hi TreesitterContext gui=NONE guibg=#282828
-" hi TreesitterContextBottom gui=underline guisp=Grey
+" colorscheme gruvbox
+colorscheme zephyr
 ]]
 
 -- vim.g_printed = ''

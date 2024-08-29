@@ -102,7 +102,7 @@ rmdir ~/.config/nvim/mason-registry
 echo '-- Copying clangd configurations...'
 if [ ! -f ~/.config/clangd/config.yaml ]; then
     mkdir -p ~/.config/clangd/
-    ln -sf ~/.config/nvim/dotfiles/.config-clangd-config.yaml ~/.config/clangd/config.yaml
+    ln -sf ~/.config/nvim/dotfiles/.config/clangd/config.yaml ~/.config/clangd/config.yaml
 fi
 if [ ! -f ~/.clang-format ]; then
     ln -sf ~/.config/nvim/dotfiles/.clang-format ~/.clang-format

@@ -87,7 +87,6 @@ vim.keymap.set("i", "jk", "<Esc>", { silent = true })
 vim.keymap.set("i", "kj", "<Esc>", { silent = true })
 vim.keymap.set("t", "jk", "<C-\\><C-n>", { silent = true })
 vim.keymap.set("t", "kj", "<C-\\><C-n>", { silent = true })
-vim.keymap.set("n", "q", "<cmd>wa<CR><cmd>q!<CR>", { silent = true })
 vim.keymap.set("v", "q", "<Esc>", { silent = true })
 vim.keymap.set("n", "Q", "q", { silent = true, noremap = true })
 vim.keymap.set({"v", "n"}, "g=", "<cmd>Neoformat<CR>", { silent = true })
@@ -108,6 +107,11 @@ vim.keymap.set({"v", "n"}, "g=", "<cmd>Neoformat<CR>", { silent = true })
 --         end
 --     end,
 -- })
+
+vim.api.nvim_create_user_command("Q", function ()
+    vim.cmd [[ if &buftype == 'quickfix' | cclose | elseif &buftype == 'prompt' | quit! | else | quit | endif ]]
+end, {desc = 'Quit current window'})
+vim.keymap.set("n", "q", "<cmd>Q<CR>", { silent = true })
 
 vim.keymap.set({'v', 'n', 'i', 't'}, '<C-h>', [[<Cmd>wincmd h<CR>]])
 vim.keymap.set({'v', 'n', 'i', 't'}, '<C-j>', [[<Cmd>wincmd j<CR>]])

@@ -62,10 +62,13 @@ local function close_empty_unnamed_buffers()
             vim.api.nvim_buf_get_option(bufnr, 'buftype') == '' then
 
             -- Close the buffer if it's empty:
-            if vim.api.nvim_buf_line_count(bufnr) == 1 and #vim.api.nvim_buf_get_lines(bufnr, 0, 1, false)[0] == 0 then
-                vim.api.nvim_buf_delete(bufnr, {
-                    force = true,
-                })
+            if vim.api.nvim_buf_line_count(bufnr) == 1 then
+                local lines = vim.api.nvim_buf_get_lines(bufnr, 0, 1, false)
+                if #lines == 0 or lines[0] == nil or #lines[0] == 0 then
+                    vim.api.nvim_buf_delete(bufnr, {
+                        force = true,
+                    })
+                end
             end
         end
     end

@@ -5,3 +5,22 @@
       __tostring = <function 1>
     }
   } }
+
+Error executing Lua callback: BufReadPost Autocommands for "*": Vim(append):Error executing lua callback: /home/bate/.config/nvim/lua/archvim/config/bufferline.lua:65: attempt to get length of a nil value                                                                                                                                        
+stack traceback:                                                                                                                                                          
+        /home/bate/.config/nvim/lua/archvim/config/bufferline.lua:65: in function 'close_empty_unnamed_buffers'                                                           
+        /home/bate/.config/nvim/lua/archvim/config/bufferline.lua:78: in function </home/bate/.config/nvim/lua/archvim/config/bufferline.lua:77>                          
+        [C]: in function 'setqflist'                                                                                                                                      
+        ...cker/start/cmake-tools.nvim/lua/cmake-tools/quickfix.lua:40: in function 'run'                                                                                 
+        .../packer/start/cmake-tools.nvim/lua/cmake-tools/utils.lua:259: in function <.../packer/start/cmake-tools.nvim/lua/cmake-tools/utils.lua:237>                    
+stack traceback:                                                                                                                                                          
+        [C]: in function 'setqflist'                                                                                                                                      
+        ...cker/start/cmake-tools.nvim/lua/cmake-tools/quickfix.lua:40: in function 'run'                                                                                 
+        .../packer/start/cmake-tools.nvim/lua/cmake-tools/utils.lua:259: in function <.../packer/start/cmake-tools.nvim/lua/cmake-tools/utils.lua:237>
+
+
+    Error executing Lua callback: BufReadPost Autocommands for "*": Vim(append):E813: Cannot close autocmd window                                                             
+stack traceback:                                                                                                                                                          
+        [C]: in function 'setqflist'                                                                                                                                      
+        ...cker/start/cmake-tools.nvim/lua/cmake-tools/quickfix.lua:40: in function 'run'                                                                                 
+        .../packer/start/cmake-tools.nvim/lua/cmake-tools/utils.lua:259: in function <.../packer/start/cmake-tools.nvim/lua/cmake-tools/utils.lua:237>

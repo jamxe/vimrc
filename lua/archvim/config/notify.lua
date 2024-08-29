@@ -15,6 +15,12 @@ vim.notify = function(msg, ...)
     if msg:match("clipboard: error: Error: target STRING not available") then
         return
     end
+    if msg:match("You cannot close the last tab! This will exit neovim") then
+        return
+    end
+    if msg:match("message = \"trying to get preamble for non-added document\"") then
+        return
+    end
 
     old_notify(msg, ...)
 end
