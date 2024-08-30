@@ -1,6 +1,6 @@
 export PATH="$PATH:$HOME/.local/bin"
 [[ -f ~/.bashenv ]] && source ~/.bashenv
-[[ $- == *i* ]] || exit
+[[ $- == *i* ]] || return
 
 export LANG=C.UTF-8
 

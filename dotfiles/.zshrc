@@ -1,4 +1,4 @@
-[[ $- == *i* ]] || exit
+[[ $- == *i* ]] || return
 
 if true; then
 
@@ -106,7 +106,6 @@ znap source zsh-users/zsh-syntax-highlighting
 znap source zsh-users/zsh-history-substring-search
 znap source zdharma-continuum/history-search-multi-word
 znap source marlonrichert/zsh-autocomplete
-znap install zsh-users/zsh-completions
 if [[ "x$P10K" != "x" ]]; then
     znap source romkatv/powerlevel10k
 fi
