@@ -1,11 +1,18 @@
-# If you come from bash you might have to change your $PATH.
-export PATH="$HOME/.local/bin:/usr/local/bin:$PATH"
+[[ $- == *i* ]] || exit
+
+if true; then
+
+P10K=1
+
+if [[ "x$P10K" != "x" ]] && [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
 # Znap packages manager
-[[ -r ~/Codes/znap/znap.zsh ]] ||
+[[ -r ~/Codes/repos/znap/znap.zsh ]] ||
     git clone --depth 1 -- \
-        https://github.com/marlonrichert/zsh-snap.git ~/Codes/znap
-source ~/Codes/znap/znap.zsh  # Start Znap
+        https://github.com/marlonrichert/zsh-snap.git ~/Codes/repos/znap
+source ~/Codes/repos/znap/znap.zsh  # Start Znap
 
 # Path to your oh-my-zsh installation.
 # export ZSH="/home/bate/.oh-my-zsh"
@@ -82,23 +89,28 @@ DISABLE_AUTO_UPDATE="true"
 plugins=(
 	sudo
 	# git
-	autojump
+	# autojump
 	# zsh-syntax-highlighting
 	# zsh-autosuggestions
     # fzf-zsh-plugin
     # fzf-tab
     fzf
-    # copypath
-    # archlinux
-    ripgrep
-    zsh-navigation-tools
+    copypath
+    archlinux
+    # ripgrep
+    # zsh-navigation-tools
 )
 
 znap source zsh-users/zsh-syntax-highlighting
-znap source zsh-users/zsh-autosuggestions
-# znap source marlonrichert/zsh-autocomplete
+# znap source zsh-users/zsh-autosuggestions
+znap source zsh-users/zsh-history-substring-search
+znap source zdharma-continuum/history-search-multi-word
+znap source marlonrichert/zsh-autocomplete
+znap install zsh-users/zsh-completions
+if [[ "x$P10K" != "x" ]]; then
+    znap source romkatv/powerlevel10k
+fi
 
-# source $ZSH/oh-my-zsh.sh
 znap source ohmyzsh/ohmyzsh
 
 # User configuration
@@ -109,11 +121,11 @@ znap source ohmyzsh/ohmyzsh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
-else
-  export EDITOR='nvim'
-fi
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='nvim'
+# fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -133,6 +145,59 @@ export FZF_COMPLETION_TRIGGER='**'
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+bindkey              '^I' menu-select
+bindkey "$terminfo[kcbt]" menu-select
+bindkey -M menuselect              '^I'         menu-complete
+bindkey -M menuselect "$terminfo[kcbt]" reverse-menu-complete
+
+[[ -f ~/.zsh_aliases ]] && . ~/.zsh_aliases
+
+if [[ "x$P10K" != "x" ]]; then
+    [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+fi
+
+else
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# If you come from bash you might have to change your $PATH.
+export PATH="$HOME/.local/bin:/usr/local/bin:$PATH"
+export MANPATH="/usr/local/man:$MANPATH"
+
+HISTFILE=~/.zsh_history
+skip_global_compinit=1
+
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+[ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
+[ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+source "${ZINIT_HOME}/zinit.zsh"
+
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+
+zinit light zdharma-continuum/fast-syntax-highlighting
+# zinit light zsh-users/zsh-syntax-highlighting
+# zinit light z-shell/zsh-navigation-tools
+zinit light marlonrichert/zsh-autocomplete
+zinit light zsh-users/zsh-completions
+zinit light zsh-users/zsh-autosuggestions
+zi ice atclone"dircolors -b LS_COLORS > c.zsh" atpull'%atclone' pick"c.zsh" nocompile'!' lucid
+zinit light trapd00r/LS_COLORS
+# zinit ice pick"async.zsh" src"pure.zsh" lucid
+# zinit light sindresorhus/pure
+zinit ice depth"1"
+zinit light romkatv/powerlevel10k
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
 [[ -f ~/.zsh_aliases ]] && . ~/.zsh_aliases
 
 [[ -f ~/.lazyshell.zsh ]] && . ~/.lazyshell.zsh
+
+fi
