@@ -156,7 +156,7 @@ if [[ "x$P10K" != "x" ]]; then
     [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 fi
 
-else
+else ####
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -169,7 +169,7 @@ fi
 export PATH="$HOME/.local/bin:/usr/local/bin:$PATH"
 export MANPATH="/usr/local/man:$MANPATH"
 
-HISTFILE=~/.zsh_history
+HISTFILE="$HOME/.zsh_history"
 skip_global_compinit=1
 
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
