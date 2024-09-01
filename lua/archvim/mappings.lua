@@ -109,7 +109,7 @@ vim.keymap.set({"v", "n"}, "g=", "<cmd>Neoformat<CR>", { silent = true })
 -- })
 
 vim.api.nvim_create_user_command("Q", function ()
-    vim.cmd [[ if &buftype == 'quickfix' | cclose | elseif &buftype == 'prompt' | quit! | else | quit | endif ]]
+    vim.cmd [[ wall | if &buftype == 'quickfix' | cclose | elseif &buftype == 'prompt' | quit! | else | quit | endif ]]
 end, {desc = 'Quit current window'})
 vim.keymap.set("n", "q", "<cmd>Q<CR>", { silent = true })
 

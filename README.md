@@ -168,6 +168,13 @@ $ ls -A dotfiles
 
 另外，NeoVim（`~/.config/nvim`）和 Vim（`~/.vim`）的配置完全独立，互不干扰，所以你可以同时拥有两个配置，取决于你启动的是 `nvim` 还是 `vim`。
 
+## 配色方案
+
+```vim
+:colorscheme zephyr  " 默认
+:colorscheme gruvbox
+```
+
 ## 以下为写给小彭老师自己看的
 
 通过运行 `./.compile.sh` 生成 `.build_cache/nvimrc-install.sh` 这个一键安装脚本（约 25 MiB）后，我会把他发布到 142857.red。

@@ -119,13 +119,6 @@ local plugins = {
         'smjonas/inc-rename.nvim',
         config = function() require"inc_rename".setup{} end,
     },
-    -- {
-    --     'folke/noice.nvim',
-    --     config = function() require'archvim/config/noice' end,
-    --     requires = {
-    --         "MunifTanjim/nui.nvim",
-    --     },
-    -- },
 
     -- lint and error signs
     {
@@ -159,12 +152,20 @@ local plugins = {
     --     config = function() require"archvim/config/marks" end,
     -- },
 
-    -- zen-mode
+    -- ui tweaking
     "folke/zen-mode.nvim",
     {
         "folke/twilight.nvim",
         config = function() require"archvim/config/twilight" end,
     },
+    -- {
+    --     'folke/noice.nvim',
+    --     config = function() require'archvim/config/noice' end,
+    --     requires = {
+    --         "MunifTanjim/nui.nvim",
+    --     },
+    -- },
+    "MunifTanjim/nui.nvim",
 
     -- dap and debuggers
     -- {
@@ -390,9 +391,6 @@ local plugins = {
     {
         "phaazon/hop.nvim",
         config = function() require"archvim/config/hop" end,
-    },
-    {
-        "MunifTanjim/nui.nvim",
     },
     -- {
     --     "arnamak/stay-centered.nvim",

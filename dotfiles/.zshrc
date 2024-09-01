@@ -149,6 +149,8 @@ bindkey "$terminfo[kcbt]" menu-select
 bindkey -M menuselect              '^I'         menu-complete
 bindkey -M menuselect "$terminfo[kcbt]" reverse-menu-complete
 
+[[ -s /etc/profile.d/autojump.sh ]] && source /etc/profile.d/autojump.sh
+
 [[ -f ~/.zsh_aliases ]] && . ~/.zsh_aliases
 
 if [[ "x$P10K" != "x" ]]; then
