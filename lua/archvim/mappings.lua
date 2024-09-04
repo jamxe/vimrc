@@ -15,7 +15,7 @@
 
 local function is_quickfix_open()
   for _, win in ipairs(vim.api.nvim_list_wins()) do
-    if vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(win), 'buftype') == 'quickfix' then
+    if vim.bo[vim.api.nvim_win_get_buf(win)].buftype == 'quickfix' then
       return true
     end
   end
@@ -58,8 +58,8 @@ vim.keymap.set({"v", "n", "i"}, "<F18>", function ()
     end
 end, { noremap = true, expr = true })
 vim.keymap.set({"v", "n", "i", "t"}, "<F7>", "<cmd>NvimTreeFindFileToggle<CR>", { silent = true })
-vim.keymap.set({"v", "n", "i", "t"}, "<F9>", "<cmd>Trouble diagnostics toggle focus=false filter.buf=0<CR>", { silent = true })
-vim.keymap.set({"v", "n", "i", "t"}, "<F21>", "<cmd>Trouble diagnostics toggle focus=false<CR>", { silent = true })
+vim.keymap.set({"v", "n", "i", "t"}, "<F9>", "<cmd>Trouble diagnostics toggle focus=false<CR>", { silent = true })
+vim.keymap.set({"v", "n", "i", "t"}, "<F21>", "<cmd>Trouble diagnostics toggle focus=false filter.buf=0<CR>", { silent = true })
 if pcall(require, "cmake-tools") then
     vim.keymap.set({"v", "n", "i", "t"}, "<F5>", "<cmd>wa<CR><cmd>if luaeval('require\"cmake-tools\".is_cmake_project()')|call execute('CMakeRun')|else|call execute('TermExec cmd=./run.sh')|endif<CR>", { silent = true })
     vim.keymap.set({"v", "n", "i", "t"}, "<F17>", "<cmd>wa<CR><cmd>if luaeval('require\"cmake-tools\".is_cmake_project()')|call execute('CMakeStopRunner')|call execute('CMakeStopExecutor')|else|call execute('TermExec cmd=\\<C-c>')|endif<CR>", { silent = true })
@@ -67,7 +67,10 @@ else
     vim.keymap.set({"v", "n", "i", "t"}, "<F5>", "<cmd>wa<CR><cmd>call execute('TermExec cmd=./run.sh')<CR>", { silent = true })
     vim.keymap.set({"v", "n", "i", "t"}, "<F17>", "<cmd>wa<CR><cmd>call execute('TermExec cmd=\\<C-c>')<CR>", { silent = true })
 end
-vim.keymap.set({"v", "n", "i", "t"}, "<F10>", "<cmd>Neogit<CR><cmd>set foldtext='+'<CR>", { silent = true })
+-- vim.keymap.set({"v", "n", "i", "t"}, "<F10>", "<cmd>Neogit<CR><cmd>set foldtext='+'<CR>", { silent = true })
+vim.keymap.set({"v", "n", "i", "t"}, "<F10>", function()
+    require'neogit'.open{kind = 'vsplit'}
+end, { silent = true })
 -- vim.keymap.set({"v", "n", "i", "t"}, "<F12>", "<cmd>NoiceAll<CR>", { silent = true })
 -- vim.keymap.set({"v", "n", "i", "t"}, "<F10>", "<cmd>DapToggleBreakpoint<CR>", { silent = true })
 -- vim.keymap.set({"v", "n", "i", "t"}, "<F22>", "<cmd>DapToggleRepl<CR>", { silent = true })
@@ -163,13 +166,12 @@ end, { expr = true })
 vim.keymap.set({'n'}, '<S-Tab>', '<C-o>')
 vim.keymap.set({'i'}, '<C-Space>', '<Space>')
 
-vim.cmd [[
-augroup archvim_hold_highlight
-    autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()
-    autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
-    autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-augroup end
-]]
+-- vim.cmd [[
+-- augroup archvim_hold_highlight
+--     autocmd CursorHoldI,CursorHold  <buffer> lua vim.lsp.buf.document_highlight()
+--     autocmd CursorMoved             <buffer> lua vim.lsp.buf.clear_references()
+-- augroup end
+-- ]]
 
 vim.cmd [[
 augroup archvim_set_filetype

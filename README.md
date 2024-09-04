@@ -129,14 +129,14 @@ clangd,pyright,lua_ls,tsserver
 ```
 
 * 如果脚本发现您已经存在 `~/.config/nvim` 目录，则会将其备份至 `~/.config/.nvim.backup.随机数字`。
-* 如果脚本发现您已经存在 `/usr/bin/nvim` 可执行文件，但版本不足 0.9.1，则会用本整合包内置的 nvim.AppImage 替换他。
+* 如果脚本发现您已经存在 `/usr/bin/nvim` 可执行文件，但版本不足 v0.10.0，则会用本整合包内置的 nvim.AppImage 替换他。
 * 请勿以 sudo 模式运行本脚本，本脚本内部自动会在需要时采取 sudo。
 
 > 欲了解本整合包安装与打包原理，请看 [`.compile.sh`](.compile.sh)。
 
 ## 手动安装（不推荐）
 
-如果你有稳定的 GitHub 外网连接，并且已经自己安装好了 NeoVim 版本 v0.9.5 以上，也可以尝试运行以下命令手动安装：
+如果你有稳定的 GitHub 外网连接，并且已经自己安装好了 NeoVim 版本 v0.10.0 以上，也可以尝试运行以下命令手动安装：
 
 ```bash
 test -f ~/.config/nvim && mv ~/.config/nvim{,.backup}

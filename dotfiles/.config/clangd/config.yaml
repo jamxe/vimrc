@@ -14,3 +14,6 @@ CompileFlags:
     - -arch=*
     - -rdc=*
     - -mno-*
+InlayHints:
+  ParameterNames: Yes
+  DecucedTypes: Yes
