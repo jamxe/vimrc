@@ -69,7 +69,7 @@ else
 end
 -- vim.keymap.set({"v", "n", "i", "t"}, "<F10>", "<cmd>Neogit<CR><cmd>set foldtext='+'<CR>", { silent = true })
 vim.keymap.set({"v", "n", "i", "t"}, "<F10>", function()
-    require'neogit'.open{kind = 'vsplit'}
+    require'neogit'.open{}
 end, { silent = true })
 -- vim.keymap.set({"v", "n", "i", "t"}, "<F12>", "<cmd>NoiceAll<CR>", { silent = true })
 -- vim.keymap.set({"v", "n", "i", "t"}, "<F10>", "<cmd>DapToggleBreakpoint<CR>", { silent = true })
