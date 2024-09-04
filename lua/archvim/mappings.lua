@@ -133,68 +133,10 @@ vim.keymap.set({'v', 'n', 'i', 't'}, '<M-.>', [[<Cmd>wincmd ><CR>]])
 vim.keymap.set({'v', 'n', 'i', 't'}, '<C-q>', [[<Cmd>wincmd q<CR>]])
 vim.keymap.set({'v', 'n', 'i', 't'}, '<M-q>', [[<Cmd>wincmd q<CR>]])
 vim.keymap.set('n', '<Esc>', [[<Cmd>nohls<CR><Esc>]], { noremap = true })
--- vim.keymap.set('t', '<C-\\>', [[<C-\><C-n>]], { noremap = true })
+-- vim.keymap.set('t', [[<C-\>]], [[<C-\><C-n>]], { noremap = true })
 vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], { noremap = true })
 -- vim.keymap.set('t', [[<Esc>]], [[<Esc>]], { noremap = true })
--- vim.keymap.set('t', 'jk', [[<C-\><C-n>]], opts)
-
--- vim.keymap.set('i', '<M-]>', [[<Plug>(copilot-next)]])
--- vim.keymap.set('i', '<M-[>', [[<Plug>(copilot-previous)]])
--- vim.keymap.set('i', '<M-/>', [[<Plug>(copilot-suggest)]])
-
--- local _gpt_add_key_map_timer = vim.loop.new_timer()
--- _gpt_add_key_map_timer:start(100, 100, vim.schedule_wrap(function ()
---     if _gpt_add_key_map_timer and pcall(function () vim.cmd [[GPTSuggestedKeymaps]] end) then
---         _gpt_add_key_map_timer:stop()
---         _gpt_add_key_map_timer = nil
---     end
--- end))
-
--- vim.keymap.set('i', '<CR>', 'copilot#Accept("\\<CR>")', {
---     silent = true,
---     expr = true,
---     replace_keycodes = false,
--- })
--- vim.keymap.set('i', '<M-BS>', '<Plug>(copilot-dismiss)')
--- vim.keymap.set('i', '<M-\\>', '<Plug>(copilot-suggest)')
--- vim.keymap.set('i', '<M-[>', '<Plug>(copilot-previous)')
--- vim.keymap.set('i', '<M-]>', '<Plug>(copilot-next)')
--- vim.keymap.set('i', '<M-CR>', '<Plug>(copilot-accept-word)')
--- vim.g.copilot_no_tab_map = true
-
--- fetch
--- vim.keymap.set('i', '<F23>', '<Esc>vH0o"+y:let b:_f23="v"<CR>gi', { silent = true, nowait = true, noremap = true })
--- vim.keymap.set('t', '<F23>', '<C-\\><C-n>H"+yL:let b:_f23="v"<CR>i', { silent = true, nowait = true, noremap = true })
--- vim.keymap.set('n', '<F23>', 'mYH"+yL`Y:let b:_f23="V"<CR>', { silent = true, nowait = true, noremap = true })
--- vim.keymap.set('v', '<F23>', 'mY"+y`Y:let b:_f23=getregtype("+")<CR>gv', { silent = true, nowait = true, noremap = true })
---
--- -- append
--- vim.keymap.set('i', '<F24>', '<Esc>:cal setreg("+",getreg("+"),get(b:,"_f23","v"))|let b:_f23=""<CR>"+pa', { silent = true, nowait = true, noremap = true })
--- vim.keymap.set('t', '<F24>', '<C-e><C-\\><C-n>:cal setreg("+",getreg("+"),get(b:,"_f23","v"))|let b:_f23=""<CR>"+pi', { silent = true, nowait = true, noremap = true })
--- vim.keymap.set('n', '<F24>', ':cal setreg("+",getreg("+"),get(b:,"_f23","v"))|let b:_f23=""<CR>"+p', { silent = true, nowait = true, noremap = true })
--- vim.keymap.set('v', '<F24>', '<Esc>:cal setreg("+",getreg("+"),get(b:,"_f23","v"))|let b:_f23=""<CR>"+p', { silent = true, nowait = true, noremap = true })
---
--- -- prepend
--- vim.keymap.set('i', '<F47>', '<Esc>go:cal setreg("+",getreg("+"),"V")|let b:_f23=""<CR>"+Pgi', { silent = true, nowait = true, noremap = true })
--- vim.keymap.set('t', '<F47>', '<C-a><C-\\><C-n>:cal setreg("+",getreg("+"),get(b:,"_f23","v"))|let b:_f23=""<CR>"+pi<C-e>', { silent = true, nowait = true, noremap = true })
--- vim.keymap.set('n', '<F47>', 'mYgo:cal setreg("+",getreg("+"),"V")|let b:_f23=""<CR>"+P`Y', { silent = true, nowait = true, noremap = true })
--- vim.keymap.set('v', '<F47>', 'mYo<Esc>:cal setreg("+",getreg("+"),get(b:,"_f23","v"))|let b:_f23=""<CR>"+P`Y', { silent = true, nowait = true, noremap = true })
---
--- -- overwrite
--- vim.keymap.set('i', '<F48>', '<Esc>:cal setreg("+",getreg("+"),get(b:,"_f23","v"))|if get(b:,"_f23","")!=""|cal execute("norm!gv")|en|let b:_f23=""<CR>"+pa', { silent = true, nowait = true, noremap = true })
--- vim.keymap.set('t', '<F48>', '<C-u><C-\\><C-n>:cal setreg("+",getreg("+"),get(b:,"_f23","v"))|let b:_f23=""<CR>"+pi', { silent = true, nowait = true, noremap = true })
--- vim.keymap.set('n', '<F48>', ':cal setreg("+",getreg("+"),get(b:,"_f23","v"))|if get(b:,"_f23","")!=""|cal execute("norm!HVL")|en|let b:_f23=""<CR>"+pM', { silent = true, nowait = true, noremap = true })
--- vim.keymap.set('v', '<F48>', ':cal setreg("+",getreg("+"),get(b:,"_f23","v"))|let b:_f23=""<CR>"+p', { silent = true, nowait = true, noremap = true })
---
--- -- insert
--- vim.keymap.set('i', '<F46>', '<Esc>"+pa', { silent = true, nowait = true, noremap = true })
--- vim.keymap.set('t', '<F46>', '<C-\\><C-n>"+pi', { silent = true, nowait = true, noremap = true })
--- vim.keymap.set('n', '<F46>', '"+pa', { silent = true, nowait = true, noremap = true })
--- vim.keymap.set('v', '<F46>', '<Esc>"+pa', { silent = true, nowait = true, noremap = true })
-
--- vim.cmd [[
--- iabbr `` ``!cursor!<CR>```<Esc>:call search('!cursor!', 'b')<CR>cf!
--- ]]
+-- vim.keymap.set('t', [[jk]], [[<C-\><C-n>]], opts)
 
 vim.keymap.set({'v', 'n'}, 'K', function ()
     vim.lsp.buf.hover()
@@ -221,19 +163,36 @@ end, { expr = true })
 vim.keymap.set({'n'}, '<S-Tab>', '<C-o>')
 vim.keymap.set({'i'}, '<C-Space>', '<Space>')
 
--- vim.cmd [[
--- autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()
--- autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
--- autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
--- ]]
+vim.cmd [[
+augroup archvim_hold_highlight
+    autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()
+    autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
+    autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+augroup end
+]]
 
-vim.cmd [[au! BufRead,BufNewFile *.cppm,*.ixx setfiletype cpp]]
-vim.cmd [[au! BufRead,BufNewFile *.vert,*.frag,*.comp,*.geom,*.tess setfiletype glsl]]
+vim.cmd [[
+augroup archvim_set_filetype
+    au! BufRead,BufNewFile *.cppm,*.ixx setfiletype cpp
+    au! BufRead,BufNewFile *.vert,*.frag,*.comp,*.geom,*.tess setfiletype glsl
+augroup end
+]]
 
 vim.keymap.set({'v', 'n'}, 'gp', ':GPT<Space>')
 vim.keymap.set({'v', 'n'}, 'gP', ':GPT!<Space>')
 vim.keymap.set({'i'}, '<C-Space>', '<Cmd>GPT<CR>')
 vim.keymap.set({'i', 'n'}, '<C-t>', '<Cmd>-8,+8GPT refactor this code<CR>')
 vim.keymap.set({'v'}, '<C-t>', '<Cmd>GPT refactor this code<CR>')
+
+if os.getenv('LOOPCOMMAND') then
+    vim.keymap.set('n', 'R', '<Cmd>R<CR>')
+    vim.api.nvim_create_user_command("R", function ()
+        vim.cmd [[
+        sil! UpdateRemotePlugins
+        wall!
+        cquit!
+        ]]
+    end, { desc = 'Restart NeoVim' })
+end
 
 return vim.keymap.set

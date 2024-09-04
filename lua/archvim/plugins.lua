@@ -96,30 +96,6 @@ local plugins = {
     --     config = function() require "archvim/config/nvim_context_vt" end,
     -- },
 
-    -- code refactoring
-    -- {
-    --     'LucHermitte/vim-refactor',
-    --     requires = {
-    --         'LucHermitte/lh-vim-lib',
-    --         'LucHermitte/lh-tags',
-    --         'LucHermitte/lh-dev',
-    --         'LucHermitte/lh-style',
-    --         'LucHermitte/lh-brackets',
-    --     },
-    -- },
-    -- {
-    --     "ThePrimeagen/refactoring.nvim",
-    --     requires = {
-    --         {"nvim-lua/plenary.nvim"},
-    --         {"nvim-treesitter/nvim-treesitter"},
-    --     },
-    --     config = function() require'archvim/config/refactoring' end,
-    -- },
-    {
-        'smjonas/inc-rename.nvim',
-        config = function() require"inc_rename".setup{} end,
-    },
-
     -- lint and error signs
     {
         "folke/trouble.nvim",
@@ -281,6 +257,19 @@ local plugins = {
         "terrortylor/nvim-comment",
         config = function() require'archvim/config/nvim-comment' end,
 	},
+    {
+        'smjonas/inc-rename.nvim',
+        config = function() require"inc_rename".setup{} end,
+    },
+
+    -- plugin develop
+    -- { "folke/neodev.nvim", config = function() require"neodev".setup{} end, },
+    -- {
+    --     "folke/lazydev.nvim",
+    --     ft = { "lua" },
+    --     requires = { "Bilal2453/luvit-meta", },
+    --     config = function() require"lazydev".setup{} end,
+    -- },
 
     -- session and projects
     -- {
@@ -312,6 +301,7 @@ local plugins = {
     --     'Pocco81/AutoSave.nvim',
     --     config = function() require'archvim/config/autosave' end,
     -- },
+    { "folke/neoconf.nvim", config = function() require'archvim/config/neoconf'.setup{} end, },
 
     -- fuzzy searching
     {
@@ -415,7 +405,10 @@ local plugins = {
     --     requires = { 'nvim-telescope/telescope.nvim' },
     --     config = function() require"archvim/config/nvim-gpt" end,
     -- },
-    -- os.getenv('ARCHIBATE_COMPUTER') and '/home/bate/Codes/gpt4o.nvim' or 'archibate/gpt4o.nvim',
+    {
+        os.getenv('ARCHIBATE_COMPUTER') and '/home/bate/Codes/gpt4o.nvim' or 'archibate/gpt4o.nvim',
+        run = ':UpdateRemotePlugins',
+    },
     {
         os.getenv('ARCHIBATE_COMPUTER') and '/home/bate/Codes/genius.nvim' or 'archibate/genius.nvim',
         requires = {

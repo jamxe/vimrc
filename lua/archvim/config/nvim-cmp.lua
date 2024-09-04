@@ -33,6 +33,7 @@ cmp.setup {
 
     -- 来源
     sources = cmp.config.sources {
+        -- {name = "lazydev", group_index = 0},
         {name = "nvim_lsp", max_item_count = 10},
         -- {name = "nvim_lsp_signature_help", max_item_count = 1},
         {name = "buffer", max_item_count = 8, keyword_length = 2},

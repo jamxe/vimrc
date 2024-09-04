@@ -45,10 +45,12 @@ if pcall(require, "todo-comments") then
 end
 -- 查找本文件中所有文本对象
 vim.keymap.set("n", "<leader>z", "<cmd>Telescope treesitter initial_mode=insert<CR>")
+-- 查找本文件中所有符号
+vim.keymap.set("n", "<leader>x", "<cmd>Telescope lsp_document_symbols initial_mode=insert<CR>")
 -- 查找 git 仓库的 commit 历史
 vim.keymap.set("n", "<leader>c", "<cmd>Telescope git_commits<CR>")
 -- 查找 git 仓库的所有分支
-vim.keymap.set("n", "<leader>C", "<cmd>Telescope git_branches<CR>")
+vim.keymap.set("n", "<leader>v", "<cmd>Telescope git_branches<CR>")
 -- 查找本文件中所有静态分析报错
 vim.keymap.set("n", "<leader>a", "<cmd>Telescope diagnostics<CR>")
 -- 查找本文件中所有动态编译报错
