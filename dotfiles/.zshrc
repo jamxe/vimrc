@@ -139,20 +139,21 @@ export FZF_COMPLETION_TRIGGER='**'
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+alias zshconfig="mate ~/.zshrc"
+alias ohmyzsh="mate ~/.oh-my-zsh"
 
-bindkey              '^I' menu-select
+bindkey '^I' menu-select
 bindkey "$terminfo[kcbt]" menu-select
-bindkey -M menuselect              '^I'         menu-complete
+bindkey -M menuselect '^I' menu-complete
 bindkey -M menuselect "$terminfo[kcbt]" reverse-menu-complete
+bindkey "$terminfo[kcuu1]" up-line-or-history
+bindkey "$terminfo[kcud1]" down-line-or-history
 
 [[ -s /etc/profile.d/autojump.sh ]] && source /etc/profile.d/autojump.sh
-
 [[ -f ~/.zsh_aliases ]] && . ~/.zsh_aliases
 
-if [[ "x$P10K" != "x" ]]; then
-    [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+if [[ -n $P10K ]]; then
+    [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 fi
 
 bloop() {
