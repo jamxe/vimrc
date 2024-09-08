@@ -5,7 +5,7 @@ if not found_cmake then
     }
 end
 local icons = require("archvim/icons")
-local c = {
+local cmake_component = {
     -- {
     --     function()
     --         local kit = cmake.get_kit()
@@ -259,8 +259,8 @@ require'lualine'.setup {
     sections = {
         lualine_a = {'mode'},
         lualine_b = {branch, diff, diagnostics},
-        lualine_c = {'filename', c[1], c[2], c[3], c[4]},
-        lualine_x = {cdate, ctime, encoding},
+        lualine_c = {'filename', cmake_component[1], cmake_component[2], cmake_component[3], cmake_component[4]},
+        lualine_x = {'aerial', cdate, ctime, encoding},
         lualine_y = {'searchcount', 'quickfix', 'progress'},
         lualine_z = {'location'},
     },

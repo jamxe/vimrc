@@ -112,7 +112,7 @@ c,cpp,cuda,cmake,lua,python,html,javascript,css,json,bash,regex,markdown,glsl,vi
 ### 用于代码补全的 LSP 服务器
 
 ```
-clangd,pyright,lua_ls,tsserver
+clangd,pyright,lua_ls
 ```
 
 可以通过执行 `:Mason` 或修改 [`lua/archvim/config/lspconfig.lua`](lua/archvim/config/lspconfig.lua) 来安装更多语言的 LSP 补全支持。

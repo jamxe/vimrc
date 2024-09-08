@@ -104,6 +104,7 @@ install_pacman() {
     pacman -S --noconfirm pyright
     python -m pip install cmake-language-server --break-system-packages || true
     python -m pip install pynvim --break-system-packages || true
+    python -m pip install openai --break-system-packages || true
 }
 
 install_apt() {
@@ -123,6 +124,7 @@ install_apt() {
     python3 -m pip install pyright || true
     python3 -m pip install cmake-language-server || true
     python3 -m pip install pynvim || true
+    python3 -m pip install openai || true
 }
 
 install_yum() {
@@ -141,6 +143,7 @@ install_yum() {
     python3 -m pip install pyright || true
     python3 -m pip install cmake-language-server || true
     python3 -m pip install pynvim || true
+    python3 -m pip install openai || true
 }
 
 
@@ -160,6 +163,7 @@ install_brew() {
     python3 -m pip install pyright || true
     python3 -m pip install cmake-language-server || true
     python3 -m pip install pynvim || true
+    python3 -m pip install openai || true
 }
 
 
@@ -195,6 +199,7 @@ install_zypper() {
     python3 -m pip install pyright || true
     python3 -m pip install cmake-language-server || true
     python3 -m pip install pynvim || true
+    python3 -m pip install openai || true
 }
 
 do_install() {

@@ -16,10 +16,9 @@ require'lspconfig'.pyright.setup{
     on_attach = pyright_on_attach,
 }
 -- require'lspconfig'.clangd.setup{}
+-- require'lspconfig'.rust_analyzer.setup{}
 require'lspconfig'.lua_ls.setup{}
-require'lspconfig'.rust_analyzer.setup{}
 require'lspconfig'.cmake.setup{}
-require'lspconfig'.tsserver.setup{}
 
 require('lspconfig').clangd.setup{
     on_new_config = function(new_config, new_cwd)
