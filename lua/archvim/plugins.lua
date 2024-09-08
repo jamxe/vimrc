@@ -183,6 +183,10 @@ local plugins = {
             'mfussenegger/nvim-treehopper',
         },
     },
+    {
+        'stevearc/aerial.nvim',
+        config = function() require"archvim/config/aerial" end,
+    },
     -- {
     --     -- "romgrk/nvim-treesitter-context",
     --     "SmiteshP/nvim-navic",
@@ -272,6 +276,10 @@ local plugins = {
     -- },
 
     -- session and projects
+    {
+        'stevearc/stickybuf.nvim',
+        config = function() require'stickybuf'.setup() end,
+    },
     -- {
     --     "Shatur/neovim-session-manager",
     --     requires = "nvim-lua/plenary.nvim",
@@ -301,7 +309,7 @@ local plugins = {
     --     'Pocco81/AutoSave.nvim',
     --     config = function() require'archvim/config/autosave' end,
     -- },
-    { "folke/neoconf.nvim", config = function() require'archvim/config/neoconf'.setup{} end, },
+    -- { "folke/neoconf.nvim", config = function() require'archvim/config/neoconf'.setup{} end, },
 
     -- fuzzy searching
     {
@@ -439,10 +447,10 @@ local plugins = {
         ft = { "markdown" },
         requires = 'iamcco/mathjax-support-for-mkdp',
     },
-    {
-        'mzlogin/vim-markdown-toc',
-        ft = { "markdown" },
-    },
+    -- {
+    --     'mzlogin/vim-markdown-toc',
+    --     ft = { "markdown" },
+    -- },
     -- {
     --     'plasticboy/vim-markdown',
     --     requires = 'godlygeek/tabular',
@@ -458,12 +466,12 @@ autocmd FileType markdown nnoremap <silent> mp :call mdip#MarkdownClipboardImage
         ]] end,
         ft = { "markdown" },
     },
-    {
-        'chomosuke/typst-preview.nvim',
-        tag = 'v0.3.*',
-        run = function() require 'typst-preview'.update() end,
-        -- ft = { "typst" },
-    },
+    -- {
+    --     'chomosuke/typst-preview.nvim',
+    --     tag = 'v0.3.*',
+    --     run = function() require 'typst-preview'.update() end,
+    --     -- ft = { "typst" },
+    -- },
 
     -- pinyin input method
     'h-hg/fcitx.nvim',

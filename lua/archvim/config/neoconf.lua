@@ -1,2 +1,1 @@
-require'neoconf'.setup {
-}
+require'neoconf'.setup()
