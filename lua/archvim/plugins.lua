@@ -301,7 +301,7 @@ local plugins = {
     --     'Pocco81/AutoSave.nvim',
     --     config = function() require'archvim/config/autosave' end,
     -- },
-    { "folke/neoconf.nvim", config = function() require'archvim/config/neoconf'.setup{} end, },
+    -- { "folke/neoconf.nvim", config = function() require'archvim/config/neoconf'.setup{} end, },
 
     -- fuzzy searching
     {
