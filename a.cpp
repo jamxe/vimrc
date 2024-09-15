@@ -4,4 +4,6 @@ int main() {
             int i;
         }
     };
+
+    T a;
 }

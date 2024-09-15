@@ -6,6 +6,12 @@ vim.keymap.set("n", "q", "<cmd>Quit<CR>", { silent = true })
 vim.keymap.set("v", "q", "<Esc>", { silent = true })
 vim.keymap.set("n", "Q", "q", { silent = true, noremap = true })
 
+-- 讨厌 jk 的同学请删除这 4 行：
+vim.keymap.set("i", "jk", "<Esc>", { silent = true })
+vim.keymap.set("i", "kj", "<Esc>", { silent = true })
+vim.keymap.set("t", "jk", "<C-\\><C-n>", { silent = true })
+vim.keymap.set("t", "kj", "<C-\\><C-n>", { silent = true })
+
 -- Functional wrapper for mapping custom keybindings
 -- local function map(mode, lhs, rhs, opts)
 --     if type(mode) == 'table' then
@@ -94,10 +100,6 @@ end, { silent = true })
 -- end
 vim.keymap.set({'v', 'n', 'i', 't'}, '<Ins>', [[<Cmd>ZenMode<CR>]])
 -- vim.keymap.set({"v", "n"}, "<CR>", "<cmd>nohlsearch<CR>", { silent = true })
-vim.keymap.set("i", "jk", "<Esc>", { silent = true })
-vim.keymap.set("i", "kj", "<Esc>", { silent = true })
-vim.keymap.set("t", "jk", "<C-\\><C-n>", { silent = true })
-vim.keymap.set("t", "kj", "<C-\\><C-n>", { silent = true })
 
 vim.keymap.set({"v", "n"}, "g=", "<cmd>Neoformat<CR>", { silent = true })
 vim.keymap.set({"v", "n"}, "go", "<cmd>Ouroboros<CR>", { silent = true })

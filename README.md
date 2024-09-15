@@ -72,6 +72,14 @@ curl -sSLf https://142857.red/files/nvimrc-install.sh | bash
 
 #### 基本功能
 
+由于 `<Esc>` 离键盘中心较远，按起来比较费力。因此我映射了 `jk` 和 `kj` 作为 `<Esc>` 的替代。
+
+这样只需要在插入模式（INSERT）中，同时按下 `j` 和 `k` 两个键，就可以快速退出回到普通模式（NORMAL）了。
+
+代价就是在插入模式中如果确实要输入 `jk`，就需要在按下 `j` 后等待一秒，才能让 Vim 认为这是两个独立的按键。
+
+- `jk` / `kj` / `<Esc>` 回到普通模式
+
 请注意，原先 Vim 自带的用于记录宏的 `q` 键位，被我重新映射为退出键。
 
 使用 `q` 保存并退出当前窗口，方便且直观。
@@ -100,9 +108,15 @@ curl -sSLf https://142857.red/files/nvimrc-install.sh | bash
 vim.keymap.set("n", "q", "<cmd>Quit<CR>", { silent = true })
 vim.keymap.set("v", "q", "<Esc>", { silent = true })
 vim.keymap.set("n", "Q", "q", { silent = true, noremap = true })
+
+-- 讨厌 jk 的“Esc 孝子”请删除这 4 行：
+vim.keymap.set("i", "jk", "<Esc>", { silent = true })
+vim.keymap.set("i", "kj", "<Esc>", { silent = true })
+vim.keymap.set("t", "jk", "<C-\\><C-n>", { silent = true })
+vim.keymap.set("t", "kj", "<C-\\><C-n>", { silent = true })
 ```
 
-> 别误会，小彭老师也是“Vim 宏”的忠实大粉丝啊！只不过关窗口更习惯 `q` 了，用的比宏录制多。
+> 别误会！小彭老师也是“Vim 宏”的忠实大粉丝啊！只不过关窗口更习惯 `q` 了，用的比宏录制多。
 
 #### 各类功能窗口
 
@@ -153,7 +167,7 @@ vim.keymap.set("n", "Q", "q", { silent = true, noremap = true })
 
 #### 语言支持 (LSP)
 
-此类和语言有关的快捷键均为 `g` 开头，在普通模式（NORMAL）中使用。
+和语言有关的快捷键均为 `g` 开头，在普通模式（NORMAL）中使用。
 
 虽然 LSP 是 NeoVim 原生支持的，无需任何插件；但 LSP 只是个协议，还是需要安装相应的 LSP 服务器如 `clangd` 或 `pyright` 才能识别对应的语言。
 
@@ -185,7 +199,7 @@ vim.keymap.set("n", "Q", "q", { silent = true, noremap = true })
 
 如果对应的 `.cpp` 或 `.h` 文件不存在，Ouroboros 还会提示你自动创建。
 
-- `gw` 应用 Code Actions 尝试修复当前行存在的问题
+- `gw` 应用 Code Actions 尝试自动修复当前行存在的问题
 
 例如在一个“标识符未定义”的静态分析报错上方，运行 `gw`，可以自动导入缺少的头文件。
 
@@ -197,10 +211,33 @@ vim.keymap.set("n", "Q", "q", { silent = true, noremap = true })
 
 如果有自定义的代码规范需求，可以在当前项目目录下创建一个 [`.clang-format` 配置文件](https://clang.llvm.org/docs/ClangFormatStyleOptions.html) 来调整，满足撕人老板的要求。
 
-- `ga` / `:ascii` 查看当前光标下字符的 Unicode 二进制编码信息
-- `:PyrightOrganizeImports` 为当前 Python 代码中的所有 `import` 排序
+- `K` 查看当前光标下函数、变量、或类的函数签名信息，会弹出一个小窗口来显示
+
+如果该函数或类的定义上方有注释，则注释会被视为文档一并显示在小窗中。
+
+函数或类的定义位置、来自哪个头文件也会显示出来。
+
+- `:PyrightOrganizeImports` 为当前代码中的所有 `import` 排序，暂时仅支持 Python
 
 #### 语法树分析 (nvim-treesitter)
+
+操纵语法树类的快捷键都以 `gs` 开头。
+
+- `gsc` 在小窗口中预览当前光标下类的定义（但不跳转过去）
+- `gsf` 在小窗口中预览当前光标下函数的定义（但不跳转过去）
+
+- `gsh` 尝试左移当前的元素
+- `gsl` 尝试左移当前的元素
+
+```cpp
+func("hello", 42, Some());
+```
+
+光标悬停在 `42` 上时按下 `gsl`，则得到：
+
+```cpp
+func(42, "hello", Some());
+```
 
 以下两个键位可用于虚拟模式（VISUAL）中，快速扩大当前选中区间到下一个更大的语法块，或缩小回退到更小的一块。
 
@@ -258,7 +295,7 @@ int main() {
 **跳转位置搜索**
 
 - `,m` 查看当前 Vim 的所有标记——可以用 `mx` 来创建一个名为 “x” 的标记，用 `'x` 来跳转到他，而 `,m` 可以快速列出所有你设置过的标记，按 `<CR>` 即可跳转到选中的标记
-- `,j` 查看当前 Vim 的跳转历史，这里记录着你所有曾经跳转过的地方，按 `<CR>` 就能再次跳转过去
+- `,j` 查看当前 Vim 的跳转历史，这里记录着你所有曾经跳转过的地方，选择后按 `<CR>` 就能再次跳转过去……实际上这就是 `<C-o>` 和 `<C-i>` 使用的那个跳转列表
 
 **其他特色功能**
 
