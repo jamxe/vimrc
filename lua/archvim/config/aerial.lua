@@ -14,7 +14,7 @@ require("aerial").setup({
     },
     keymaps = {
         ["q"] = {
-            callback = function() vim.cmd [[ :Q ]] end,
+            callback = function() vim.cmd [[ :AerialClose ]] end,
             desc = "Close the aerial window",
             nowait = true,
         },

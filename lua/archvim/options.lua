@@ -59,7 +59,7 @@ colorscheme zephyr
 vim.lsp.set_log_level("off")
 
 local opts = {
-    nerd_fonts = false,
+    nerd_fonts = true,
     transparent_color = false,
     more_cpp_ftdetect = true,
 }

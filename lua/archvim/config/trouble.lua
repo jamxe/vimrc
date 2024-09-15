@@ -39,7 +39,7 @@ require'trouble'.setup {
             TypeParameter = " ",
             Variable      = "󰀫 ",
         },
-    },
+    } or nil,
 }
 
 vim.cmd [[

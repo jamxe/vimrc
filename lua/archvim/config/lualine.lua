@@ -175,6 +175,19 @@ local cmake_component = {
 --     end,
 -- }
 
+local filetype = {
+    'filetype',
+    colored = true,
+    cond = function()
+        return vim.fn.winwidth(0) > 80
+    end,
+}
+local filename = {
+    'filename',
+    file_status = true,
+    path = 1,
+    shorting_target = 50,
+}
 local diagnostics = {
     'diagnostics',
     cond = function()
@@ -193,18 +206,19 @@ local branch = {
 }
 local diff = {
     'diff',
-    cond = function()
-        return vim.fn.winwidth(0) > 80
-    end,
-}
-local cdate = {
-    'cdate',
+    colored = true,
+    diff_color = {
+        added    = 'diffAdded',
+        modified = 'diffChanged',
+        removed  = 'diffRemoved',
+    },
     cond = function()
         return vim.fn.winwidth(0) > 80
     end,
 }
 local ctime = {
     'ctime',
+    format = '%m/%d %H:%M',
     cond = function()
         return vim.fn.winwidth(0) > 80
     end,
@@ -215,6 +229,7 @@ local encoding = {
     cond = function()
         return vim.fn.winwidth(0) > 80 and 'utf-8' ~= vim.o.fileencoding
     end,
+    show_bomb = true,
 }
 
 -- local fcitx_cmd = nil
@@ -245,6 +260,17 @@ if require'archvim.options'.nerd_fonts then
     -- diagnostics.symbols = { error = icons.diagnostics.Error, warn = icons.diagnostics.Warning, info = icons.diagnostics.Information, hint = icons.diagnostics.Question }
     branch.icon = icons.git.Branch
     -- diff.symbols = { added = ' ', modified = ' ', removed = ' ' }
+    filetype.icon = icons.documents.File
+    filetype.icon_only = false
+    filetype.icon = { align = 'left' }
+    filetype.fmt = function (str) return str:gsub("%s*$", "") end
+    filename.symbols = {
+        modified = icons.git.Mod,
+        readonly = icons.git.Remove,
+        unnamed = icons.git.Untrack,
+        newfile = icons.git.Add,
+      }
+    ctime.icon = icons.ui.Clock
 else
     diagnostics.symbols = { error = 'E', warn = 'W', info = 'I', hint = '?' }
     branch.icon = ''
@@ -259,15 +285,15 @@ require'lualine'.setup {
     sections = {
         lualine_a = {'mode'},
         lualine_b = {branch, diff, diagnostics},
-        lualine_c = {'filename', cmake_component[1], cmake_component[2], cmake_component[3], cmake_component[4]},
-        lualine_x = {'aerial', cdate, ctime, encoding},
+        lualine_c = {filename, cmake_component[1], cmake_component[2], cmake_component[3], cmake_component[4]},
+        lualine_x = {'aerial', ctime, encoding},
         lualine_y = {'searchcount', 'quickfix', 'progress'},
         lualine_z = {'location'},
     },
     inactive_sections = {
         lualine_a = {},
         lualine_b = {},
-        lualine_c = {'filename'},
+        lualine_c = {filename},
         lualine_x = {'location'},
         lualine_y = {},
         lualine_z = {},

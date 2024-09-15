@@ -1,3 +1,11 @@
+vim.api.nvim_create_user_command("Quit", function ()
+    vim.cmd [[ wall | if &buftype == 'quickfix' | cclose | elseif &buftype == 'prompt' | quit! | else | quit | endif ]]
+end, {desc = 'Quit current window'})
+-- 讨厌 q 用作退出的“宏孝子”请删除这 3 行：
+vim.keymap.set("n", "q", "<cmd>Quit<CR>", { silent = true })
+vim.keymap.set("v", "q", "<Esc>", { silent = true })
+vim.keymap.set("n", "Q", "q", { silent = true, noremap = true })
+
 -- Functional wrapper for mapping custom keybindings
 -- local function map(mode, lhs, rhs, opts)
 --     if type(mode) == 'table' then
@@ -90,9 +98,11 @@ vim.keymap.set("i", "jk", "<Esc>", { silent = true })
 vim.keymap.set("i", "kj", "<Esc>", { silent = true })
 vim.keymap.set("t", "jk", "<C-\\><C-n>", { silent = true })
 vim.keymap.set("t", "kj", "<C-\\><C-n>", { silent = true })
-vim.keymap.set("v", "q", "<Esc>", { silent = true })
-vim.keymap.set("n", "Q", "q", { silent = true, noremap = true })
+
 vim.keymap.set({"v", "n"}, "g=", "<cmd>Neoformat<CR>", { silent = true })
+vim.keymap.set({"v", "n"}, "go", "<cmd>Ouroboros<CR>", { silent = true })
+vim.keymap.set({"v", "n"}, "gO", "<cmd>split | Ouroboros<CR>", { silent = true })
+vim.keymap.set({"v", "n"}, "g<C-o>", "<cmd>vsplit | Ouroboros<CR>", { silent = true })
 -- vim.keymap.set({"v", "n", "i"}, "<F10>", "<cmd>Neoformat<CR>", { silent = true })
 -- vim.keymap.set("n", "Q", "<cmd>wa<CR><cmd>qa!<CR>", { silent = true })
 
@@ -110,11 +120,6 @@ vim.keymap.set({"v", "n"}, "g=", "<cmd>Neoformat<CR>", { silent = true })
 --         end
 --     end,
 -- })
-
-vim.api.nvim_create_user_command("Q", function ()
-    vim.cmd [[ wall | if &buftype == 'quickfix' | cclose | elseif &buftype == 'prompt' | quit! | else | quit | endif ]]
-end, {desc = 'Quit current window'})
-vim.keymap.set("n", "q", "<cmd>Q<CR>", { silent = true })
 
 vim.keymap.set({'v', 'n', 'i', 't'}, '<C-h>', [[<Cmd>wincmd h<CR>]])
 vim.keymap.set({'v', 'n', 'i', 't'}, '<C-j>', [[<Cmd>wincmd j<CR>]])

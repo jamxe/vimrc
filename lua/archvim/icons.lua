@@ -104,6 +104,7 @@ local icons = {
         VirtualPrefix     = "",
         Next              = "",
         Previous          = "",
+        Clock             = "",
     },
     diagnostics = {
         Error = " ",

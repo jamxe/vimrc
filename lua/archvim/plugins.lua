@@ -354,6 +354,12 @@ local plugins = {
         'nvim-tree/nvim-tree.lua',
         config = function() require'archvim/config/nvim-tree' end,
     },
+    {
+        'jakemason/ouroboros',
+        requires = {
+            'nvim-lua/plenary.nvim',
+        },
+    },
 
     -- terminal and tasks
     {
