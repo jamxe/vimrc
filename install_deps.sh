@@ -88,118 +88,148 @@ detect_arch() {
   fi
 }
 
+pcall() {
+    "$@"
+    echo -- ERROR: failed to install: "$@"
+}
+
+ensure_pip() {
+    python="$(which python3 || which python)"
+    if ! $python -m pip --version 2> /dev/null; then
+        curl https://bootstrap.pypa.io/get-pip.py | $python
+    fi
+    $python -m pip --version
+}
+
 install_pacman() {
-    pacman -S --noconfirm ripgrep || true
-    pacman -S --noconfirm fzf || true
+    pcall pacman -S --noconfirm ripgrep
+    pcall pacman -S --noconfirm fzf
     pacman -S --noconfirm cmake
     pacman -S --noconfirm make
     pacman -S --noconfirm git
     pacman -S --noconfirm gcc
     pacman -S --noconfirm python
+    pacman -S --noconfirm python-pip
     pacman -S --noconfirm curl
     pacman -S --noconfirm clang
     pacman -S --noconfirm nodejs
     pacman -S --noconfirm npm
     pacman -S --noconfirm lua-language-server
     pacman -S --noconfirm pyright
-    python -m pip install cmake-language-server --break-system-packages || true
-    python -m pip install pynvim --break-system-packages || true
-    python -m pip install openai --break-system-packages || true
+    pacman -S --noconfirm python-pynvim
+    pacman -S --noconfirm python-openai
 }
 
 install_apt() {
     export DEBIAN_FRONTEND=noninteractive
     apt update
-    apt-get install -y ripgrep || true
-    apt-get install -y fzf || true
+    pcall apt-get install -y ripgrep
+    pcall apt-get install -y fzf
     apt-get install -y cmake
     apt-get install -y make
     apt-get install -y git
     apt-get install -y gcc
     apt-get install -y python3
+    apt-get install -y python3-pip
     apt-get install -y curl
-    apt-get install -y clangd || true
-    apt-get install -y nodejs || true
-    apt-get install -y npm || true
-    python3 -m pip install pyright || true
-    python3 -m pip install cmake-language-server || true
-    python3 -m pip install pynvim || true
-    python3 -m pip install openai || true
+    pcall apt-get install -y clangd
+    pcall apt-get install -y clang-format
+    pcall apt-get install -y nodejs
+    pcall apt-get install -y npm
+    python="$(which python3 || which python)"
+    if [ pcall "$python" -m pip install --help | grep break-system-packages ]; then
+        break="--break-system-packages"
+    else
+        break=
+    fi
+    ensure_pip
+    pcall "$python" -m pip install -U pyright $break
+    pcall "$python" -m pip install -U pynvim $break
+    pcall "$python" -m pip install -U openai $break
 }
 
 install_yum() {
     yum-config-manager --add-repo=https://copr.fedorainfracloud.org/coprs/carlwgeorge/ripgrep/repo/epel-7/carlwgeorge-ripgrep-epel-7.repo
-    yum install -y ripgrep || true
-    yum install -y fzf || true
+    pcall yum install -y ripgrep
+    pcall yum install -y fzf
     yum install -y cmake
     yum install -y make
     yum install -y git
     yum install -y gcc
     yum install -y python3 || yum install -y python
     yum install -y curl
-    yum install -y clangd || true
-    yum install -y nodejs || true
-    yum install -y npm || true
-    python3 -m pip install pyright || true
-    python3 -m pip install cmake-language-server || true
-    python3 -m pip install pynvim || true
-    python3 -m pip install openai || true
+    pcall yum install -y clangd
+    pcall yum install -y clang-format
+    pcall yum install -y nodejs
+    pcall yum install -y npm
+    ensure_pip
+    python="$(which python3 || which python)"
+    pcall "$python" -m pip install -U pyright
+    pcall "$python" -m pip install -U pynvim
+    pcall "$python" -m pip install -U openai
 }
 
 
 install_brew() {
-    brew install ripgrep || true
-    brew install fzf || true
+    pcall brew install ripgrep
+    pcall brew install fzf
     brew install cmake
     brew install make
     brew install git
     brew install gcc
     brew install python
     brew install curl
-    brew install clangd || true
-    brew install node || true
-    brew install npm || true
-    brew install lua-language-server || true
-    python3 -m pip install pyright || true
-    python3 -m pip install cmake-language-server || true
-    python3 -m pip install pynvim || true
-    python3 -m pip install openai || true
+    pcall brew install clangd
+    pcall brew install clang-format
+    pcall brew install node
+    pcall brew install npm
+    pcall brew install lua-language-server
+    ensure_pip
+    python="$(which python3 || which python)"
+    pcall "$python" -m pip install -U pyright
+    pcall "$python" -m pip install -U pynvim
+    pcall "$python" -m pip install -U openai
 }
 
 
 install_dnf() {
-    dnf install -y ripgrep || true
-    dnf install -y fzf || true
+    pcall dnf install -y ripgrep
+    pcall dnf install -y fzf
     dnf install -y cmake
     dnf install -y make
     dnf install -y git
     dnf install -y gcc
     dnf install -y python3 || dnf install -y python
     dnf install -y curl
-    dnf install -y clangd || true
-    dnf install -y nodejs || true
-    dnf install -y npm || true
-    python3 -m pip install pyright || true
-    python3 -m pip install cmake-language-server || true
-    python3 -m pip install pynvim || true
+    pcall dnf install -y clangd
+    pcall dnf install -y clang-format
+    pcall dnf install -y nodejs
+    pcall dnf install -y npm
+    ensure_pip
+    python="$(which python3 || which python)"
+    pcall "$python" -m pip install -U pyright
+    pcall "$python" -m pip install -U pynvim
+    pcall "$python" -m pip install -U openai
 }
 
 install_zypper() {
-    zypper in --no-confirm ripgrep || true
-    zypper in --no-confirm fzf || true
+    pcall zypper in --no-confirm ripgrep || true
+    pcall zypper in --no-confirm fzf || true
     zypper in --no-confirm cmake
     zypper in --no-confirm make
     zypper in --no-confirm git
     zypper in --no-confirm gcc
     zypper in --no-confirm python
     zypper in --no-confirm curl
-    zypper in --no-confirm clangd || true
-    zypper in --no-confirm nodejs || true
-    zypper in --no-confirm npm || true
-    python3 -m pip install pyright || true
-    python3 -m pip install cmake-language-server || true
-    python3 -m pip install pynvim || true
-    python3 -m pip install openai || true
+    pcall zypper in --no-confirm clangd
+    pcall zypper in --no-confirm clang-format
+    pcall zypper in --no-confirm nodejs
+    pcall zypper in --no-confirm npm
+    ensure_pip
+    python="$(which python3 || which python)"
+    pcall "$python" -m pip install -U pyright
+    pcall "$python" -m pip install -U pynvim
+    pcall "$python" -m pip install -U openai
 }
 
 do_install() {

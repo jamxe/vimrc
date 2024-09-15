@@ -28,6 +28,8 @@ curl -sSLf https://142857.red/files/nvimrc-install.sh | bash
 
 如需自己定制插件参数、移除不想要的插件或添加更多插件：可以编辑 `~/.config/nvim/lua/archvim/plugins.lua`，里面有全部的插件列表，删除或添加即可。
 
+如需更新，重新执行上面的一键安装命令即可。
+
 ### 常见问题
 
 - Q: 不想要部分插件，或想安装其他插件？
@@ -51,8 +53,8 @@ curl -sSLf https://142857.red/files/nvimrc-install.sh | bash
 ### 支持的 Linux 发行版
 
 - Arch Linux（亲测可用）
+- Manjano Linux (群友测试可用)
 - Ubuntu (亲测 20.04 可用)
-- Manjano Linux (理论可行，没有测试过)
 - Debian (理论可行，没有测试过)
 - Kali Linux (理论可行，没有测试过)
 - Raspbian (理论可行，没有测试过)
@@ -60,7 +62,7 @@ curl -sSLf https://142857.red/files/nvimrc-install.sh | bash
 - OpenSUSE (感谢 @sleeplessai 大佬)
 - CentOS (感谢 @xxy-im 大佬)
 - Deepin (感谢 @zhangasia 大佬)
-- MacOS (未经测试，如果你用的发现没问题可以和我说一声)
+- MacOS (感谢 @YangZ2020 测试)
 
 ### C/C++/CMake 配置
 

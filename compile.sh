@@ -85,7 +85,7 @@ rm -rf ~/.config/nvim
 cp -r . ~/.config/nvim
 if [ \"x\$NODEP\" == \"x\" ]; then
     echo '-- Installing dependencies...'
-    \$SUDO bash ~/.config/nvim/install_deps.sh || echo -e \"\\n\\n--\\n--\\n-- WARNING: some dependency installation failed, please check your internet connection.\\n-- ArchVim can still run without those dependencies, though.\\n-- You can always try run dependency installation again by running: sudo bash ~/.config/nvim/install_deps.sh\\n\\n\"
+    \$SUDO bash ~/.config/nvim/install_deps.sh || echo -e \"\\n\\n--\\n--\\n-- WARNING: some dependency installation failed, please check your internet connection.\n-- If you see this message, please report the full terminal output to archibate by opening GitHub issues.\\n-- ArchVim can still run without those dependencies, though.\\n-- You can always try run dependency installation again by running: sudo bash ~/.config/nvim/install_deps.sh\\n\\n--\\n--\\n-- 警告: 某些依赖项安装失败，请检查网络连接。\\n-- ArchVim 仍然可以正常运行，但是可能会缺少某些功能。\\n-- 如果你看到本消息，请通过 GitHub 向小彭老师反馈并贴上终端的完整输出。\\n-- 你也可以手动尝试运行依赖项安装命令：sudo bash ~/.config/nvim/install_deps.sh\\n--\\n--\\n\\n\"
 fi
 echo '-- Synchronizing packer.nvim...'
 # rm -rf ~/.local/share/nvim/site/pack/packer
