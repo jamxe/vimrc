@@ -41,7 +41,9 @@ local cmake_component = {
                 return icons.cmake.CMake .. string.format(" [%s]", b_type)
             end
         end,
-        cond = cmake.is_cmake_project,
+        cond = function()
+            return cmake.is_cmake_project() and vim.bo.buftype == ''
+        end,
         on_click = function(n, mouse)
             if (n == 1) then
                 if (mouse == "l") then
@@ -64,7 +66,9 @@ local cmake_component = {
             end
             return icons.cmake.Build .. string.format(" [%s]", b_target)
         end,
-        cond = cmake.is_cmake_project,
+        cond = function()
+            return cmake.is_cmake_project() and vim.bo.buftype == ''
+        end,
         on_click = function(n, mouse)
             if (n == 1) then
                 if (mouse == "l") then
@@ -106,7 +110,9 @@ local cmake_component = {
         function()
             return icons.cmake.Debug
         end,
-        cond = cmake.is_cmake_project,
+        cond = function()
+            return cmake.is_cmake_project() and vim.bo.buftype == ''
+        end,
         on_click = function(n, mouse)
             if (n == 1) then
                 if (mouse == "l") then
@@ -135,7 +141,9 @@ local cmake_component = {
             end
             return icons.cmake.Run .. string.format(" [%s]", l_target)
         end,
-        cond = cmake.is_cmake_project,
+        cond = function()
+            return cmake.is_cmake_project() and vim.bo.buftype == ''
+        end,
         on_click = function(n, mouse)
             if (n == 1) then
                 if (mouse == "l") then
@@ -179,19 +187,41 @@ local filetype = {
     'filetype',
     colored = true,
     cond = function()
-        return vim.fn.winwidth(0) > 80
+        return vim.bo.buftype == '' and vim.fn.winwidth(0) > 80
     end,
 }
 local filename = {
     'filename',
     file_status = true,
     path = 1,
-    shorting_target = 50,
+    cond = function()
+        return vim.bo.buftype == ''
+    end,
+    -- shorting_target = 50,
+    fmt = function (str)
+        return str:gsub("^term://.*$", require'archvim.options'.nerd_fonts and " " or "[terminal]")
+    end,
+    on_click = function(n, mouse)
+        if (n == 1) then
+            if (mouse == "l") then
+                vim.cmd[[NvimTreeToggle]]
+            end
+        end
+    end,
 }
 local diagnostics = {
     'diagnostics',
     cond = function()
         return vim.fn.winwidth(0) > 80
+    end,
+    on_click = function(n, mouse)
+        if (n == 1) then
+            if (mouse == "l") then
+                vim.cmd[[Trouble diagnostics toggle focus=false]]
+            elseif (mouse == "r") then
+                vim.cmd[[Trouble diagnostics toggle focus=false filter.buf=0]]
+            end
+        end
     end,
 }
 local branch = {
@@ -231,6 +261,26 @@ local encoding = {
     end,
     show_bomb = true,
 }
+local location = {
+    'location',
+    cond = function()
+        return vim.bo.buftype == ''
+    end,
+    show_bomb = true,
+}
+local aerial = {
+    'aerial',
+    cond = function()
+        return vim.bo.buftype == ''
+    end,
+    on_click = function(n, mouse)
+        if (n == 1) then
+            if (mouse == "l") then
+                vim.cmd[[AerialToggle]]
+            end
+        end
+    end,
+}
 
 -- local fcitx_cmd = nil
 -- if vim.fn.executable('fcitx-remote') == 1 then
@@ -259,7 +309,7 @@ local encoding = {
 if require'archvim.options'.nerd_fonts then
     -- diagnostics.symbols = { error = icons.diagnostics.Error, warn = icons.diagnostics.Warning, info = icons.diagnostics.Information, hint = icons.diagnostics.Question }
     branch.icon = icons.git.Branch
-    -- diff.symbols = { added = ' ', modified = ' ', removed = ' ' }
+    diff.symbols = { added = ' ', modified = ' ', removed = ' ' }
     filetype.icon = icons.documents.File
     filetype.icon_only = false
     filetype.icon = { align = 'left' }
@@ -284,9 +334,9 @@ require'lualine'.setup {
     },
     sections = {
         lualine_a = {'mode'},
-        lualine_b = {branch, diff, diagnostics},
-        lualine_c = {filename, cmake_component[1], cmake_component[2], cmake_component[3], cmake_component[4]},
-        lualine_x = {'aerial', ctime, encoding},
+        lualine_b = {branch, diagnostics},
+        lualine_c = {filename},
+        lualine_x = {diff, encoding},
         lualine_y = {'searchcount', 'quickfix', 'progress'},
         lualine_z = {'location'},
     },
@@ -294,12 +344,19 @@ require'lualine'.setup {
         lualine_a = {},
         lualine_b = {},
         lualine_c = {filename},
-        lualine_x = {'location'},
+        lualine_x = {location},
         lualine_y = {},
         lualine_z = {},
     },
     tabline = {},
-    winbar = {},
+    winbar = {
+        lualine_a = {},
+        lualine_b = {cmake_component[1], cmake_component[2]},
+        lualine_c = {cmake_component[3], cmake_component[4]},
+        lualine_x = {aerial},
+        lualine_y = {ctime},
+        lualine_z = {},
+    },
     inactive_winbar = {},
     extensions = {},
 }

@@ -59,7 +59,8 @@ local function close_empty_unnamed_buffers()
     for _, bufnr in ipairs(buffers) do
         -- Check if the buffer is empty and doesn't have a name
         if vim.api.nvim_buf_is_loaded(bufnr) and vim.api.nvim_buf_get_name(bufnr) == '' and
-            vim.api.nvim_buf_get_option(bufnr, 'buftype') == '' then
+            -- vim.api.nvim_buf_get_option(bufnr, 'buftype') == ''
+            vim.bo[bufnr].buftype == '' then
 
             -- Close the buffer if it's empty:
             if vim.api.nvim_buf_line_count(bufnr) == 1 then

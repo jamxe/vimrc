@@ -3,7 +3,7 @@ vim.g.mapleader = ','
 vim.cmd [[
 set mouse=a
 set mousemodel=extend
-set updatetime=300
+set updatetime=400
 set nu nornu ru ls=2
 set et sts=0 ts=4 sw=4
 set signcolumn=number
@@ -62,6 +62,8 @@ local opts = {
     nerd_fonts = true,
     transparent_color = false,
     more_cpp_ftdetect = true,
+    enable_signature_help = true,
+    enable_inlay_hint = true,
 }
 
 local function save_opts()

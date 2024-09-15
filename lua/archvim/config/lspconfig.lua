@@ -40,7 +40,7 @@ local function setup_lsp(event)
     end
 
     if client.server_capabilities.inlayHintProvider then
-        if vim.lsp.inlay_hint ~= nil then
+        if vim.lsp.inlay_hint ~= nil and require'archvim.options'.enable_inlay_hint then
             vim.lsp.inlay_hint.enable(true)
         end
     end
@@ -63,6 +63,16 @@ local function setup_lsp(event)
                 vim.lsp.buf.document_highlight()
             end,
         })
+
+        if vim.lsp.buf.signature_help ~= nil and require'archvim.options'.enable_signature_help then
+            vim.api.nvim_create_autocmd({'CursorHoldI'}, {
+                group = group,
+                buffer = event.buf,
+                callback = function()
+                    vim.lsp.buf.signature_help()
+                end
+            })
+        end
 
         vim.api.nvim_create_autocmd({'CursorMoved', 'CursorMovedI'}, {
             group = group,

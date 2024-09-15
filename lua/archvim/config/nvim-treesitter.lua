@@ -95,14 +95,14 @@ require'nvim-treesitter.configs'.setup {
         swap = {
             enable = true,
             swap_next = {
-                ["ml"] = "@parameter.inner",
-                ["mj"] = "@statement.outer",
-                ["mn"] = "@function.outer",
+                ["gsl"] = "@parameter.inner",
+                ["gsj"] = "@statement.outer",
+                ["gsf"] = "@function.outer",
             },
             swap_previous = {
-                ["mh"] = "@parameter.inner",
-                ["mk"] = "@statement.outer",
-                ["mm"] = "@function.outer",
+                ["gsh"] = "@parameter.inner",
+                ["gsk"] = "@statement.outer",
+                ["gsb"] = "@function.outer",
             },
         },
         move = {
