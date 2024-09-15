@@ -22,13 +22,15 @@ curl -sSLf https://142857.red/files/nvimrc-install.sh | bash
 
 安装完成后，输入 `nvim` 即可使用，按 q 或 :wqa 即可退出。
 
-推荐为您的终端安装 [Nerd Font](https://www.cnblogs.com/zi-wang/p/12566898.html) 字体，然后设置环境变量 `export NERD_FONTS=1`，这样就可以显示文件类型图标了。
+如需更新，重新执行上面的一键安装命令即可。
+
+推荐为您的终端安装 [Nerd Font](https://www.cnblogs.com/zi-wang/p/12566898.html) 字体，然后运行命令 `:ArchVimConfig nerd_fonts=1`，这样就可以显示文件类型图标了。
 
 > 小彭老师用的是 JetBrainsMono Nerd Font Regular，字号 16，这是一款专为程序员打造的等宽字体。
 
 如需自己定制插件参数、移除不想要的插件或添加更多插件：可以编辑 `~/.config/nvim/lua/archvim/plugins.lua`，里面有全部的插件列表，删除或添加即可。
 
-如需更新，重新执行上面的一键安装命令即可。
+> 注意：删除或添加了新插件后，需要运行 `:PackerSync` 和 `:PackerCompile` 命令才能生效。
 
 ### 常见问题
 

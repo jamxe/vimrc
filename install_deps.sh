@@ -96,9 +96,12 @@ pcall() {
 ensure_pip() {
     python="$(which python3 || which python)"
     if ! $python -m pip --version 2> /dev/null; then
-        curl https://bootstrap.pypa.io/get-pip.py | $python
+        (curl --connect-timeout 8 https://bootstrap.pypa.io/get-pip.py | $python) || true
     fi
-    $python -m pip --version
+    if ! $python -m pip --version 2> /dev/null; then
+        pcall $python -m ensurepip
+    fi
+    pcall $python -m pip --version
 }
 
 install_pacman() {
