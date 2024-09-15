@@ -43,7 +43,7 @@ vim.keymap.set({"v", "n", "i"}, "<F6>", function ()
             return "<cmd>cc<CR>"
         end
     else
-        return "<cmd>copen<CR>"
+        return "<cmd>cc<CR>"
     end
 end, { noremap = true, expr = true })
 vim.keymap.set({"v", "n", "i"}, "<F18>", function ()
@@ -54,7 +54,7 @@ vim.keymap.set({"v", "n", "i"}, "<F18>", function ()
             return "<cmd>cc<CR>"
         end
     else
-        return "<cmd>copen<CR>"
+        return "<cmd>cc<CR>"
     end
 end, { noremap = true, expr = true })
 vim.keymap.set({"v", "n", "i", "t"}, "<F7>", "<cmd>NvimTreeFindFileToggle<CR>", { silent = true })
@@ -163,22 +163,11 @@ end)
 vim.keymap.set({'v', 'n'}, 'gn', function()
   return ":IncRename " .. vim.fn.expand("<cword>")
 end, { expr = true })
+vim.keymap.set({'v', 'n'}, 'gN', function()
+  return ":IncRename "
+end, { expr = true })
 vim.keymap.set({'n'}, '<S-Tab>', '<C-o>')
 vim.keymap.set({'i'}, '<C-Space>', '<Space>')
-
--- vim.cmd [[
--- augroup archvim_hold_highlight
---     autocmd CursorHoldI,CursorHold  <buffer> lua vim.lsp.buf.document_highlight()
---     autocmd CursorMoved             <buffer> lua vim.lsp.buf.clear_references()
--- augroup end
--- ]]
-
-vim.cmd [[
-augroup archvim_set_filetype
-    au! BufRead,BufNewFile *.cppm,*.ixx setfiletype cpp
-    au! BufRead,BufNewFile *.vert,*.frag,*.comp,*.geom,*.tess setfiletype glsl
-augroup end
-]]
 
 vim.keymap.set({'v', 'n'}, 'gp', ':GPT<Space>')
 vim.keymap.set({'v', 'n'}, 'gP', ':GPT!<Space>')
@@ -186,15 +175,34 @@ vim.keymap.set({'i'}, '<C-Space>', '<Cmd>GPT<CR>')
 vim.keymap.set({'i', 'n'}, '<C-t>', '<Cmd>-8,+8GPT refactor this code<CR>')
 vim.keymap.set({'v'}, '<C-t>', '<Cmd>GPT refactor this code<CR>')
 
-if os.getenv('LOOPCOMMAND') then
-    vim.keymap.set('n', 'R', '<Cmd>R<CR>')
-    vim.api.nvim_create_user_command("R", function ()
-        vim.cmd [[
-        sil! UpdateRemotePlugins
-        wall!
-        cquit!
-        ]]
-    end, { desc = 'Restart NeoVim' })
-end
+vim.cmd [[
+augroup quickfix_setlocal
+autocmd!
+autocmd FileType qf setlocal wrap
+\ | vnoremap <buffer> <F6> <cmd>cclose<CR>
+\ | nnoremap <buffer> <F6> <cmd>cclose<CR>
+\ | vnoremap <buffer> <F18> <cmd>cclose<CR>
+\ | nnoremap <buffer> <F18> <cmd>cclose<CR>
+\ | nnoremap <buffer> <Esc> <cmd>cclose<CR>
+augroup END
+]]
+
+vim.cmd [[
+augroup neogit_setlocal
+autocmd!
+autocmd FileType NeogitStatus nnoremap <buffer> <F10> <cmd>:q<CR>
+augroup END
+]]
+
+-- if os.getenv('LOOPCOMMAND') then
+--     vim.keymap.set('n', 'R', '<Cmd>R<CR>')
+--     vim.api.nvim_create_user_command("R", function ()
+--         vim.cmd [[
+--         sil! UpdateRemotePlugins
+--         wall!
+--         cquit!
+--         ]]
+--     end, { desc = 'Restart NeoVim' })
+-- end
 
 return vim.keymap.set

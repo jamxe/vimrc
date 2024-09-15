@@ -173,7 +173,7 @@ cmp.setup {
 
     -- 使用 lspkind-nvim 显示类型图标
     formatting = {
-        format = os.getenv("NERD_FONTS") and lspkind.cmp_format {
+        format = require'archvim.options'.nerd_fonts and lspkind.cmp_format {
             mode = 'symbol',
             maxwidth = 50,
             before = function(entry, vim_item)

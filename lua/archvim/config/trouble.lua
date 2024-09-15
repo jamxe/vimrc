@@ -1,5 +1,5 @@
 require'trouble'.setup {
-    icons = os.getenv('NERD_FONTS') ~= nil and {
+    icons = require'archvim.options'.nerd_fonts and {
         indent = {
             top           = "│ ",
             middle        = "├╴",
@@ -41,3 +41,10 @@ require'trouble'.setup {
         },
     },
 }
+
+vim.cmd [[
+augroup trouble_setlocal
+autocmd!
+autocmd FileType trouble setlocal wrap
+augroup END
+]]

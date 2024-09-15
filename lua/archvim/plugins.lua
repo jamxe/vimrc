@@ -10,11 +10,11 @@ local plugins = {
     {
         'nvim-tree/nvim-web-devicons',
         config = function()
-            if os.getenv('NERD_FONTS') ~= nil then
+            if require'archvim.options'.nerd_fonts then
                 require'nvim-tree.renderer.components.icons'.devicons = require "nvim-web-devicons"
             end
         end,
-        cond = function () return os.getenv('NERD_FONTS') ~= nil end,
+        cond = function () return require'archvim.options'.nerd_fonts end,
     },
 
     -- auto completions

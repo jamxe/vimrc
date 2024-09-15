@@ -1,4 +1,4 @@
-local plain = not os.getenv('NERD_FONTS')
+local plain = not require'archvim.options'.nerd_fonts
 
 require'bufferline'.setup {
     options = {
@@ -120,6 +120,6 @@ vim.keymap.set({"v", "n", "i"}, "<C-F15>", "<cmd>BufferLineCloseRight<CR>", { si
 -- ]]
 
 
-if not os.getenv("NERD_FONTS") then
+if not require'archvim.options'.nerd_fonts then
     require'bufferline.groups'.builtin.pinned.icon = '-'
 end

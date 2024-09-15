@@ -241,7 +241,7 @@ local encoding = {
 --     end,
 -- }
 
-if os.getenv('NERD_FONTS') then
+if require'archvim.options'.nerd_fonts then
     -- diagnostics.symbols = { error = icons.diagnostics.Error, warn = icons.diagnostics.Warning, info = icons.diagnostics.Information, hint = icons.diagnostics.Question }
     branch.icon = icons.git.Branch
     -- diff.symbols = { added = ' ', modified = ' ', removed = ' ' }
@@ -253,8 +253,8 @@ end
 require'lualine'.setup {
     options = {
         theme = 'auto',
-        component_separators = not os.getenv('NERD_FONTS') and '' or nil,
-        section_separators = not os.getenv('NERD_FONTS') and '' or nil,
+        component_separators = not require'archvim.options'.nerd_fonts and '' or nil,
+        section_separators = not require'archvim.options'.nerd_fonts and '' or nil,
     },
     sections = {
         lualine_a = {'mode'},

@@ -126,7 +126,7 @@ local icons = {
     },
 }
 
-if not os.getenv("NERD_FONTS") then
+if not require'archvim.options'.nerd_fonts then
     for k, v in pairs(icons) do
         for k1, v1 in pairs(v) do
             icons[k][k1] = k1

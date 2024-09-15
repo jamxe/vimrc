@@ -10,7 +10,7 @@ require "lsp_signature".setup({
     floating_window_off_y = 0,
     fix_pos = false,
     hint_enable = true,
-    hint_prefix = os.getenv("NERD_FONTS") and " " or "",
+    hint_prefix = require'archvim.options'.nerd_fonts and " " or "",
     hint_scheme = "Comment",
     hi_parameter = "LspSignatureActiveParameter",
     debug = false,

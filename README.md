@@ -24,7 +24,7 @@ curl -sSLf https://142857.red/files/nvimrc-install.sh | bash
 
 如需更新，重新执行上面的一键安装命令即可。
 
-推荐为您的终端安装 [Nerd Font](https://www.cnblogs.com/zi-wang/p/12566898.html) 字体，然后运行命令 `:ArchVimConfig nerd_fonts=1`，这样就可以显示文件类型图标了。
+推荐为您的终端安装 [Nerd Font](https://www.cnblogs.com/zi-wang/p/12566898.html) 字体，并把终端设置为该字体。然后在 `nvim` 中输入 `:lua require'archvim.options'.nerd_fonts = true`，这样就可以显示文件类型图标了。
 
 > 小彭老师用的是 JetBrainsMono Nerd Font Regular，字号 16，这是一款专为程序员打造的等宽字体。
 
@@ -44,7 +44,7 @@ curl -sSLf https://142857.red/files/nvimrc-install.sh | bash
 - A: 修改 [`~/.config/nvim/lua/archvim/config/tree-sitter.lua`](lua/archvim/config/tree-sitter.lua) 中的 `ensure_installed` 字段即可。
 
 - Q: 出现乱码，无法正确显示符号？
-- A: 安装 [Nerd Font](https://www.cnblogs.com/zi-wang/p/12566898.html) 字体，并把终端设置为该字体，然后运行 `echo export NERD_FONTS=1 >> ~/.bashrc && source ~/.bashrc`，这样以后就可以显示文件类型图标了。
+- A: 安装 [Nerd Font](https://www.cnblogs.com/zi-wang/p/12566898.html) 字体，并把终端设置为该字体。然后在 `nvim` 中输入 `:lua require'archvim.options'.nerd_fonts = true`，重启，这样以后就可以正确显示文件类型图标了。如果不喜欢，那就 `:lua require'archvim.options'.nerd_fonts = false` 关闭。
 
 - Q: 编辑 C/C++ 源码时不识别头文件目录，“飙红线”，怎么办？
 - A: 要么在 NeoVim 中用 `:CMakeGenerate` 命令，要么给 `cmake` 指定 `-DCMAKE_EXPORT_COMPILE_COMMANDS=ON` 参数，详见下方的 “C/C++/CMake 配置” 章节。

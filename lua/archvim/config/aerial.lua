@@ -5,7 +5,7 @@ require("aerial").setup({
     --     -- vim.keymap.set("n", "{", "<cmd>AerialPrev<CR>", { buffer = bufnr })
     --     -- vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr })
     -- end,
-    nerd_font = os.getenv('NERD_FONTS') ~= nil and "auto" or false,
+    nerd_font = require'archvim.options'.nerd_fonts and "auto" or false,
     layout = {
         max_width = { 40, 0.25 },
         min_width = 16,
