@@ -42,23 +42,38 @@ payload="$cache"/archvim-release.tar.gz
 script="$cache"/nvimrc-install.sh
 # https://stackoverflow.com/questions/29418050/package-tar-gz-into-a-shell-script
 printf "#!/bin/bash
+tee --version > /dev/null 2> /dev/null && TEE=(tee /tmp/archvim.log) || TEE=cat
+(bash | \${TEE[@]}) << __ARCHVIM_SCRIPT_EOF__
 set -e
 echo '-- Welcome to the ArchVim installation script'
+echo '-- 欢迎使用小彭老师 ArchVim 一键安装脚本'
 sudo --version > /dev/null 2> /dev/null && SUDO=sudo || SUDO=
 base64 --version > /dev/null
 tar --version > /dev/null
-rm -rf /tmp/_extract_.\$\$ /tmp/_extract_.\$\$.tar
-mkdir -p /tmp/_extract_.\$\$
+mktemp --version > /dev/null
+cat --version > /dev/null
+tee --version > /dev/null
+rm --version > /dev/null
+mkdir --version > /dev/null
+test --version > /dev/null
+cp --version > /dev/null
+mv --version > /dev/null
+stat --version > /dev/null
+which --version > /dev/null
+tmpdir=\"\$(mktemp -d)\"
+tmptgz=\"\$(mktemp)\"
+rm -rf \$tmpdir
+mkdir -p \$tmpdir
 echo '-- Fetching bundled data...'
 echo '-- 正在下载插件包，请稍等...'
-cat > /tmp/_extract_.\$\$.tar.gz.b64 << __VIMRC_PAYLOAD_EOF__\n" > "$script"
+cat > \$tmptgz << __ARCHVIM_PAYLOAD_EOF__\n" > "$script"
 
 base64 "$payload" >> "$script"
 
-printf "\n__VIMRC_PAYLOAD_EOF__
-cd /tmp/_extract_.\$\$
+printf "\n__ARCHVIM_PAYLOAD_EOF__
+cd \$tmpdir
 echo '-- Extracting bundled data...'
-base64 -d < /tmp/_extract_.\$\$.tar.gz.b64 | tar -zx
+base64 -d < \$tmptgz | tar -zx
 test -f ./install_deps.sh || echo \"ERROR: cannot extract file, make sure you have base64 and tar working\"
 fix_nvim_appimage() {
     \$SUDO mv /usr/bin/nvim /usr/bin/.nvim.appimage.noextract
@@ -108,21 +123,38 @@ if [ ! -f ~/.clang-format ]; then
     ln -sf ~/.config/nvim/dotfiles/.clang-format ~/.clang-format
 fi
 echo '-- Finishing installation...'
-rm -rf /tmp/_extract_.\$\$ /tmp/_extract_.\$\$.tar.gz.b64
+rm -rf \$tmpdir \$tmptgz
 echo
 echo \"--\"
 echo \"--\"
-echo \"-- There might be some error generated above, please ignore, that doesn't effect use!\"
-echo \"-- Ignore these error messages, as soon as you see this message, your nvim is fine.\"
+echo \"-- There might be some errors or warnings generated above, that doesn't effect use!\"
+echo \"-- Ignore these messages, as long as you can start nvim, your installation is done.\"
 echo \"-- All OK, ArchVim plugins installed into ~/.config/nvim, now run 'nvim' to play.\"
+echo \"-- run into any trouble? Feel free to contact me via the GitHub link below.\"
+echo \"-- https://github.com/archibate/vimrc/issues\"
+echo \"--\"
 echo \"-- To update, just download this script again and run.\"
+echo \"-- To uninstall, just remove the ~/.config/nvim directory.\"
+if [ -f ~/.config/.nvim.backup.\$\$ ]; then
+    echo \"-- Need your old nvim config back? We've backup that: ~/.config/nvim.backup.\$\$.\"
+fi
+echo \"--\"
 echo \"-- You may run :checkhealth to check if Neovim is working well.\"
-echo \"-- You may run :Mason to check for installed language supports.\"
-echo \"-- 上面可能会有许多报错，请忽略，这对正常使用没有任何影响！\"
-echo \"-- 只要你看到这句话，就说明你的 NeoVim 就已经安装完成，现在你可以运行 'nvim' 了。\"
-echo \"-- 如需更新，只需重新下载并运行这个脚本。\"
+echo \"-- You may run :Mason or :TSInstallInfo to check for installed language supports.\"
+echo \"--\"
+echo \"--\"
+echo \"-- 上面有时可能会有一些报错和警告，请忽略，这对正常使用没有任何影响！\"
+echo \"-- 只要你能启动 'nvim' 且无报错弹窗，就说明你的 NeoVim 就已经安装成功。\"
+echo \"-- 欢迎向我反馈各种问题和建议：https://github.com/archibate/vimrc/issues\"
+echo \"--\"
+echo \"-- 如需更新，只需重新下载这个脚本并运行即可，会自动覆盖老的版本。\"
+echo \"-- 如需卸载本插件包，只需删除 ~/.config/nvim 文件夹\"
+if [ -f ~/.config/.nvim.backup.\$\$ ]; then
+    echo \"-- 想恢复旧配置？把本脚本自动备份的 ~/.config/.nvim.backup.\$\$ 移动回 ~/.config/nvim 即可\"
+fi
+echo \"--\"
 echo \"-- 你可以运行 :checkhealth 来检查 NeoVim 是否工作正常。\"
-echo \"-- 也可以运行 :Mason 来检查安装了哪些语言支持。\"
+echo \"-- 也可以运行 :Mason 和 :TSInstallInfo 检查本脚本为您安装了哪些语言支持。\"
 \n" >> "$script"
 
 rm "$payload"

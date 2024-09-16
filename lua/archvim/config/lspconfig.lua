@@ -8,7 +8,35 @@ local function pyright_on_attach(client, bufnr)
     end
 
     if client.name == "pyright" then
-        vim.api.nvim_create_user_command("PyrightOrganizeImports", organize_imports, {desc = 'Organize Imports'})
+        vim.api.nvim_create_user_command("PyrightOrganizeImports",
+            organize_imports, {desc = 'Organize Imports'})
+    end
+end
+
+(function()
+    local old_notify = rawget(vim, 'notify')
+    rawset(vim, 'notify', function(msg, ...)
+        if msg:match([[{ "Corresponding file cannot be determined" }]]) then
+            vim.cmd[[Ouroboros]]
+            return
+        end
+
+        old_notify(msg, ...)
+    end)
+end)()
+
+local function clangd_on_attach(client, bufnr)
+    local function switch_source_header()
+        local params = {
+            command = 'textDocument/switchSourceHeader',
+            arguments = { vim.uri_from_bufnr(0) },
+        }
+        vim.lsp.buf.execute_command(params)
+    end
+
+    if client.name == "clangd" then
+        vim.api.nvim_create_user_command("ClangdSwitchSourceHeader",
+            switch_source_header, {desc = 'Switch Source Header'})
     end
 end
 
@@ -20,6 +48,7 @@ require'lspconfig'.cmake.setup{}
 -- require'lspconfig'.rust_analyzer.setup{}
 
 require('lspconfig').clangd.setup{
+    on_attach = clangd_on_attach,
     on_new_config = function(new_config, new_cwd)
         local status, cmake = pcall(require, "cmake-tools")
         if status then
