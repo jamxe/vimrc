@@ -1,4 +1,4 @@
-if require'archvim.options'.enable_notify then
+if not require'archvim.options'.disable_notify then
     vim.notify = require('notify')
     vim.notify.setup {
         background_colour = "#000000",
