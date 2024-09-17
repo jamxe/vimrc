@@ -53,7 +53,7 @@ augroup end
 
 vim.lsp.set_log_level("off")
 
-local opts = {
+local default_opts = {
     nerd_fonts = true,
     disable_notify = true,
     transparent_color = true,
@@ -62,19 +62,7 @@ local opts = {
     enable_inlay_hint = true,
 }
 
-local function save_opts()
-    local data_path = vim.fn.stdpath('data') .. '/archvim'
-    if not vim.fn.isdirectory(data_path) then
-        vim.fn.mkdir(data_path, 'p')
-    end
-    local file_name = data_path .. '/opts.json'
-    local file = io.open(file_name, 'w')
-    assert(file, string.format("cannot open file '%s' for write", file_name))
-    file:write(vim.fn.json_encode(opts))
-    file:close()
-end
-
-local function load_opts()
+(function()
     local data_path = vim.fn.stdpath('data') .. '/archvim'
     local file_name = data_path .. '/opts.json'
     local file = io.open(file_name, 'r')
@@ -84,20 +72,30 @@ local function load_opts()
         local ok, result = pcall(vim.fn.json_decode, content)
         if ok then
             for k, v in pairs(result) do
-                opts[k] = v
+                default_opts[k] = v
             end
         end
     end
-end
+end)()
 
-load_opts()
-
-return setmetatable(opts, {
-    __newindex = function (t, k, v)
-        rawset(t, k, v)
-        save_opts()
+return setmetatable({}, {
+    __newindex = function (opts, k, v)
+        rawset(opts, k, v)
+        local data_path = vim.fn.stdpath('data') .. '/archvim'
+        if vim.fn.isdirectory(data_path) ~= 1 then
+            vim.fn.mkdir(data_path, 'p')
+        end
+        local file_name = data_path .. '/opts.json'
+        local file = io.open(file_name, 'w')
+        assert(file, string.format("cannot open file '%s' for write", file_name))
+        file:write(vim.fn.json_encode(opts))
+        file:close()
     end,
-    __index = function (t, k)
-        return rawget(t, k)
+    __index = function (opts, k)
+        local v = rawget(opts, k)
+        if v == nil then
+            v = default_opts[k]
+        end
+        return v
     end,
 })
