@@ -183,7 +183,20 @@ vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>")
 vim.keymap.set("n", "gD", function()
     vim.lsp.buf.declaration()
 end)
+-- 开关静态分析错误列表
 vim.keymap.set("n", "gsd", "<cmd>Trouble diagnostics toggle<CR>")
+-- 开关编译器报错列表
+vim.keymap.set("n", "gsq", "<cmd>Trouble qflist toggle<CR>")
+-- 开关 Inlay Hint
+vim.keymap.set("n", "gsi", function()
+        if vim.lsp.inlay_hint ~= nil then
+            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+        end
+end)
+-- 开关项目文件树
+vim.keymap.set({"v", "n", "i", "t"}, "gst", "<cmd>NvimTreeFindFileToggle<CR>", { silent = true })
+-- 开关大纲视图
+vim.keymap.set("n", "gso", "<cmd>AerialToggle!<CR>")
 -- 查找类型定义
 vim.keymap.set("n", "gy", "<cmd>Telescope lsp_type_definitions<CR>")
 -- 查找所有引用

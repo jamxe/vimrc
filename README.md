@@ -2,6 +2,8 @@
 
 本整合包内含大量实用插件，包括智能补全、语法高亮、错误提示、快速跳转、全局搜索、集成终端、文件浏览、Git 支持等。且安装方便，小彭老师自用同款，纯 Lua 配置，是您基于 NeoVim 的 IDE 不二之选。
 
+![图片演示](cover.png)
+
 ## 一键安装（推荐）
 
 无需克隆本仓库，直接在命令行中输入以下命令即可安装：
@@ -48,6 +50,9 @@ curl -sSLf https://142857.red/files/nvimrc-install.sh | bash
 
 - Q: 打开 C/C++ 源码时不识别头文件目录，“飙红线”，怎么办？
 - A: 请先在 NeoVim 中用 `:CMakeGenerate` 命令配置项目！否则无法识别你 CMake 里的编译选项。如果一定要命令行构建，请给 `cmake` 指定 `-DCMAKE_EXPORT_COMPILE_COMMANDS=ON` 参数，这样 C++ 补全才能正常工作，详见下方的 “C/C++/CMake 配置” 章节。
+
+- Q: Inlay Hint 太烦太挡视线了！能否关闭？
+- A: `:lua require'archvim.options'.enable_inlay_hint = false`，重启，即可永久关闭。如需暂时开启和关闭，可以用 `gsi` 快捷键。
 
 - Q: 支持（非 Neo 的）Vim 吗？
 - A: 本分支只有 NeoVim 配置，对于来自 BV1H44y1V7DW 视频想领取老版 Vim 插件的同学，请移步 [main 分支](https://github.com/archibate/vimrc/tree/main)。
@@ -118,8 +123,11 @@ curl -sSLf https://142857.red/files/nvimrc-install.sh | bash
 - `K` 悬浮窗查看文档
 - `gsf` 预览函数定义
 - `gsc` 预览类定义
-- `gsd` 查看所有语法错误
-- `<C-w>d` 查看当前光标下的语法错误
+- `gso` 打开大纲
+- `gst` 打开项目文件树
+- `gsd` 查看所有静态检查语法错误
+- `gsq` 查看所有编译器报错
+- `gsi` 开关 Inlay Hint
 
 **标签页**
 

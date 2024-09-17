@@ -93,6 +93,34 @@ local function setup_lsp(event)
             end,
         })
 
+        vim.api.nvim_create_autocmd({'CursorMoved', 'CursorMovedI'}, {
+            group = group,
+            buffer = event.buf,
+            callback = vim.lsp.buf.clear_references,
+        })
+    end
+
+    vim.api.nvim_create_autocmd({"CursorHold"}, {
+        callback = function()
+            for _, winid in pairs(vim.api.nvim_tabpage_list_wins(0)) do
+                if vim.api.nvim_win_get_config(winid).zindex then
+                    return
+                end
+            end
+            vim.diagnostic.open_float({
+                scope = "cursor",
+                focusable = false,
+                close_events = {
+                    "CursorMoved",
+                    "CursorMovedI",
+                    "BufHidden",
+                    "InsertCharPre",
+                    "WinLeave",
+                },
+            })
+        end,
+    })
+
         if vim.lsp.buf.signature_help ~= nil and require'archvim.options'.enable_signature_help then
             vim.api.nvim_create_autocmd({'CursorHoldI'}, {
                 group = group,
@@ -102,13 +130,6 @@ local function setup_lsp(event)
                 end
             })
         end
-
-        vim.api.nvim_create_autocmd({'CursorMoved', 'CursorMovedI'}, {
-            group = group,
-            buffer = event.buf,
-            callback = vim.lsp.buf.clear_references,
-        })
-    end
 end
 
 vim.api.nvim_create_autocmd('LspAttach', {
