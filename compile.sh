@@ -259,6 +259,7 @@ echo \"-- run into any trouble? Feel free to contact me via the GitHub link belo
 echo \"-- https://github.com/archibate/vimrc/issues\"
 echo \"--\"
 echo \"-- To update, just download this script again and run.\"
+echo \"-- If you manually added any plugins, run :PackerSync and :PackerCompile to apply.\"
 echo \"-- To uninstall, just remove the ~/.config/nvim directory.\"
 if [ -f ~/.config/.nvim.backup.\$\$ ]; then
     echo \"-- Need your old nvim config back? We've backup that: ~/.config/nvim.backup.\$\$.\"
@@ -273,6 +274,7 @@ echo \"-- 只要你能启动 'nvim' 且无报错弹窗，就说明你的 NeoVim 
 echo \"-- 欢迎向我反馈各种问题和建议：https://github.com/archibate/vimrc/issues\"
 echo \"--\"
 echo \"-- 如需更新，只需重新下载这个脚本并运行即可，会自动覆盖老的版本。\"
+echo \"-- 如果手动添加了新插件，记得 :PackerSync 和 :PackerCompile 才能生效。\"
 echo \"-- 如需卸载本插件包，只需删除 ~/.config/nvim 文件夹\"
 if [ -f ~/.config/.nvim.backup.\$\$ ]; then
     echo \"-- 想恢复旧配置？把本脚本自动备份的 ~/.config/.nvim.backup.\$\$ 移动回 ~/.config/nvim 即可\"
