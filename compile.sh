@@ -135,10 +135,15 @@ echo
 mkdir -p ~/.local/share/nvim/archvim
 echo \"-- Configuring ~/.local/share/nvim/archvim/opts.json\"
 
+echo
+echo \"=================================\"
+echo \"现在开始为您的个性化定制，如果不确定，可以一路按 ENTER 下去\"
+
 key=nerd_fonts
 val=true
 quest_en='Did your terminal shows this symbols correctly?  (clock symbol)'
 quest_zh='您的终端是否能正常显示此字符？ （应为时钟符号）'
+echo
 echo \"=================================\"
 echo
 echo \"==> \$quest_en\"
@@ -163,7 +168,7 @@ if ! \$val; then
     read -n1 x 2> /dev/null || read x || x=n
     if [ \"x\$x\" == \"xy\" ]; then
         olddir=\"\$PWD\"
-        if curl -L -o ~/.local/share/fonts/JetBrainsMono.zip https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.1/JetBrainsMono.zip && (cd ~/.local/share/fonts && unzip JetBrainsMono.zip && rm JetBrainsMono.zip) && fc-cache -fv; then
+        if (curl --connect-timeout 5 -L -o ~/.local/share/fonts/JetBrainsMono.zip https://ghproxy.net/https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.1/JetBrainsMono.zip || curl --connect-timeout 5 -L -o ~/.local/share/fonts/JetBrainsMono.zip https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.1/JetBrainsMono.zip) && (cd ~/.local/share/fonts && unzip JetBrainsMono.zip && rm JetBrainsMono.zip) && fc-cache -fv; then
             nvim --headless -c \"lua require'archvim.options'.\$key = true\" -c 'sleep 1 | q!' || true
             echo \"Installed Nerd Fonts for you. Now please goto the terminal settings and select 'JetBrainMono Nerd Fonts' for font, so that it can effect.\"
             echo \"已为您安装 Nerd Fonts，您还需要在终端设置中选择 “JetBrainMono Nerd Fonts“ 字体才能生效。\"
@@ -182,6 +187,7 @@ key=disable_notify
 val=true
 quest_en='Do you need to use this NeoVim in remote connection (SSH)?'
 quest_zh='您是否需要在远程连接（SSH）中使用此 NeoVim？'
+echo
 echo \"=================================\"
 echo
 echo \"==> \$quest_en\"
@@ -195,6 +201,7 @@ key=transparent_color
 val=true
 quest_en='Did you set any background image for the terminal?'
 quest_zh='您是否为终端设定了背景贴图（例如二次元壁纸）？'
+echo
 echo \"=================================\"
 echo
 echo \"==> \$quest_en\"
@@ -208,6 +215,7 @@ key=enable_inlay_hint
 val=true
 quest_en='Would you like to enable inlay hints?'
 quest_zh='您是否希望开启 Inlay Hint 提示？'
+echo
 echo \"=================================\"
 echo
 echo \"Inlay Hint:     add(a: 1, b: 2)\"
@@ -223,8 +231,11 @@ read -n1 x 2> /dev/null || read x || x=y
 if [ \"x\$x\" == \"xn\" ]; then val=false; else val=true; fi
 nvim --headless -c \"lua require'archvim.options'.\$key = \$val\" -c 'sleep 1 | q!'
 
+echo
+echo \"--\"
 echo \"-- You may always edit these settings later in: ~/.local/share/nvim/archvim/opts.json\"
 echo \"-- 您以后可以随时修改这些设置：~/.local/share/nvim/archvim/opts.json\"
+echo \"--\"
 
 echo
 echo \"--\"
