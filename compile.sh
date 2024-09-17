@@ -42,8 +42,8 @@ payload="$cache"/archvim-release.tar.gz
 script="$cache"/nvimrc-install.sh
 # https://stackoverflow.com/questions/29418050/package-tar-gz-into-a-shell-script
 printf "#!/bin/bash
-which tee > /dev/null 2> /dev/null && TEE=(tee /tmp/archvim.log) || TEE=cat
-(bash | \${TEE[@]}) << __ARCHVIM_SCRIPT_EOF__
+# which tee > /dev/null 2> /dev/null && TEE=(tee /tmp/archvim.log) || TEE=cat
+# (bash | \${TEE[@]}) << __ARCHVIM_SCRIPT_EOF__
 set -e
 echo '-- Welcome to the ArchVim installation script'
 echo '-- 欢迎使用小彭老师 ArchVim 一键安装脚本'
