@@ -29,11 +29,11 @@ require("cmake-tools").setup {
         opts = {}, -- the options the executor will get, possible values depend on the executor type. See `default_opts` for possible values.
         default_opts = { -- a list of default and possible values for executors
             quickfix = {
-                show = "always", -- "always", "only_on_error"
+                show = "only_on_error", -- "always", "only_on_error"
                 position = "botright", -- "bottom", "top", "belowright"
                 size = 10,
                 encoding = "utf-8",
-                auto_close_when_success = true, -- typically, you can use it with the "always" option; it will auto-close the quickfix buffer if the execution is successful.
+                auto_close_when_success = false, -- typically, you can use it with the "always" option; it will auto-close the quickfix buffer if the execution is successful.
             },
             toggleterm = {
                 direction = "horizontal", -- 'vertical' | 'horizontal' | 'tab' | 'float'

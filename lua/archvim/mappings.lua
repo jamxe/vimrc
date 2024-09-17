@@ -49,28 +49,34 @@ vim.keymap.set({"v", "n"}, "gl", "(v:count == 0 || v:count == 1 ? '^$' : '^$' . 
 vim.keymap.set({"v", "n"}, "gm", "gM", { noremap = true })
 vim.keymap.set({"v", "n"}, "gM", "gm", { noremap = true })
 vim.keymap.set({"v", "n", "i"}, "<F4>", "<cmd>wa<CR>")
-vim.keymap.set({"v", "n", "i"}, "<F6>", function ()
-    if is_quickfix_open() then
-        if get_current_quickfix_entry() then
-            return "<cmd>cn<CR>"
-        else
-            return "<cmd>cc<CR>"
-        end
-    else
-        return "<cmd>cc<CR>"
-    end
-end, { noremap = true, expr = true })
-vim.keymap.set({"v", "n", "i"}, "<F18>", function ()
-    if is_quickfix_open() then
-        if get_current_quickfix_entry() then
-            return "<cmd>cp<CR>"
-        else
-            return "<cmd>cc<CR>"
-        end
-    else
-        return "<cmd>cc<CR>"
-    end
-end, { noremap = true, expr = true })
+vim.keymap.set({"v", "n", "i"}, "<F6>", "<cmd>cclose | Trouble qflist toggle<CR>")
+vim.keymap.set({"v", "n", "i"}, "<F18>", "<cmd>copen<CR>")
+-- vim.keymap.set({"v", "n", "i"}, "<F6>", function ()
+--     if is_quickfix_open() then
+--         return "<cmd>cclose<CR>"
+--         -- if get_current_quickfix_entry() then
+--         --     return "<cmd>cn<CR>"
+--         -- else
+--         --     return "<cmd>cc<CR>"
+--         -- end
+--     else
+--         -- return "<cmd>cc<CR>"
+--         return "<cmd>copen<CR>"
+--     end
+-- end, { noremap = true, expr = true })
+-- -- vim.keymap.set({"v", "n", "i"}, "<F18>", function ()
+-- --     if is_quickfix_open() then
+-- --         return "<cmd>cclose<CR>"
+-- --         -- if get_current_quickfix_entry() then
+-- --         --     return "<cmd>cp<CR>"
+-- --         -- else
+-- --         --     return "<cmd>cclose<CR>"
+-- --         -- end
+-- --     else
+-- --         -- return "<cmd>cc<CR>"
+-- --         return "<cmd>copen<CR>"
+-- --     end
+-- -- end, { noremap = true, expr = true })
 vim.keymap.set({"v", "n", "i", "t"}, "<F7>", "<cmd>NvimTreeFindFileToggle<CR>", { silent = true })
 vim.keymap.set({"v", "n", "i", "t"}, "<F9>", "<cmd>Trouble diagnostics toggle focus=false<CR>", { silent = true })
 vim.keymap.set({"v", "n", "i", "t"}, "<F21>", "<cmd>Trouble diagnostics toggle focus=false filter.buf=0<CR>", { silent = true })
@@ -184,9 +190,25 @@ vim.keymap.set("n", "gD", function()
     vim.lsp.buf.declaration()
 end)
 -- 开关静态分析错误列表
-vim.keymap.set("n", "gsd", "<cmd>Trouble diagnostics toggle<CR>")
+vim.keymap.set("n", "gss", "<cmd>Trouble diagnostics toggle<CR>")
 -- 开关编译器报错列表
-vim.keymap.set("n", "gsq", "<cmd>Trouble qflist toggle<CR>")
+vim.keymap.set("n", "gsl", "<cmd>cclose | Trouble qflist toggle<CR>")
+-- 当前光标下的静态分析错误
+vim.keymap.set("n", "gsd", function()
+    vim.diagnostic.open_float({
+        scope = "cursor",
+        focusable = false,
+        close_events = {
+            "CursorMoved",
+            "CursorMovedI",
+            "BufHidden",
+            "InsertCharPre",
+            "WinLeave",
+            "BufEnter",
+            "BufLeave",
+        },
+    })
+end)
 -- 开关 Inlay Hint
 vim.keymap.set("n", "gsi", function()
         if vim.lsp.inlay_hint ~= nil then

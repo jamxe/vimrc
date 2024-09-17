@@ -125,8 +125,9 @@ curl -sSLf https://142857.red/files/nvimrc-install.sh | bash
 - `gsc` 预览类定义
 - `gso` 打开大纲
 - `gst` 打开项目文件树
-- `gsd` 查看所有静态检查语法错误
-- `gsq` 查看所有编译器报错
+- `gsd` 查看当前光标下的静态语法错误
+- `gss` 查看所有静态语法错误
+- `gsl` 查看所有编译器报错
 - `gsi` 开关 Inlay Hint
 
 **标签页**
