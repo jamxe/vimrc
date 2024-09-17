@@ -71,12 +71,3 @@ vim.keymap.set("n", "<leader>a", "<cmd>Telescope diagnostics<CR>")
 vim.keymap.set("n", "<leader>q", "<cmd>Telescope quickfix<CR>")
 -- 查看所有 Vim 通知
 vim.keymap.set("n", "<leader>n", "<cmd>Telescope notify<CR>")
-
--- 查找符号定义（LSP）
-vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>")
--- 查找类型定义（LSP）
-vim.keymap.set("n", "gy", "<cmd>Telescope lsp_type_definitions<CR>")
--- 查找所有引用（LSP）
-vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>")
--- 查找函数实现（LSP）
-vim.keymap.set("n", "gD", "<cmd>Telescope lsp_implementations<CR>")

@@ -105,9 +105,6 @@ vim.keymap.set({'v', 'n', 'i', 't'}, '<Ins>', [[<Cmd>ZenMode<CR>]])
 -- vim.keymap.set({"v", "n"}, "go", "<cmd>Ouroboros<CR>", { silent = true })
 -- vim.keymap.set({"v", "n"}, "gO", "<cmd>split | Ouroboros<CR>", { silent = true })
 -- vim.keymap.set({"v", "n"}, "g<C-o>", "<cmd>vsplit | Ouroboros<CR>", { silent = true })
-vim.keymap.set({"v", "n"}, "go", "<cmd>ClangdSwitchSourceHeader<CR>", { silent = true })
-vim.keymap.set({"v", "n"}, "gO", "<cmd>split | ClangdSwitchSourceHeader<CR>", { silent = true })
-vim.keymap.set({"v", "n"}, "g<C-o>", "<cmd>vsplit | ClangdSwitchSourceHeader<CR>", { silent = true })
 -- vim.keymap.set({"v", "n", "i"}, "<F10>", "<cmd>Neoformat<CR>", { silent = true })
 -- vim.keymap.set("n", "Q", "<cmd>wa<CR><cmd>qa!<CR>", { silent = true })
 
@@ -151,35 +148,57 @@ vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], { noremap = true })
 -- vim.keymap.set('t', [[<Esc>]], [[<Esc>]], { noremap = true })
 -- vim.keymap.set('t', [[jk]], [[<C-\><C-n>]], opts)
 
-vim.keymap.set({'v', 'n'}, '<F16>', function ()
+-- 格式化代码
+vim.keymap.set({'v'}, 'g=', [[<Cmd>Neoformat<CR>]])
+vim.keymap.set({'n'}, 'g=', function ()
     vim.lsp.buf.format()
 end)
-
+vim.keymap.set({'v', 'n', 'i'}, '<F16>', function()
+    vim.lsp.buf.format()
+end)
+-- 查看文档
 vim.keymap.set({'v', 'n'}, 'K', function ()
     vim.lsp.buf.hover()
 end)
-
+-- 函数签名
 vim.keymap.set({'v', 'n'}, 'gK', function ()
     vim.lsp.buf.signature_help()
 end)
-
+-- 代码修复
 vim.keymap.set({'v', 'n'}, 'gw', function ()
     vim.lsp.buf.code_action({
-        -- context = {
-        --     only = {
-        --         "source",
-        --     },
-        --     diagnostics = {},
-        -- },
         apply = true,
     })
 end)
+-- 重命名变量
 vim.keymap.set({'v', 'n'}, 'gn', function()
   return ":IncRename " .. vim.fn.expand("<cword>")
 end, { expr = true })
 vim.keymap.set({'v', 'n'}, 'gN', function()
   return ":IncRename "
 end, { expr = true })
+-- 查找符号定义
+vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>")
+-- 查找符号声明
+vim.keymap.set("n", "gD", function()
+    vim.lsp.buf.declaration()
+end)
+vim.keymap.set("n", "gsd", "<cmd>Trouble diagnostics toggle<CR>")
+-- 查找类型定义
+vim.keymap.set("n", "gy", "<cmd>Telescope lsp_type_definitions<CR>")
+-- 查找所有引用
+vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>")
+-- 查找函数实现
+vim.keymap.set("n", "gY", "<cmd>Telescope lsp_implementations<CR>")
+-- 查看全部
+vim.keymap.set("n", "gz", "<cmd>Trouble lsp toggle<CR>")
+-- 头文件/源文件跳转
+vim.keymap.set({"v", "n"}, "go", "<cmd>ClangdSwitchSourceHeader<CR>", { silent = true })
+vim.keymap.set({"v", "n"}, "gO", "<cmd>split | ClangdSwitchSourceHeader<CR>", { silent = true })
+vim.keymap.set({"v", "n"}, "g<C-o>", "<cmd>vsplit | ClangdSwitchSourceHeader<CR>", { silent = true })
+
+
+
 vim.keymap.set({'n'}, '<S-Tab>', '<C-o>')
 vim.keymap.set({'i'}, '<C-Space>', '<Space>')
 

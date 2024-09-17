@@ -12,7 +12,7 @@ curl -sSLf https://142857.red/files/nvimrc-install.sh | bash
 
 如果安装遇到问题，欢迎通过 [GitHub issue](github.com/archibate/vimrc/issues) 反映，我会尽快帮您解决。
 
-* 目前只支持 Linux 系统，暂时不支持 MacOS 等系统。
+* 目前只支持 Linux 和 MacOS 系统，暂不支持 Wendous 系统。
 * 请勿以 root 身份运行！否则会为 root 安装 nvim 插件而不是当前用户，插件安装后仅对当前用户有效。
 * 您的系统中无需事先安装有 nvim，本整合包内部已经自带了最新版 nvim 的 AppImage，可无依赖直接运行。
 * 无需连接 GitHub，所有插件全部已经预下载在整合包内部，无需 GitHub 加速器！
@@ -20,7 +20,7 @@ curl -sSLf https://142857.red/files/nvimrc-install.sh | bash
 * 为了能够使用补全，会为您安装如 clangd 一类的包，但即使其中一个安装失败，也不影响其他语言和编辑器整体的使用。
 * 安装脚本运行中可能产生一些冗余错误信息，属于正常现象，不影响使用，请忽视他们。
 
-安装完成后，输入 `nvim` 即可使用，按 q 或 :wqa 即可退出。
+安装完成后，输入 `nvim` 即可使用，按 `q` 或 `:wqa` 即可退出。
 
 如需更新，重新执行上面的一键安装命令即可。
 
@@ -46,8 +46,8 @@ curl -sSLf https://142857.red/files/nvimrc-install.sh | bash
 - Q: 出现乱码，无法正确显示符号？
 - A: 安装 [Nerd Font](https://www.cnblogs.com/zi-wang/p/12566898.html) 字体，并把终端设置为该字体。然后在 `nvim` 中输入 `:lua require'archvim.options'.nerd_fonts = true`，重启，这样以后就可以正确显示文件类型图标了。如果不喜欢，那就 `:lua require'archvim.options'.nerd_fonts = false` 关闭。
 
-- Q: 编辑 C/C++ 源码时不识别头文件目录，“飙红线”，怎么办？
-- A: 要么在 NeoVim 中用 `:CMakeGenerate` 命令，要么给 `cmake` 指定 `-DCMAKE_EXPORT_COMPILE_COMMANDS=ON` 参数，详见下方的 “C/C++/CMake 配置” 章节。
+- Q: 打开 C/C++ 源码时不识别头文件目录，“飙红线”，怎么办？
+- A: 请先在 NeoVim 中用 `:CMakeGenerate` 命令配置项目！否则无法识别你 CMake 里的编译选项。如果一定要命令行构建，请给 `cmake` 指定 `-DCMAKE_EXPORT_COMPILE_COMMANDS=ON` 参数，这样 C++ 补全才能正常工作，详见下方的 “C/C++/CMake 配置” 章节。
 
 - Q: 支持（非 Neo 的）Vim 吗？
 - A: 本分支只有 NeoVim 配置，对于来自 BV1H44y1V7DW 视频想领取老版 Vim 插件的同学，请移步 [main 分支](https://github.com/archibate/vimrc/tree/main)。
@@ -64,7 +64,7 @@ curl -sSLf https://142857.red/files/nvimrc-install.sh | bash
 - OpenSUSE (感谢 @sleeplessai 大佬)
 - CentOS (感谢 @xxy-im 大佬)
 - Deepin (感谢 @zhangasia 大佬)
-- MacOS (感谢 @YangZ2020 测试)
+- MacOS (感谢 @YangZ2020 测试确认)
 
 ## 开始上手
 
@@ -92,16 +92,34 @@ curl -sSLf https://142857.red/files/nvimrc-install.sh | bash
 **跳转**
 
 - `gd` 跳转到定义
+- `gD` 跳转到声明
 - `gy` 跳转到变量类型的定义
-- `gD` 跳转到虚函数实现
+- `gY` 跳转到虚函数实现
 - `go` 头文件和源文件来回跳转
 
 - `gr` 寻找符号引用
+- `gz` 罗列所有相关信息（定义、引用等）
 
 - `gf` 打开光标下的文件名
 - `gx` 打开光标下的网页链接
 
 - `<C-o>` 跳转回来
+
+**重构**
+
+- `gcc` 注释/取消注释当前选中的代码/行
+- `gn` 重命名变量
+- `gw` 尝试自动修复问题
+- `g=` 自动格式化当前代码
+- `<S-F4>` 格式化当前整个文件
+
+**预览**
+
+- `K` 悬浮窗查看文档
+- `gsf` 预览函数定义
+- `gsc` 预览类定义
+- `gsd` 查看所有语法错误
+- `<C-w>d` 查看当前光标下的语法错误
 
 **标签页**
 
@@ -120,14 +138,6 @@ curl -sSLf https://142857.red/files/nvimrc-install.sh | bash
 - `<C-S-F1>` 或 `g<S-Tab>` 关闭除当前标签页外所有
 
 - `g<Space>` 选择跳转到一个标签页
-
-**重构**
-
-- `gcc` 注释/取消注释当前选中的代码/行
-- `gn` 重命名变量
-- `gw` 尝试自动修复问题
-- `g=` 自动格式化当前代码
-- `<S-F4>` 格式化当前整个文件
 
 **文本查找**
 
@@ -154,12 +164,6 @@ curl -sSLf https://142857.red/files/nvimrc-install.sh | bash
 - `,:` 历史执行过的 Vim 命令
 - `,;` 所有可用的 Vim 命令
 - `,?` 所有 Vim 帮助文档
-
-**预览**
-
-- `K` 悬浮窗查看文档
-- `gsf` 预览函数定义
-- `gsc` 预览类定义
 
 **选择**
 
@@ -207,12 +211,14 @@ curl -sSLf https://142857.red/files/nvimrc-install.sh | bash
 
 **换位**
 
-- `gsh` 左移参数
-- `gsl` 右移参数
-- `gsj` 下移当前语句
-- `gsk` 上移当前语句
-- `gsf` 下移当前函数
-- `gsb` 上移当前函数
+- `mh` 左移参数
+- `ml` 右移参数
+- `mj` 下移当前语句
+- `mk` 上移当前语句
+- `maf` 下移当前函数
+- `mif` 上移当前函数
+- `mac` 下移当前类
+- `mic` 上移当前类
 
 **括号**
 
@@ -308,7 +314,7 @@ hello world
 
 这样是无需任何配置，所有 `CMakeLists.txt` 中配置的头文件都能找得到，语法高亮和代码提示就是正确的。
 
-* 如果你是 CMake 项目，但想要手动构建，那么请指定 `-DCMAKE_EXPORT_COMPILE_COMMANDS=ON` 参数：
+如果你想要手动命令行调用 `cmake`，那么也请指定 `-DCMAKE_EXPORT_COMPILE_COMMANDS=ON` 参数：
 
 ```bash
 cmake -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
@@ -316,9 +322,11 @@ cmake -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 
 这会生成对 C++ 代码补全必不可少的 `build/compile_commands.json` 文件。
 
-否则本插件的语法高亮和代码提示插件将无法确定编译的参数，头文件的路径，可能无法正常工作（俗称“飙红线”）。
+否则，本插件的语法高亮和代码提示插件将无法确定头文件目录，语法检测可能无法正常工作（俗称“飙红线”）。
 
-* 如果你用的是其他构建系统，可能需要自己在项目根目录下生成 `compile_commands.json` 文件。
+> `:CMakeGenerate` 实际上就是默认自带了 `-DCMAKE_EXPORT_COMPILE_COMMANDS=ON` 这个参数，建议始终通过 `:CMakeGenerate` 和 `:CMakeBuild` 来构建项目。
+
+如果你用的是其他构建系统，可能需要自己在项目根目录下生成 `compile_commands.json` 文件。
 
 如需指定没有 `compile_commands.json` 时默认的 Clangd 选项（单文件编译的情况），编辑文件 [`~/.config/clangd/config.yaml`](dotfiles/.config-clangd-config.yaml)，内容为：
 

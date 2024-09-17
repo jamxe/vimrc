@@ -95,14 +95,22 @@ require'nvim-treesitter.configs'.setup {
         swap = {
             enable = true,
             swap_next = {
-                ["gsl"] = "@parameter.inner",
-                ["gsj"] = "@statement.outer",
-                ["gsf"] = "@function.outer",
+                ["ml"] = "@parameter.inner",
+                ["mj"] = "@statement.outer",
+                ["mip"] = "@parameter.inner",
+                ["mib"] = "@block.outer",
+                ["mil"] = "@statement.outer",
+                ["mif"] = "@function.outer",
+                ["min"] = "@number.inner",
             },
             swap_previous = {
-                ["gsh"] = "@parameter.inner",
-                ["gsk"] = "@statement.outer",
-                ["gsb"] = "@function.outer",
+                ["mh"] = "@parameter.inner",
+                ["mk"] = "@statement.outer",
+                ["map"] = "@parameter.inner",
+                ["mab"] = "@block.outer",
+                ["mal"] = "@statement.outer",
+                ["maf"] = "@function.outer",
+                ["man"] = "@number.inner",
             },
         },
         move = {
@@ -121,7 +129,7 @@ require'nvim-treesitter.configs'.setup {
                 ["]t"] = "@comment.*",
                 ["]r"] = "@return.inner",
                 ["]l"] = "@statement.*",
-                ["]n"] = "@number.outer",
+                ["]n"] = "@number.*",
                 ["]h"] = "@assignment.outer",
             },
             goto_next_end = {
@@ -137,7 +145,7 @@ require'nvim-treesitter.configs'.setup {
                 ["]T"] = "@comment.*",
                 ["]R"] = "@return.inner",
                 ["]L"] = "@statement.*",
-                ["]N"] = "@number.outer",
+                ["]N"] = "@number.*",
                 ["]H"] = "@assignment.outer",
             },
             goto_previous_start = {
@@ -153,7 +161,7 @@ require'nvim-treesitter.configs'.setup {
                 ["[t"] = "@comment.*",
                 ["[r"] = "@return.inner",
                 ["[l"] = "@statement.*",
-                ["[n"] = "@number.outer",
+                ["[n"] = "@number.*",
                 ["[h"] = "@assignment.outer",
             },
             goto_previous_end = {
@@ -169,7 +177,7 @@ require'nvim-treesitter.configs'.setup {
                 ["[T"] = "@comment.*",
                 ["[R"] = "@return.inner",
                 ["[L"] = "@statement.*",
-                ["[N"] = "@number.outer",
+                ["[N"] = "@number.*",
                 ["[H"] = "@assignment.outer",
             },
             -- Below will go to either the start or the end, whichever is closer.

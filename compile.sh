@@ -94,7 +94,11 @@ stat \"\$(which nvim)\" || true
 version=\"1\$(nvim --version | head -n1 | cut -f2 -dv | sed s/\\\\.//g)\"
 (nvim --version && [ \"\$version\" -ge 1$version_min ] ${version_max-" && [ \"\$version\" -le 1$version_max ]"}) || install_nvim
 nvim --version
-test -d ~/.config/nvim && mv ~/.config/nvim ~/.config/.nvim.backup.\$\$
+if [ -d ~/.config/nvim ]; then
+    echo \"-- Backup existing config to ~/.config/.nvim.backup.\$\$...\"
+    mv ~/.config/nvim ~/.config/.nvim.backup.\$\$
+fi
+echo '-- Copying to ~/.config/nvim...'
 mkdir -p ~/.config
 rm -rf ~/.config/nvim
 cp -r . ~/.config/nvim
