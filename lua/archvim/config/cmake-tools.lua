@@ -435,6 +435,15 @@ function _quickfix.has_active_job(opts)
   return true
 end
 
+local scratch = require'cmake-tools.scratch'
+function scratch.append(cmd)
+    vim.schedule(function()
+        if scratch.buffer ~= nil then
+            vim.api.nvim_buf_set_lines(scratch.buffer, -1, -1, false, { cmd })
+        end
+    end)
+end
+
 -- vim.cmd [[
 -- " avoid terminal hanging
 -- augroup auto_close_term
