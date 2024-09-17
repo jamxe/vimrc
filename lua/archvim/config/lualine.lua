@@ -249,9 +249,9 @@ local diff = {
 local ctime = {
     'ctime',
     format = '%m/%d %H:%M',
-    cond = function()
-        return vim.fn.winwidth(0) > 80
-    end,
+    -- cond = function()
+    --     return vim.fn.winwidth(0) > 80
+    -- end,
 }
 local encoding = {
     'encoding',

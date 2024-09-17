@@ -1,11 +1,13 @@
-vim.notify = require('notify')
-vim.notify.setup {
-    background_colour = "#000000",
-    render = 'minimal',
-    minimum_width = 50,
-    max_width = 100,
-    timeout = 1000,
-}
+if require'archvim.options'.enable_notify then
+    vim.notify = require('notify')
+    vim.notify.setup {
+        background_colour = "#000000",
+        render = 'minimal',
+        minimum_width = 50,
+        max_width = 100,
+        timeout = 1000,
+    }
+end
 
 local old_notify = vim.notify
 vim.notify = function(msg, ...)

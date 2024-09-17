@@ -55,6 +55,7 @@ vim.lsp.set_log_level("off")
 
 local opts = {
     nerd_fonts = true,
+    enable_notify = false,
     transparent_color = true,
     more_cpp_ftdetect = true,
     enable_signature_help = true,
