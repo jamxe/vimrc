@@ -263,11 +263,11 @@ vim.g.matchup_delim_noskips = 2
 --   require("treesitter-context").go_to_context()
 -- end, { silent = true })
 
--- use 'vm' to visual select any block like hop.nvim does
-vim.cmd [[
-omap     <silent> m :<C-U>lua pcall(require('tsht').nodes)<CR>
-xnoremap <silent> m :lua pcall(require('tsht').nodes)<CR>
-]]
+-- -- use 'vm' to visual select any block like hop.nvim does
+-- vim.cmd [[
+-- omap     <silent> m :<C-U>lua pcall(require('tsht').nodes)<CR>
+-- xnoremap <silent> m :lua pcall(require('tsht').nodes)<CR>
+-- ]]
 
 -- require 'nt-cpp-tools'.setup {
 --     preview = {

@@ -398,6 +398,15 @@ end
 -- function _quickfix.scroll_to_bottom()
 --   vim.api.nvim_command("cbottom")
 -- end
+function _quickfix.scroll_to_bottom()
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+        if vim.bo[vim.api.nvim_win_get_buf(win)].buftype == 'quickfix' then
+            vim.cmd [[ cclose | Trouble qflist ]]
+            return
+        end
+    end
+    vim.cmd [[ Trouble qflist close ]]
+end
 
 local notification_blacklist = {
     ['Exited with code 0'] = true,

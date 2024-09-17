@@ -83,6 +83,10 @@ vim.keymap.set({"v", "n", "i", "t"}, "<F21>", "<cmd>Trouble diagnostics toggle f
 if pcall(require, "cmake-tools") then
     vim.keymap.set({"v", "n", "i", "t"}, "<F5>", "<cmd>wa<CR><cmd>if luaeval('require\"cmake-tools\".is_cmake_project()')|call execute('CMakeRun')|else|call execute('TermExec cmd=./run.sh')|endif<CR>", { silent = true })
     vim.keymap.set({"v", "n", "i", "t"}, "<F17>", "<cmd>wa<CR><cmd>if luaeval('require\"cmake-tools\".is_cmake_project()')|call execute('CMakeStopRunner')|call execute('CMakeStopExecutor')|else|call execute('TermExec cmd=\\<C-c>')|endif<CR>", { silent = true })
+    vim.keymap.set("n", "cmr", "<cmd>wa<CR><cmd>if luaeval('require\"cmake-tools\".is_cmake_project()')|call execute('CMakeRun')|else|call execute('TermExec cmd=./run.sh')|endif<CR>", { silent = true, desc = 'CMakeRun' })
+    vim.keymap.set("n", "cmb", "<cmd>wa<CR><cmd>if luaeval('require\"cmake-tools\".is_cmake_project()')|call execute('CMakeBuild')|else|call execute('TermExec cmd=make')|endif<CR>", { silent = true, desc = 'CMakeBuild' })
+    vim.keymap.set("n", "cmc", "<cmd>wa<CR><cmd>if luaeval('require\"cmake-tools\".is_cmake_project()')|call execute('CMakeGenerate')|else|call execute('TermExec cmd=./configure')|endif<CR>", { silent = true, desc = 'CMakeGenerate' })
+    vim.keymap.set("n", "cms", "<cmd>wa<CR><cmd>if luaeval('require\"cmake-tools\".is_cmake_project()')|call execute('CMakeStopRunner')|call execute('CMakeStopExecutor')|else|call execute('TermExec cmd=\\<C-c>')|endif<CR>", { silent = true, desc = 'CMakeStopRunner' })
 else
     vim.keymap.set({"v", "n", "i", "t"}, "<F5>", "<cmd>wa<CR><cmd>call execute('TermExec cmd=./run.sh')<CR>", { silent = true })
     vim.keymap.set({"v", "n", "i", "t"}, "<F17>", "<cmd>wa<CR><cmd>call execute('TermExec cmd=\\<C-c>')<CR>", { silent = true })
@@ -193,6 +197,7 @@ end)
 vim.keymap.set("n", "gss", "<cmd>Trouble diagnostics toggle<CR>")
 -- 开关编译器报错列表
 vim.keymap.set("n", "gsl", "<cmd>cclose | Trouble qflist toggle<CR>")
+vim.keymap.set("n", "gsg", "<cmd>Neogit<CR>")
 -- 当前光标下的静态分析错误
 vim.keymap.set("n", "gsd", function()
     vim.diagnostic.open_float({

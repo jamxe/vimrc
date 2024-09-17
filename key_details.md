@@ -65,11 +65,11 @@ vim.keymap.set("t", "kj", "<C-\\><C-n>", { silent = true })
 
 以下命令为 `cmake-tools` 的功能，仅当项目根目录检测到 `CMakeLists.txt` 时可用。
 
-- `:CMakeGenerate` 配置当前项目，等价于 `cmake -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON`
-- `:CMakeBuild` 构建当前项目，等价于 `cmake --build build`
+- `cmc` / `:CMakeGenerate` 配置当前项目，等价于 `cmake -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON`
+- `cmb` / `:CMakeBuild` 构建当前项目，等价于 `cmake --build build`
 
-- `<F5>` / `:CMakeRun` 运行当前项目，等价于 `build/<your app>`，第一次运行时会询问要选择哪个可执行目标
-- `<S-F5>` / `:CMakeStopRunner` 终止运行，杀死当前终端中的正在运行的程序
+- `<F5>` / `cmr` / `:CMakeRun` 运行当前项目，等价于 `build/<your app>`，第一次运行时会询问要选择哪个可执行目标
+- `<S-F5>` / `cms` / `:CMakeStopRunner` 终止运行，杀死当前终端中的正在运行的程序
 
 - `:CMakeSelectBuildDir` 选择构建目录，默认为当前目录下的 `build` 子目录
 - `:CMakeSelectBuildType` 选择构建类型：`Release`、`RelWithDebInfo`、`MinSizeRel`、`Debug`
@@ -229,8 +229,6 @@ int main() {
 
 适用场景：如果你不喜欢 `viw` 或 `vaf` 之类一次性完成的选择，可以多次按 `+` 和 `-` 调整，渐进地选出想要的范围。
 
-- `vm` 可视化选择任意大小的块
-
 #### 语法块跳转 (nvim-treesitter)
 
 - `]c` 下一个类开头
@@ -296,10 +294,12 @@ int main() {
 
 - `gsc` 在小窗口中预览当前光标下类或变量的定义（但不跳转过去）
 - `gsf` 在小窗口中预览当前光标下函数的定义（但不跳转过去）
-- `gss` 在弹出窗口中预览当前项目中的所有静态检查语法错误
 - `gsd` 在小窗口中预览当前光标下存在的静态检查语法错误
+
+- `gss` 在弹出窗口中预览当前项目中的所有静态检查语法错误
 - `gsl` 在弹出窗口中预览当前项目中的所有编译器报错
 - `gso` 打开/关闭大纲视图
+- `gsg` 打开/关闭 Git 控制面板
 - `gst` 打开/关闭项目文件树
 - `gsi` 开启/关闭 Inlay Hint 功能
 
