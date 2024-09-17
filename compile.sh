@@ -83,6 +83,10 @@ fix_nvim_appimage() {
 install_nvim() {
     echo \"-- NeoVim 0.9.1 or above not found, installing latest for you\"
     if [ \"x\$(uname -sm)\" = \"xLinux x86_64\" ]; then
+        if which snap >/dev/null 2>&1; then
+            echo \"-- We don't need NeoVim in snap, try uninstalling...\"
+            \$SUDO snap remove nvim || true
+        fi
         test -f ./nvim.appimage || curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o ~/.config/nvim/nvim.appimage
         \$SUDO chmod +x ./nvim.appimage
         test -f /usr/bin/nvim && \$SUDO mv /usr/bin/nvim /tmp/.nvim-executable-backup || true
@@ -91,6 +95,8 @@ install_nvim() {
     elif [ \"x\$(uname -s)\" = \"xDarwin\" ]; then
         brew uninstall neovim 2> /dev/null || true
         brew install neovim
+    else
+        echo \"-- Don't know how to install latest nvim on this distro, good luck...\"
     fi
 }
 echo '-- Checking NeoVim version...'
@@ -101,7 +107,7 @@ if which nvim; then
 else
     version=0
 fi
-(which nvim >/dev/null 2>/dev/null && [ \"\$version\" -ge 1$version_min ] ${version_max-" && [ \"\$version\" -le 1$version_max ]"}) || install_nvim
+(which nvim >/dev/null 2>/dev/null && [ \"\$version\" -ge 1$version_min ]) || install_nvim
 nvim --version
 if [ -d ~/.config/nvim ]; then
     echo \"-- Backup existing config to ~/.config/.nvim.backup.\$\$...\"
