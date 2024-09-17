@@ -158,6 +158,8 @@ vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], { noremap = true })
 -- vim.keymap.set('t', [[<Esc>]], [[<Esc>]], { noremap = true })
 -- vim.keymap.set('t', [[jk]], [[<C-\><C-n>]], opts)
 
+-- 开关终端
+vim.keymap.set({"v", "n", "i", "t"}, "<C-t>", "<cmd>ToggleTerm<CR>", { silent = true })
 -- 格式化代码
 vim.keymap.set({'v'}, 'g=', [[<Cmd>Neoformat<CR>]])
 vim.keymap.set({'n'}, 'g=', function ()
@@ -221,7 +223,7 @@ vim.keymap.set("n", "gsi", function()
         end
 end)
 -- 开关项目文件树
-vim.keymap.set({"v", "n", "i", "t"}, "gst", "<cmd>NvimTreeFindFileToggle<CR>", { silent = true })
+vim.keymap.set({"v", "n", "i", "t"}, "gsp", "<cmd>NvimTreeFindFileToggle<CR>", { silent = true })
 -- 开关大纲视图
 vim.keymap.set("n", "gso", "<cmd>AerialToggle!<CR>")
 -- 查找类型定义
@@ -240,13 +242,13 @@ vim.keymap.set({"v", "n"}, "g<C-o>", "<cmd>vsplit | ClangdSwitchSourceHeader<CR>
 
 
 vim.keymap.set({'n'}, '<S-Tab>', '<C-o>')
-vim.keymap.set({'i'}, '<C-Space>', '<Space>')
+-- vim.keymap.set({'i'}, '<C-Space>', '<Space>')
 
-vim.keymap.set({'v', 'n'}, 'gp', ':GPT<Space>')
-vim.keymap.set({'v', 'n'}, 'gP', ':GPT!<Space>')
-vim.keymap.set({'i'}, '<C-Space>', '<Cmd>GPT<CR>')
-vim.keymap.set({'i', 'n'}, '<C-t>', '<Cmd>-8,+8GPT refactor this code<CR>')
-vim.keymap.set({'v'}, '<C-t>', '<Cmd>GPT refactor this code<CR>')
+-- vim.keymap.set({'v', 'n'}, 'gp', ':GPT<Space>')
+-- vim.keymap.set({'v', 'n'}, 'gP', ':GPT!<Space>')
+-- vim.keymap.set({'i'}, '<C-Space>', '<Cmd>GPT<CR>')
+-- vim.keymap.set({'i', 'n'}, '<C-t>', '<Cmd>-8,+8GPT refactor this code<CR>')
+-- vim.keymap.set({'v'}, '<C-t>', '<Cmd>GPT refactor this code<CR>')
 
 vim.cmd [[
 augroup quickfix_setlocal

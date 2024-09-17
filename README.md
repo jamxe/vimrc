@@ -116,7 +116,6 @@ curl -sSLf https://142857.red/files/nvimrc-install.sh | bash
 - `gn` 重命名变量
 - `gw` 尝试自动修复问题
 - `g=` 自动格式化当前代码
-- `<S-F4>` 格式化当前整个文件
 
 **预览**
 
@@ -129,7 +128,7 @@ curl -sSLf https://142857.red/files/nvimrc-install.sh | bash
 
 - `gso` 打开大纲
 - `gsg` 打开 Git 面板
-- `gst` 打开项目文件树
+- `gsp` 打开项目文件树
 - `gss` 查看所有静态语法错误
 - `gsl` 查看所有编译器报错
 - `gsi` 开关 Inlay Hint
@@ -252,29 +251,29 @@ curl -sSLf https://142857.red/files/nvimrc-install.sh | bash
 - `cs<oldbrace><newbrace>` 改变括号
 - `ds<brace>` 删除括号
 
-例如光标停在 `world` 上：
-
-```cpp
-hello world
-```
-
-按下 `viws"` 或 `ysiw"`
-
-```cpp
-hello "world"
-```
-
-按下 `cs")`
-
-```cpp
-hello (world)
-```
-
-按下 `ds)`
-
-```cpp
-hello world
-```
+<!-- 例如光标停在 `world` 上： -->
+<!--  -->
+<!-- ```cpp -->
+<!-- hello world -->
+<!-- ``` -->
+<!--  -->
+<!-- 按下 `viws"` 或 `ysiw"` -->
+<!--  -->
+<!-- ```cpp -->
+<!-- hello "world" -->
+<!-- ``` -->
+<!--  -->
+<!-- 按下 `cs")` -->
+<!--  -->
+<!-- ```cpp -->
+<!-- hello (world) -->
+<!-- ``` -->
+<!--  -->
+<!-- 按下 `ds)` -->
+<!--  -->
+<!-- ```cpp -->
+<!-- hello world -->
+<!-- ``` -->
 
 **窗口**
 
@@ -311,6 +310,8 @@ hello world
 
 **CMake 项目**
 
+CMake 相关的快捷键都以 `cm` 开头。
+
 - `cmc` 或 `:CMakeGenerate` 配置当前项目
 - `cmb` 或 `:CMakeBuild` 构建当前项目
 
@@ -320,6 +321,13 @@ hello world
 - `:CMakeSelectBuildDir` 选择构建目录
 - `:CMakeSelectBuildType` 选择构建类型（`Release` 或 `Debug`）
 - `:CMakeSelectLaunchTarget` 选择以后 `:CMakeRun` 要运行的目标
+
+**内置终端**
+
+- `<F8>` 或 `<C-t>` 打开/关闭终端
+- `<Esc>` 从终端模式（TERMINAL）中回到普通模式（NORMAL）
+- `p` 粘贴剪贴板中的命令
+- `i` 或 `a` 从普通模式回到终端模式
 
 ### C/C++/CMake 配置
 

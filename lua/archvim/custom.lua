@@ -22,4 +22,10 @@ if require'archvim.options'.transparent_color then
     ]]
 end
 
+vim.cmd [[
+" colorscheme gruvbox
+" colorscheme nord
+colorscheme zephyr
+]]
+
 -- More custom options goes here

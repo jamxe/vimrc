@@ -19,6 +19,7 @@ set switchbuf=useopen
 set exrc
 set foldtext='+--'
 set wrap
+set termguicolors
 ]]
 
 vim.cmd [[
@@ -42,12 +43,6 @@ augroup end
 -- augroup END
 -- ]]
 
-vim.cmd [[
-set termguicolors
-" colorscheme gruvbox
-colorscheme zephyr
-]]
-
 -- vim.g_printed = ''
 -- vim.g_print = function(msg)
 --     vim.g_printed = vim.g_printed .. tostring(msg) .. '\n'
@@ -60,7 +55,7 @@ vim.lsp.set_log_level("off")
 
 local opts = {
     nerd_fonts = true,
-    transparent_color = false,
+    transparent_color = true,
     more_cpp_ftdetect = true,
     enable_signature_help = true,
     enable_inlay_hint = true,

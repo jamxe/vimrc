@@ -29,11 +29,11 @@ require("cmake-tools").setup {
         opts = {}, -- the options the executor will get, possible values depend on the executor type. See `default_opts` for possible values.
         default_opts = { -- a list of default and possible values for executors
             quickfix = {
-                show = "only_on_error", -- "always", "only_on_error"
+                show = "always", -- "always", "only_on_error"
                 position = "botright", -- "bottom", "top", "belowright"
                 size = 10,
                 encoding = "utf-8",
-                auto_close_when_success = false, -- typically, you can use it with the "always" option; it will auto-close the quickfix buffer if the execution is successful.
+                auto_close_when_success = true, -- typically, you can use it with the "always" option; it will auto-close the quickfix buffer if the execution is successful.
             },
             toggleterm = {
                 direction = "horizontal", -- 'vertical' | 'horizontal' | 'tab' | 'float'
@@ -398,15 +398,15 @@ end
 -- function _quickfix.scroll_to_bottom()
 --   vim.api.nvim_command("cbottom")
 -- end
-function _quickfix.scroll_to_bottom()
-    for _, win in ipairs(vim.api.nvim_list_wins()) do
-        if vim.bo[vim.api.nvim_win_get_buf(win)].buftype == 'quickfix' then
-            vim.cmd [[ cclose | Trouble qflist ]]
-            return
-        end
-    end
-    vim.cmd [[ Trouble qflist close ]]
-end
+-- function _quickfix.scroll_to_bottom()
+--     for _, win in ipairs(vim.api.nvim_list_wins()) do
+--         if vim.bo[vim.api.nvim_win_get_buf(win)].buftype == 'quickfix' then
+--             vim.cmd [[ cclose | Trouble qflist ]]
+--             return
+--         end
+--     end
+--     vim.cmd [[ Trouble qflist close ]]
+-- end
 
 local notification_blacklist = {
     ['Exited with code 0'] = true,
