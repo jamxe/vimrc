@@ -185,16 +185,16 @@ end)
 -- 重命名变量
 vim.keymap.set({'v', 'n'}, 'gn', function()
   return ":IncRename " .. vim.fn.expand("<cword>")
-end, { expr = true })
+end, { expr = true, desc = 'Rename symbol' })
 vim.keymap.set({'v', 'n'}, 'gN', function()
   return ":IncRename "
-end, { expr = true })
+end, { expr = true, desc = 'Rename symbol' })
 -- 查找符号定义
-vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>")
+vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", { desc = 'Goto definition' })
 -- 查找符号声明
 vim.keymap.set("n", "gD", function()
     vim.lsp.buf.declaration()
-end)
+end, { desc = 'Goto declaration' })
 -- 开关静态分析错误列表
 vim.keymap.set("n", "gss", "<cmd>Trouble diagnostics toggle<CR>")
 -- 开关编译器报错列表
@@ -215,31 +215,36 @@ vim.keymap.set("n", "gsd", function()
             "BufLeave",
         },
     })
-end)
+end, { desc = 'Diagnostics under cursor' })
 -- 开关 Inlay Hint
 vim.keymap.set("n", "gsi", function()
         if vim.lsp.inlay_hint ~= nil then
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
         end
-end)
+end, { desc = "Toggle inlay hint" })
 -- 开关项目文件树
-vim.keymap.set({"v", "n", "i", "t"}, "gsp", "<cmd>NvimTreeFindFileToggle<CR>", { silent = true })
+vim.keymap.set("n", "gsp", "<cmd>NvimTreeFindFileToggle<CR>", { silent = true, desc = "Toggle Nvim Tree", })
 -- 开关大纲视图
-vim.keymap.set("n", "gso", "<cmd>AerialToggle!<CR>")
+vim.keymap.set("n", "gso", "<cmd>AerialToggle!<CR>", { desc = "Toggle aerial outline" })
 -- 查找类型定义
-vim.keymap.set("n", "gy", "<cmd>Telescope lsp_type_definitions<CR>")
+vim.keymap.set("n", "gy", "<cmd>Telescope lsp_type_definitions<CR>", { desc = 'Goto type definition' })
 -- 查找所有引用
-vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>")
+vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>", { desc = 'Find references' })
 -- 查找函数实现
-vim.keymap.set("n", "gY", "<cmd>Telescope lsp_implementations<CR>")
+vim.keymap.set("n", "gY", "<cmd>Telescope lsp_implementations<CR>", { desc = 'Find implementations' })
 -- 查看全部
 vim.keymap.set("n", "gz", "<cmd>Trouble lsp toggle<CR>")
+-- 查看类型继承图
+vim.keymap.set("n", "gst", function ()
+    vim.lsp.buf.typehierarchy("subtypes")
+end, { desc = 'List derived class hierarchy' })
+vim.keymap.set("n", "gsT", function ()
+    vim.lsp.buf.typehierarchy("supertypes")
+end, { desc = 'List base class hierarchy' })
 -- 头文件/源文件跳转
 vim.keymap.set({"v", "n"}, "go", "<cmd>ClangdSwitchSourceHeader<CR>", { silent = true })
 vim.keymap.set({"v", "n"}, "gO", "<cmd>split | ClangdSwitchSourceHeader<CR>", { silent = true })
 vim.keymap.set({"v", "n"}, "g<C-o>", "<cmd>vsplit | ClangdSwitchSourceHeader<CR>", { silent = true })
-
-
 
 vim.keymap.set({'n'}, '<S-Tab>', '<C-o>')
 -- vim.keymap.set({'i'}, '<C-Space>', '<Space>')
@@ -266,6 +271,9 @@ vim.cmd [[
 augroup neogit_setlocal
 autocmd!
 autocmd FileType NeogitStatus nnoremap <buffer> <F10> <cmd>:q<CR>
+autocmd FileType NeogitStatus vnoremap <buffer> <F10> <cmd>:q<CR>
+autocmd FileType NeogitStatus inoremap <buffer> <F10> <cmd>:q<CR>
+autocmd FileType NeogitStatus nnoremap <buffer> gsg <cmd>:q<CR>
 augroup END
 ]]
 

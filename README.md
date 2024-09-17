@@ -106,6 +106,7 @@ curl -sSLf https://142857.red/files/nvimrc-install.sh | bash
 - `gz` 罗列所有相关信息（定义、引用等）
 
 - `gf` 打开光标下的文件名
+- `gF` 打开光标下的文件名并跳到右侧指定的行号
 - `gx` 打开光标下的网页链接
 
 - `<C-o>` 跳转回来
