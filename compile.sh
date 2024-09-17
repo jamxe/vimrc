@@ -12,6 +12,7 @@ unset ARCHIBATE_COMPUTER
 export ARCHIBATE_COMPUTER
 cache="$PWD/.build_cache"
 version_min=090
+treesitters=(c cpp cuda cmake lua python html javascript css json bash regex markdown diff glsl vim vimdoc)
 mkdir -p "$cache"
 nvim --headless --cmd "let g:archvim_predownload=2 | let g:archvim_predownload_cachedir='$cache/archvim-build'" -c 'q'
 git --version > /dev/null
@@ -24,8 +25,8 @@ cp -r "$cache"/archvim-build/predownload "$cache"/archvim-release/lua/archvim
 rm -rf "$cache"/archvim-release.tar.gz
 cd "$cache"/archvim-release
 mkdir -p "$cache"/archvim-release/nvim-treesitter-parser
-for x in ~/.local/share/nvim/site/pack/packer/start/nvim-treesitter/parser/{c,cpp,cuda,cmake,lua,python,html,javascript,css,json,bash,regex,markdown,diff,glsl,vim,vimdoc}.so; do
-    cp "$x" "$cache"/archvim-release/nvim-treesitter-parser
+for x in ${treesitters[@]}; do
+    cp ~/.local/share/nvim/site/pack/packer/start/nvim-treesitter/parser/"$x".so "$cache"/archvim-release/nvim-treesitter-parser
 done
 for x in "$cache"/archvim-release/nvim-treesitter-parser/*.so; do
     strip -s "$x"
@@ -131,6 +132,16 @@ if [ ! -f ~/.clang-format ]; then
 fi
 echo '-- Finishing installation...'
 rm -rf \$tmpdir \$tmptgz
+
+echo '-- Verifying treesitter installation...'
+nvim --headless -c \"TSInstallInfo\" -c 'sleep 1 | q!'
+if [ \"\$(uname -sm)\" != \"Linux 86_64\" ]; then
+    for x in ${treesitters[*]}; do
+        nvim --headless -c \"TSInstall \$x\" -c 'sleep 1 | q!'
+    done
+    nvim --headless -c \"TSInstallInfo\" -c 'sleep 1 | q!'
+fi
+
 echo
 mkdir -p ~/.local/share/nvim/archvim
 echo \"-- Configuring ~/.local/share/nvim/archvim/opts.json\"
