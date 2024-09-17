@@ -140,7 +140,7 @@ install_apt() {
     pcall apt-get install -y nodejs
     pcall apt-get install -y npm
     python="$(which python3 || which python)"
-    if [ pcall "$python" -m pip install --help | grep break-system-packages ]; then
+    if "$python" -m pip install --help | grep break-system-packages; then
         break="--break-system-packages"
     else
         break=
