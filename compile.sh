@@ -17,7 +17,7 @@ nvim --headless --cmd "let g:archvim_predownload=2 | let g:archvim_predownload_c
 git --version > /dev/null
 rm -rf "$cache"/archvim-release
 mkdir -p "$cache"/archvim-release
-cp -r ./lua ./init.vim ./install_deps.sh ./after ./dotfiles "$cache"/archvim-release
+cp -r ./lua ./init.vim ./install_deps.sh ./dotfiles "$cache"/archvim-release
 sed -i "s/\"let g:archvim_predownload=1/let g:archvim_predownload=1/" "$cache"/archvim-release/init.vim
 rm -rf "$cache"/archvim-release/lua/archvim/predownload
 cp -r "$cache"/archvim-build/predownload "$cache"/archvim-release/lua/archvim
