@@ -69,18 +69,16 @@ local default_opts = {
     if file then
         local content = file:read('*a')
         file:close()
-        local ok, result = pcall(vim.fn.json_decode, content)
-        if ok then
-            for k, v in pairs(result) do
-                default_opts[k] = v
-            end
+        local result = vim.fn.json_decode(content)
+        for k, v in pairs(result) do
+            default_opts[k] = v
         end
     end
 end)()
 
 return setmetatable({}, {
-    __newindex = function (opts, k, v)
-        rawset(opts, k, v)
+    __newindex = function (_, k, v)
+        rawset(default_opts, k, v)
         local data_path = vim.fn.stdpath('data') .. '/archvim'
         if vim.fn.isdirectory(data_path) ~= 1 then
             vim.fn.mkdir(data_path, 'p')
@@ -88,14 +86,10 @@ return setmetatable({}, {
         local file_name = data_path .. '/opts.json'
         local file = io.open(file_name, 'w')
         assert(file, string.format("cannot open file '%s' for write", file_name))
-        file:write(vim.fn.json_encode(opts))
+        file:write(vim.fn.json_encode(default_opts))
         file:close()
     end,
-    __index = function (opts, k)
-        local v = rawget(opts, k)
-        if v == nil then
-            v = default_opts[k]
-        end
-        return v
+    __index = function (_, k)
+        return rawget(default_opts, k)
     end,
 })

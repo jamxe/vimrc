@@ -1,6 +1,6 @@
 set -e
 cd "$(dirname "$0")"
-if [ "x$ARCHIBATE_COMPUTER" == "x" ]; then
+if [ "x$ARCHIBATE_COMPUTER" = "x" ]; then
     echo "-- WARNING: This script is used for compiling bundle, not for end-users!"
     echo "-- WARNING: End users should use this command to install:"
     echo "-- 警告: 此脚本仅用于编译插件包，而非末端用户！"
@@ -105,7 +105,7 @@ echo '-- Copying to ~/.config/nvim...'
 mkdir -p ~/.config
 rm -rf ~/.config/nvim
 cp -r . ~/.config/nvim
-if [ \"x\$NODEP\" == \"x\" ]; then
+if [ \"x\$NODEP\" = \"x\" ]; then
     echo '-- Installing dependencies...'
     \$SUDO bash ~/.config/nvim/install_deps.sh || echo -e \"\\n\\n--\\n--\\n-- WARNING: some dependency installation failed, please check your internet connection.\n-- If you see this message, please report the full terminal output to archibate by opening GitHub issues.\\n-- ArchVim can still run without those dependencies, though.\\n-- You can always try run dependency installation again by running: sudo bash ~/.config/nvim/install_deps.sh\\n\\n--\\n--\\n-- 警告: 某些依赖项安装失败，请检查网络连接。\\n-- ArchVim 仍然可以正常运行，但是可能会缺少某些功能。\\n-- 如果你看到本消息，请通过 GitHub 向小彭老师反馈并贴上终端的完整输出。\\n-- 你也可以手动尝试运行依赖项安装命令：sudo bash ~/.config/nvim/install_deps.sh\\n--\\n--\\n\\n\"
 fi
@@ -151,7 +151,7 @@ echo \"-- Configuring ~/.local/share/nvim/archvim/opts.json\"
     echo \"==> \$quest_zh\"
     echo -n \"==> 是或否，默认选否 [y/N] \"
     read -n1 x 2> /dev/null || read x || x=n
-    val=\$([ \"x\$x\" == \"xy\" ] && echo true || echo false)
+    val=\$([ \"x\$x\" = \"xy\" ] && echo true || echo false)
     nvim --headless -c \"lua require'archvim.options'.\$key = \$val\" -c 'sleep 1 | q!'
 
     if ! \$val; then
@@ -167,7 +167,7 @@ echo \"-- Configuring ~/.local/share/nvim/archvim/opts.json\"
         echo \"==> \$quest_zh\"
         echo -n \"==> 是或否，默认选否 [y/N] \"
         read -n1 x 2> /dev/null || read x || x=n
-        if [ \"x\$x\" == \"xy\" ]; then
+        if [ \"x\$x\" = \"xy\" ]; then
             olddir=\"\$PWD\"
             if (curl --connect-timeout 5 -L -o ~/.local/share/fonts/JetBrainsMono.zip https://ghproxy.net/https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.1/JetBrainsMono.zip || curl --connect-timeout 5 -L -o ~/.local/share/fonts/JetBrainsMono.zip https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.1/JetBrainsMono.zip) && (cd ~/.local/share/fonts && unzip JetBrainsMono.zip && rm JetBrainsMono.zip) && fc-cache -fv; then
                 nvim --headless -c \"lua require'archvim.options'.\$key = true\" -c 'sleep 1 | q!' || true

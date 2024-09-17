@@ -39,7 +39,7 @@ get_linux_distro() {
         echo "Gentoo"
     elif grep -Eq "alpine" /etc/*-release 2> /dev/null; then
         echo "Alpine"
-    elif [ "x$(uname -s)" == "xDarwin" ]; then
+    elif [ "x$(uname -s)" = "xDarwin" ]; then
         echo "MacOS"
     else
         echo "Unknown"
@@ -239,27 +239,27 @@ do_install() {
     distro=`get_linux_distro`
     echo "-- Linux distro detected: $distro"
 
-    if [ $distro == "Ubuntu" ]; then
+    if [ $distro = "Ubuntu" ]; then
         install_apt
-    elif [ $distro == "Deepin" ]; then
+    elif [ $distro = "Deepin" ]; then
         install_apt
-    elif [ $distro == "Debian" ]; then
+    elif [ $distro = "Debian" ]; then
         install_apt
-    elif [ $distro == "Kali" ]; then
+    elif [ $distro = "Kali" ]; then
         install_apt
-    elif [ $distro == "Raspbian" ]; then
+    elif [ $distro = "Raspbian" ]; then
         install_apt
-    elif [ $distro == "ArchLinux" ]; then
+    elif [ $distro = "ArchLinux" ]; then
         install_pacman
-    elif [ $distro == "ManjaroLinux" ]; then
+    elif [ $distro = "ManjaroLinux" ]; then
         install_pacman
-    elif [ $distro == "MacOS" ]; then
+    elif [ $distro = "MacOS" ]; then
         install_brew
-    elif [ $distro == "fedora" ]; then
+    elif [ $distro = "fedora" ]; then
         install_dnf
-    elif [ $distro == "openSUSE" ]; then
+    elif [ $distro = "openSUSE" ]; then
         install_zypper
-    elif [ $distro == "CentOS" ]; then
+    elif [ $distro = "CentOS" ]; then
         install_yum
     else
         # TODO: add more Linux distros here..
