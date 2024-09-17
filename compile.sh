@@ -42,24 +42,23 @@ payload="$cache"/archvim-release.tar.gz
 script="$cache"/nvimrc-install.sh
 # https://stackoverflow.com/questions/29418050/package-tar-gz-into-a-shell-script
 printf "#!/bin/bash
-tee --version > /dev/null 2> /dev/null && TEE=(tee /tmp/archvim.log) || TEE=cat
+which tee > /dev/null 2> /dev/null && TEE=(tee /tmp/archvim.log) || TEE=cat
 (bash | \${TEE[@]}) << __ARCHVIM_SCRIPT_EOF__
 set -e
 echo '-- Welcome to the ArchVim installation script'
 echo '-- 欢迎使用小彭老师 ArchVim 一键安装脚本'
-sudo --version > /dev/null 2> /dev/null && SUDO=sudo || SUDO=
-base64 --version > /dev/null
-tar --version > /dev/null
-mktemp --version > /dev/null
-cat --version > /dev/null
-tee --version > /dev/null
-rm --version > /dev/null
-mkdir --version > /dev/null
-test --version > /dev/null
-cp --version > /dev/null
-mv --version > /dev/null
-stat --version > /dev/null
-which --version > /dev/null
+which sudo > /dev/null 2> /dev/null && SUDO=sudo || SUDO=
+which base64 > /dev/null
+which tar > /dev/null
+which mktemp > /dev/null
+which cat > /dev/null
+which tee > /dev/null
+which rm > /dev/null
+which mkdir > /dev/null
+which test > /dev/null
+which cp > /dev/null
+which mv > /dev/null
+which stat > /dev/null
 tmpdir=\"\$(mktemp -d)\"
 tmptgz=\"\$(mktemp)\"
 rm -rf \$tmpdir
@@ -89,10 +88,14 @@ install_nvim() {
     nvim --version || fix_nvim_appimage
 }
 echo '-- Checking NeoVim version...'
-stat \"\$(which nvim)\" || true
-\$SUDO chmod +x \"\$(which nvim)\" || true
-version=\"1\$(nvim --version | head -n1 | cut -f2 -dv | sed s/\\\\.//g)\"
-(nvim --version && [ \"\$version\" -ge 1$version_min ] ${version_max-" && [ \"\$version\" -le 1$version_max ]"}) || install_nvim
+if which nvim; then
+    stat \"\$(which nvim)\" || true
+    \$SUDO chmod +x \"\$(which nvim)\" || true
+    version=\"1\$(nvim --version | head -n1 | cut -f2 -dv | sed s/\\\\.//g)\"
+else
+    version=0
+fi
+(which nvim >/dev/null 2>/dev/null && [ \"\$version\" -ge 1$version_min ] ${version_max-" && [ \"\$version\" -le 1$version_max ]"}) || install_nvim
 nvim --version
 if [ -d ~/.config/nvim ]; then
     echo \"-- Backup existing config to ~/.config/.nvim.backup.\$\$...\"
