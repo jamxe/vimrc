@@ -117,7 +117,7 @@ nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerClean'
 echo '-- Copying language supports...'
 mkdir -p ~/.local/share/nvim/site/pack/packer/start/nvim-treesitter/parser
 mv ~/.config/nvim/nvim-treesitter-parser/*.so ~/.local/share/nvim/site/pack/packer/start/nvim-treesitter/parser/
-rmdir ~/.config/nvim/nvim-treesitter-parser
+rmdir ~/.config/nvim/nvim-treesitter-parser || true
 echo '-- Copying mason registries...'
 mkdir -p ~/.local/share/nvim/mason/github/mason-org/mason-registry
 mv ~/.config/nvim/mason-registry/* ~/.local/share/nvim/mason/github/mason-org/mason-registry/
@@ -130,17 +130,16 @@ fi
 if [ ! -f ~/.clang-format ]; then
     ln -sf ~/.config/nvim/dotfiles/.clang-format ~/.clang-format
 fi
-echo '-- Finishing installation...'
-rm -rf \$tmpdir \$tmptgz
-
-echo '-- Verifying treesitter installation...'
-nvim --headless -c \"TSInstallInfo\" -c 'sleep 1 | q!'
-if [ \"\$(uname -sm)\" != \"Linux 86_64\" ]; then
+echo '-- Verifying treesitters...'
+nvim --headless -c \"TSInstallInfo\" -c 'sleep 1 | q!' 2>&1 | grep -v 'not installed' || echo 'no installed treesitters?'
+if [ \"\$(uname -sm)\" != \"Linux x86_64\" ]; then
     for x in ${treesitters[*]}; do
-        nvim --headless -c \"TSInstall \$x\" -c 'sleep 1 | q!'
+        nvim --headless -c \"TSUpdateSync \$x\" -c 'sleep 1 | q!'
     done
     nvim --headless -c \"TSInstallInfo\" -c 'sleep 1 | q!'
 fi
+echo '-- Finishing installation...'
+rm -rf \$tmpdir \$tmptgz
 
 echo
 mkdir -p ~/.local/share/nvim/archvim
@@ -248,7 +247,7 @@ echo \"-- Configuring ~/.local/share/nvim/archvim/opts.json\"
     echo \"-- You may always edit these settings later in: ~/.local/share/nvim/archvim/opts.json\"
     echo \"-- 您以后可以随时修改这些设置：~/.local/share/nvim/archvim/opts.json\"
     echo \"--\"
-) || true
+)
 
 echo
 echo \"--\"
