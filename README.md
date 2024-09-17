@@ -311,8 +311,6 @@ curl -sSLf https://142857.red/files/nvimrc-install.sh | bash
 
 **CMake 项目**
 
-CMake 相关的快捷键都以 `cm` 开头。
-
 - `cmc` 或 `:CMakeGenerate` 配置当前项目
 - `cmb` 或 `:CMakeBuild` 构建当前项目
 
@@ -329,6 +327,14 @@ CMake 相关的快捷键都以 `cm` 开头。
 - `<Esc>` 从终端模式（TERMINAL）中回到普通模式（NORMAL）
 - `p` 粘贴剪贴板中的命令
 - `i` 或 `a` 从普通模式回到终端模式
+
+**文件树
+
+- `y` 拷贝
+- `x` 剪切
+- `d` 删除
+- `p` 粘贴
+- `a` 创建
 
 ### C/C++/CMake 配置
 
