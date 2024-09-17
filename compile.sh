@@ -120,10 +120,9 @@ echo '-- Synchronizing packer.nvim...'
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerClean'
 echo '-- Copying language supports...'
+mkdir -p ~/.local/share/nvim/site/pack/packer/start/nvim-treesitter/parser
+mv ~/.config/nvim/nvim-treesitter-parser/*.so ~/.local/share/nvim/site/pack/packer/start/nvim-treesitter/parser/
 if [ \"x\$(uname -sm)\" != \"xLinux x86_64\" ]; then
-    mkdir -p ~/.local/share/nvim/site/pack/packer/start/nvim-treesitter/parser
-    mv ~/.config/nvim/nvim-treesitter-parser/*.so ~/.local/share/nvim/site/pack/packer/start/nvim-treesitter/parser/
-else
     echo 'WARNING: Not x86_64 linux, may need manually run :TSInstall cpp later!'
 fi
 rm -rf ~/.config/nvim/nvim-treesitter-parser
@@ -140,7 +139,7 @@ if [ ! -f ~/.clang-format ]; then
     ln -sf ~/.config/nvim/dotfiles/.clang-format ~/.clang-format
 fi
 echo '-- Verifying treesitters...'
-nvim --headless -c \"TSInstallInfo\" -c 'sleep 1 | q!' 2>&1 | grep -v 'not installed' || echo 'no installed treesitters?'
+(nvim --headless -c \"TSInstallInfo\" -c 'sleep 1 | q!' 2>&1 | grep -v 'not installed') || echo 'no installed treesitters?'
 if [ \"x\$(uname -sm)\" != \"xLinux x86_64\" ]; then
     for x in ${treesitters[*]}; do
         nvim --headless -c \"TSUpdateSync \$x\" -c 'sleep 1 | q!'
