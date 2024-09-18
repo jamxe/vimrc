@@ -75,11 +75,6 @@ cd \$tmpdir
 echo '-- Extracting bundled data...'
 base64 -d < \$tmptgz | tar -zx
 test -f ./install_deps.sh || echo \"ERROR: cannot extract file, make sure you have base64 and tar working\"
-fix_nvim_appimage() {
-    \$SUDO mv /usr/bin/nvim /usr/bin/.nvim.appimage.noextract
-    echo 'x=\$\$; mkdir -p /tmp/_nvim_appimg_.\$x && bash -c \"cd /tmp/_nvim_appimg_.\$x && /usr/bin/.nvim.appimage.noextract --appimage-extract > /dev/null 2>&1\" && /tmp/_nvim_appimg_.\$x/squashfs-root/AppRun \"\$@\"; x=\$?; rm -rf /tmp/_nvim_appimg_.\$x exit \$x' | \$SUDO tee /usr/bin/nvim
-    \$SUDO chmod +x /usr/bin/nvim
-}
 echo '-- Checking NeoVim version...'
 if which nvim; then
     stat \"\$(which nvim)\" || true
