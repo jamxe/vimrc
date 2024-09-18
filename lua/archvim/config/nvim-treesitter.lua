@@ -101,6 +101,7 @@ require'nvim-treesitter.configs'.setup {
                 ["mib"] = "@block.outer",
                 ["mil"] = "@statement.outer",
                 ["mif"] = "@function.outer",
+                ["mic"] = "@class.outer",
                 ["min"] = "@number.inner",
             },
             swap_previous = {
@@ -110,6 +111,7 @@ require'nvim-treesitter.configs'.setup {
                 ["mab"] = "@block.outer",
                 ["mal"] = "@statement.outer",
                 ["maf"] = "@function.outer",
+                ["mac"] = "@class.outer",
                 ["man"] = "@number.inner",
             },
         },
