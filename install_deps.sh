@@ -4,7 +4,6 @@ set -e
 echo '-- Automatically installing ArchVim system dependencies...'
 
 cd "$(dirname $0)"
-# --version > /dev/null 2> /dev/null && SUDO=|| SUDO=
 
 get_linux_distro() {
     if grep -Eq "Ubuntu" /etc/*-release 2> /dev/null; then
@@ -105,40 +104,40 @@ ensure_pip() {
 }
 
 install_pacman() {
-    pcall pacman -S --noconfirm ripgrep
-    pcall pacman -S --noconfirm fzf
-    pacman -S --noconfirm cmake
-    pacman -S --noconfirm make
-    pacman -S --noconfirm git
-    pacman -S --noconfirm gcc
-    pacman -S --noconfirm python
-    pacman -S --noconfirm python-pip
-    pacman -S --noconfirm curl
-    pacman -S --noconfirm clang
-    pacman -S --noconfirm nodejs
-    pacman -S --noconfirm npm
-    pacman -S --noconfirm lua-language-server
-    pacman -S --noconfirm pyright
-    pacman -S --noconfirm python-pynvim
-    pacman -S --noconfirm python-openai
+    pcall sudo pacman -S --noconfirm ripgrep
+    pcall sudo pacman -S --noconfirm fzf
+    sudo pacman -S --noconfirm cmake
+    sudo pacman -S --noconfirm make
+    sudo pacman -S --noconfirm git
+    sudo pacman -S --noconfirm gcc
+    sudo pacman -S --noconfirm python
+    sudo pacman -S --noconfirm python-pip
+    sudo pacman -S --noconfirm curl
+    sudo pacman -S --noconfirm clang
+    sudo pacman -S --noconfirm nodejs
+    sudo pacman -S --noconfirm npm
+    sudo pacman -S --noconfirm lua-language-server
+    sudo pacman -S --noconfirm pyright
+    sudo pacman -S --noconfirm python-pynvim
+    sudo pacman -S --noconfirm python-openai
 }
 
 install_apt() {
     export DEBIAN_FRONTEND=noninteractive
-    apt update
-    pcall apt-get install -y ripgrep
-    pcall apt-get install -y fzf
-    apt-get install -y cmake
-    apt-get install -y make
-    apt-get install -y git
-    apt-get install -y gcc
-    apt-get install -y python3
-    apt-get install -y python3-pip
-    apt-get install -y curl
-    pcall apt-get install -y clangd
-    pcall apt-get install -y clang-format
-    pcall apt-get install -y nodejs
-    pcall apt-get install -y npm
+    sudo apt update
+    pcall sudo apt-get install -y ripgrep
+    pcall sudo apt-get install -y fzf
+    sudo apt-get install -y cmake
+    sudo apt-get install -y make
+    sudo apt-get install -y git
+    sudo apt-get install -y gcc
+    sudo apt-get install -y python3
+    sudo apt-get install -y python3-pip
+    sudo apt-get install -y curl
+    pcall sudo apt-get install -y clangd
+    pcall sudo apt-get install -y clang-format
+    pcall sudo apt-get install -y nodejs
+    pcall sudo apt-get install -y npm
     python="$(which python3 || which python)"
     if "$python" -m pip install --help | grep break-system-packages; then
         break="--break-system-packages"
@@ -152,19 +151,19 @@ install_apt() {
 }
 
 install_yum() {
-    yum-config-manager --add-repo=https://copr.fedorainfracloud.org/coprs/carlwgeorge/ripgrep/repo/epel-7/carlwgeorge-ripgrep-epel-7.repo
-    pcall yum install -y ripgrep
-    pcall yum install -y fzf
-    yum install -y cmake
-    yum install -y make
-    yum install -y git
-    yum install -y gcc
-    yum install -y python3 || yum install -y python
-    yum install -y curl
-    pcall yum install -y clangd
-    pcall yum install -y clang-format
-    pcall yum install -y nodejs
-    pcall yum install -y npm
+    sudo yum-config-manager --add-repo=https://copr.fedorainfracloud.org/coprs/carlwgeorge/ripgrep/repo/epel-7/carlwgeorge-ripgrep-epel-7.repo
+    pcall sudo yum install -y ripgrep
+    pcall sudo yum install -y fzf
+    sudo yum install -y cmake
+    sudo yum install -y make
+    sudo yum install -y git
+    sudo yum install -y gcc
+    sudo yum install -y python3 || sudo yum install -y python
+    sudo yum install -y curl
+    pcall sudo yum install -y clangd
+    pcall sudo yum install -y clang-format
+    pcall sudo yum install -y nodejs
+    pcall sudo yum install -y npm
     ensure_pip
     python="$(which python3 || which python)"
     pcall "$python" -m pip install -U pyright
@@ -172,6 +171,46 @@ install_yum() {
     pcall "$python" -m pip install -U openai
 }
 
+
+install_dnf() {
+    pcall sudo dnf install -y ripgrep
+    pcall sudo dnf install -y fzf
+    sudo dnf install -y cmake
+    sudo dnf install -y make
+    sudo dnf install -y git
+    sudo dnf install -y gcc
+    sudo dnf install -y python3 || sudo dnf install -y python
+    sudo dnf install -y curl
+    pcall sudo dnf install -y clangd
+    pcall sudo dnf install -y clang-format
+    pcall sudo dnf install -y nodejs
+    pcall sudo dnf install -y npm
+    ensure_pip
+    python="$(which python3 || which python)"
+    pcall "$python" -m pip install -U pyright
+    pcall "$python" -m pip install -U pynvim
+    pcall "$python" -m pip install -U openai
+}
+
+install_zypper() {
+    pcall sudo zypper in --no-confirm ripgrep || true
+    pcall sudo zypper in --no-confirm fzf || true
+    sudo zypper in --no-confirm cmake
+    sudo zypper in --no-confirm make
+    sudo zypper in --no-confirm git
+    sudo zypper in --no-confirm gcc
+    sudo zypper in --no-confirm python
+    sudo zypper in --no-confirm curl
+    pcall sudo zypper in --no-confirm clangd
+    pcall sudo zypper in --no-confirm clang-format
+    pcall sudo zypper in --no-confirm nodejs
+    pcall sudo zypper in --no-confirm npm
+    ensure_pip
+    python="$(which python3 || which python)"
+    pcall "$python" -m pip install -U pyright
+    pcall "$python" -m pip install -U pynvim
+    pcall "$python" -m pip install -U openai
+}
 
 install_brew() {
     pcall brew install ripgrep
@@ -187,47 +226,6 @@ install_brew() {
     pcall brew install node
     pcall brew install npm
     pcall brew install lua-language-server
-    ensure_pip
-    python="$(which python3 || which python)"
-    pcall "$python" -m pip install -U pyright
-    pcall "$python" -m pip install -U pynvim
-    pcall "$python" -m pip install -U openai
-}
-
-
-install_dnf() {
-    pcall dnf install -y ripgrep
-    pcall dnf install -y fzf
-    dnf install -y cmake
-    dnf install -y make
-    dnf install -y git
-    dnf install -y gcc
-    dnf install -y python3 || dnf install -y python
-    dnf install -y curl
-    pcall dnf install -y clangd
-    pcall dnf install -y clang-format
-    pcall dnf install -y nodejs
-    pcall dnf install -y npm
-    ensure_pip
-    python="$(which python3 || which python)"
-    pcall "$python" -m pip install -U pyright
-    pcall "$python" -m pip install -U pynvim
-    pcall "$python" -m pip install -U openai
-}
-
-install_zypper() {
-    pcall zypper in --no-confirm ripgrep || true
-    pcall zypper in --no-confirm fzf || true
-    zypper in --no-confirm cmake
-    zypper in --no-confirm make
-    zypper in --no-confirm git
-    zypper in --no-confirm gcc
-    zypper in --no-confirm python
-    zypper in --no-confirm curl
-    pcall zypper in --no-confirm clangd
-    pcall zypper in --no-confirm clang-format
-    pcall zypper in --no-confirm nodejs
-    pcall zypper in --no-confirm npm
     ensure_pip
     python="$(which python3 || which python)"
     pcall "$python" -m pip install -U pyright
@@ -253,14 +251,14 @@ do_install() {
         install_pacman
     elif [ $distro = "ManjaroLinux" ]; then
         install_pacman
-    elif [ $distro = "MacOS" ]; then
-        install_brew
     elif [ $distro = "fedora" ]; then
         install_dnf
     elif [ $distro = "openSUSE" ]; then
         install_zypper
     elif [ $distro = "CentOS" ]; then
         install_yum
+    elif [ $distro = "MacOS" ]; then
+        install_brew
     else
         # TODO: add more Linux distros here..
         echo "-- WARNING: Unsupported Linux distro: $distro"

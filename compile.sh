@@ -83,7 +83,7 @@ if which nvim; then
 else
     version=0
 fi
-(which nvim >/dev/null 2>/dev/null && [ \"\$version\" -ge 1$version_min ]) || \$SUDO bash ~/.config/nvim/install_nvim.sh
+(which nvim >/dev/null 2>/dev/null && [ \"\$version\" -ge 1$version_min ]) || bash ./install_nvim.sh || echo -e \"\\n\\nERROR: cannot install NeoVim >= 0.9.1! Consider install it manually...\\n错误：无法自动安装 NeoVim 0.9.1 以上的版本！您可能需要手动安装一下……\\n\\n\"
 nvim --version
 if [ -d ~/.config/nvim ]; then
     echo \"-- Backup existing config to ~/.config/.nvim.backup.\$\$...\"
@@ -95,12 +95,13 @@ rm -rf ~/.config/nvim
 cp -r . ~/.config/nvim
 if [ \"x\$NODEP\" = \"x\" ]; then
     echo '-- Installing dependencies...'
-    \$SUDO bash ~/.config/nvim/install_deps.sh || echo -e \"\\n\\n--\\n--\\n-- WARNING: some dependency installation failed, please check your internet connection.\n-- If you see this message, please report the full terminal output to archibate by opening GitHub issues.\\n-- ArchVim can still run without those dependencies, though.\\n-- You can always try run dependency installation again by running: sudo bash ~/.config/nvim/install_deps.sh\\n\\n--\\n--\\n-- 警告: 某些依赖项安装失败，请检查网络连接。\\n-- ArchVim 仍然可以正常运行，但是可能会缺少某些功能。\\n-- 如果你看到本消息，请通过 GitHub 向小彭老师反馈并贴上终端的完整输出。\\n-- 你也可以手动尝试运行依赖项安装命令：sudo bash ~/.config/nvim/install_deps.sh\\n--\\n--\\n\\n\"
+    bash ~/.config/nvim/install_deps.sh || echo -e \"\\n\\n--\\n--\\n-- WARNING: some dependency installation failed, please check your internet connection.\n-- If you see this message, please report the full terminal output to archibate by opening GitHub issues.\\n-- ArchVim can still run without those dependencies, though.\\n-- You can always try run dependency installation again by running: bash ~/.config/nvim/install_deps.sh\\n\\n--\\n--\\n-- 警告: 某些依赖项安装失败，请检查网络连接。\\n-- ArchVim 仍然可以正常运行，但是可能会缺少某些功能。\\n-- 如果你看到本消息，请通过 GitHub 向小彭老师反馈并贴上终端的完整输出。\\n-- 你也可以手动尝试运行依赖项安装命令：sudo bash ~/.config/nvim/install_deps.sh\\n--\\n--\\n\\n\"
 fi
 echo '-- Synchronizing packer.nvim...'
 # rm -rf ~/.local/share/nvim/site/pack/packer
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerClean'
+# nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerCompile'
 echo '-- Copying language supports...'
 mkdir -p ~/.local/share/nvim/site/pack/packer/start/nvim-treesitter/parser
 mv ~/.config/nvim/nvim-treesitter-parser/*.so ~/.local/share/nvim/site/pack/packer/start/nvim-treesitter/parser/
@@ -132,7 +133,6 @@ echo '-- Finishing installation...'
 rm -rf \$tmpdir \$tmptgz
 cd ~/.config/nvim
 
-echo
 mkdir -p ~/.local/share/nvim/archvim
 echo \"-- Configuring ~/.local/share/nvim/archvim/opts.json\"
 
@@ -153,14 +153,19 @@ echo \"-- Configuring ~/.local/share/nvim/archvim/opts.json\"
     echo -n \"==> 是或否，默认选否 [y/N] \"
     read -n1 x 2> /dev/null || read x || x=n
     val=\$([ \"x\$x\" = \"xy\" ] && echo true || echo false)
+    echo -n \"(设置中，请稍候...)\"
     nvim --headless -c \"lua require'archvim.options'.\$key = \$val\" -c 'sleep 1 | q!'
 
     if ! \$val; then
 
         quest_en='The symbol \` \` is not showing correctly due to lack of the Nerd Fonts. Would you like to install and enable it right now?'
-        quest_zh='此字符 “ ” 无法显示可能是因为您没有安装 Nerd Fonts 字体，要现在安装并启用这款字体吗？'
+        quest_zh='此字符 “ ” 无法显示可能是因为您没有安装 Nerd Fonts 字体，要现在安装这款字体吗？'
         echo \"=================================\"
         echo
+        echo \"-- \"
+        echo \"-- Nerd Fonts 官网下载：https://www.nerdfonts.com/\"
+        echo \"-- 推荐选择 “JetBrainMono Nerd Fonts” 字体。\"
+        echo \"-- \"
         echo \"-- If you are using WSL or remote SSH, you'll have to manually download the font on Windows.\"
         echo \"-- 如果您使用的是 WSL 或者远程服务器连接，那么则需要为 Windows 客户端安装此字体。\"
         echo \"-- Windows 终端 Nerd Fonts 安装教程：https://medium.com/@vedantkadam541/beautify-your-windows-terminal-using-nerd-fonts-and-oh-my-posh-4f4393f097\"
@@ -177,9 +182,11 @@ echo \"-- Configuring ~/.local/share/nvim/archvim/opts.json\"
             if (curl --connect-timeout 5 -L -o ~/.local/share/fonts/JetBrainsMono.zip https://ghproxy.net/https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.1/JetBrainsMono.zip || curl --connect-timeout 5 -L -o ~/.local/share/fonts/JetBrainsMono.zip https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.1/JetBrainsMono.zip) && (cd ~/.local/share/fonts && unzip JetBrainsMono.zip && rm JetBrainsMono.zip) && fc-cache -fv; then
                 nvim --headless -c \"lua require'archvim.options'.\$key = true\" -c 'sleep 1 | q!' || true
                 echo \"Installed Nerd Fonts for you. Now please goto the terminal settings and select 'JetBrainMono Nerd Fonts' for font, so that it can effect.\"
-                echo \"已为您安装 Nerd Fonts，您还需要在终端设置中选择 “JetBrainMono Nerd Fonts” 字体才能生效。\"
+                echo \"成功为您安装 Nerd Fonts，您还需要在终端设置中选择 “JetBrainMono Nerd Fonts” 字体才能生效。\"
                 echo -n \"==> 好的，我会去设置的 [Press any key to continue] \"
                 read -n1 x 2> /dev/null || read x || true
+                echo -n \"(设置中，请稍候...)\"
+                nvim --headless -c \"lua require'archvim.options'.\$key = true\" -c 'sleep 1 | q!'
             else
                 echo \"ERROR: cannot install Nerd Fonts! Worry not, ArchVim installation will continue.\"
                 echo \"错误：无法安装 Nerd Fonts，别担心，ArchVim 插件整合包的安装仍能继续。\"
@@ -201,6 +208,7 @@ echo \"-- Configuring ~/.local/share/nvim/archvim/opts.json\"
     echo -n \"==> 是或否，默认选是 [Y/n] \"
     read -n1 x 2> /dev/null || read x || x=y
     val=\$([ \"x\$x\" != \"xn\" ] && echo true || echo false)
+    echo -n \"(设置中，请稍候...)\"
     nvim --headless -c \"lua require'archvim.options'.\$key = \$val\" -c 'sleep 1 | q!'
 
     key=transparent_color
@@ -215,6 +223,7 @@ echo \"-- Configuring ~/.local/share/nvim/archvim/opts.json\"
     echo -n \"==> 是或否，默认选是 [Y/n] \"
     read -n1 x 2> /dev/null || read x || x=y
     val=\$([ \"x\$x\" != \"xn\" ] && echo true || echo false)
+    echo -n \"(设置中，请稍候...)\"
     nvim --headless -c \"lua require'archvim.options'.\$key = \$val\" -c 'sleep 1 | q!'
 
     key=enable_inlay_hint
@@ -235,6 +244,7 @@ echo \"-- Configuring ~/.local/share/nvim/archvim/opts.json\"
     echo -n \"==> 是或否，默认选是 [Y/n] \"
     read -n1 x 2> /dev/null || read x || x=y
     val=\$([ \"x\$x\" != \"xn\" ] && echo true || echo false)
+    echo -n \"(设置中，请稍候...)\"
     nvim --headless -c \"lua require'archvim.options'.\$key = \$val\" -c 'sleep 1 | q!'
 
     echo

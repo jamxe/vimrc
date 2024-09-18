@@ -72,7 +72,7 @@ local plugins = {
             'williamboman/mason-lspconfig.nvim',
             "mason-org/mason-registry",
         },
-        run = ":MasonUpdate",
+        -- run = ":MasonUpdate",
         config = function() require'archvim/config/mason' end,
     },
     {
