@@ -18,7 +18,7 @@ nvim --headless --cmd "let g:archvim_predownload=2 | let g:archvim_predownload_c
 git --version > /dev/null
 rm -rf "$cache"/archvim-release
 mkdir -p "$cache"/archvim-release
-cp -r ./lua ./init.vim ./install_deps.sh ./dotfiles "$cache"/archvim-release
+cp -r ./lua ./init.vim ./install_deps.sh ./install_nvim.sh ./dotfiles "$cache"/archvim-release
 sed -i "s/\"let g:archvim_predownload=1/let g:archvim_predownload=1/" "$cache"/archvim-release/init.vim
 rm -rf "$cache"/archvim-release/lua/archvim/predownload
 cp -r "$cache"/archvim-build/predownload "$cache"/archvim-release/lua/archvim
@@ -80,25 +80,6 @@ fix_nvim_appimage() {
     echo 'x=\$\$; mkdir -p /tmp/_nvim_appimg_.\$x && bash -c \"cd /tmp/_nvim_appimg_.\$x && /usr/bin/.nvim.appimage.noextract --appimage-extract > /dev/null 2>&1\" && /tmp/_nvim_appimg_.\$x/squashfs-root/AppRun \"\$@\"; x=\$?; rm -rf /tmp/_nvim_appimg_.\$x exit \$x' | \$SUDO tee /usr/bin/nvim
     \$SUDO chmod +x /usr/bin/nvim
 }
-install_nvim() {
-    echo \"-- NeoVim 0.9.1 or above not found, installing latest for you\"
-    if [ \"x\$(uname -sm)\" = \"xLinux x86_64\" ]; then
-        if which snap >/dev/null 2>&1; then
-            echo \"-- We don't need NeoVim in snap, try uninstalling...\"
-            \$SUDO snap remove nvim || true
-        fi
-        test -f ./nvim.appimage || curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o ~/.config/nvim/nvim.appimage
-        \$SUDO chmod +x ./nvim.appimage
-        test -f /usr/bin/nvim && \$SUDO mv /usr/bin/nvim /tmp/.nvim-executable-backup || true
-        \$SUDO cp ./nvim.appimage /usr/bin/nvim
-        /usr/bin/nvim --version || fix_nvim_appimage
-    elif [ \"x\$(uname -s)\" = \"xDarwin\" ]; then
-        brew uninstall neovim 2> /dev/null || true
-        brew install neovim
-    else
-        echo \"-- Don't know how to install latest nvim on this distro, good luck...\"
-    fi
-}
 echo '-- Checking NeoVim version...'
 if which nvim; then
     stat \"\$(which nvim)\" || true
@@ -107,7 +88,7 @@ if which nvim; then
 else
     version=0
 fi
-(which nvim >/dev/null 2>/dev/null && [ \"\$version\" -ge 1$version_min ]) || install_nvim
+(which nvim >/dev/null 2>/dev/null && [ \"\$version\" -ge 1$version_min ]) || \$SUDO bash ~/.config/nvim/install_nvim.sh
 nvim --version
 if [ -d ~/.config/nvim ]; then
     echo \"-- Backup existing config to ~/.config/.nvim.backup.\$\$...\"
@@ -154,6 +135,7 @@ if [ \"x\$(uname -sm)\" != \"xLinux x86_64\" ]; then
 fi
 echo '-- Finishing installation...'
 rm -rf \$tmpdir \$tmptgz
+cd ~/.config/nvim
 
 echo
 mkdir -p ~/.local/share/nvim/archvim
@@ -184,8 +166,12 @@ echo \"-- Configuring ~/.local/share/nvim/archvim/opts.json\"
         quest_zh='此字符 “ ” 无法显示可能是因为您没有安装 Nerd Fonts 字体，要现在安装并启用这款字体吗？'
         echo \"=================================\"
         echo
-        echo \"-- Worry not, you may still use NeoVim without the fancy icons.\"
-        echo \"-- 别担心，您仍然可以正常使用 NeoVim，只不过没有了一些花哨的图标。\"
+        echo \"-- If you are using WSL or remote SSH, you'll have to manually download the font on Windows.\"
+        echo \"-- 如果您使用的是 WSL 或者远程服务器连接，那么则需要为 Windows 客户端安装此字体。\"
+        echo \"-- Windows 终端 Nerd Fonts 安装教程：https://medium.com/@vedantkadam541/beautify-your-windows-terminal-using-nerd-fonts-and-oh-my-posh-4f4393f097\"
+        echo \"-- \"
+        echo \"-- Worry not, without Nerd Fonts, you may still use NeoVim without the fancy icons.\"
+        echo \"-- 别担心，即使没有安装此字体，您仍然可以正常使用 NeoVim，只不过没了一些花哨的图标。\"
         echo
         echo \"==> \$quest_en\"
         echo \"==> \$quest_zh\"
@@ -196,7 +182,7 @@ echo \"-- Configuring ~/.local/share/nvim/archvim/opts.json\"
             if (curl --connect-timeout 5 -L -o ~/.local/share/fonts/JetBrainsMono.zip https://ghproxy.net/https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.1/JetBrainsMono.zip || curl --connect-timeout 5 -L -o ~/.local/share/fonts/JetBrainsMono.zip https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.1/JetBrainsMono.zip) && (cd ~/.local/share/fonts && unzip JetBrainsMono.zip && rm JetBrainsMono.zip) && fc-cache -fv; then
                 nvim --headless -c \"lua require'archvim.options'.\$key = true\" -c 'sleep 1 | q!' || true
                 echo \"Installed Nerd Fonts for you. Now please goto the terminal settings and select 'JetBrainMono Nerd Fonts' for font, so that it can effect.\"
-                echo \"已为您安装 Nerd Fonts，您还需要在终端设置中选择 “JetBrainMono Nerd Fonts“ 字体才能生效。\"
+                echo \"已为您安装 Nerd Fonts，您还需要在终端设置中选择 “JetBrainMono Nerd Fonts” 字体才能生效。\"
                 echo -n \"==> 好的，我会去设置的 [Press any key to continue] \"
                 read -n1 x 2> /dev/null || read x || true
             else
