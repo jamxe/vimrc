@@ -18,7 +18,7 @@ nvim --headless --cmd "let g:archvim_predownload=2 | let g:archvim_predownload_c
 git --version > /dev/null
 rm -rf "$cache"/archvim-release
 mkdir -p "$cache"/archvim-release
-cp -r ./lua ./init.vim ./install_deps.sh ./install_nvim.sh ./dotfiles "$cache"/archvim-release
+cp -r ./lua ./init.vim ./scripts ./dotfiles "$cache"/archvim-release
 sed -i "s/\"let g:archvim_predownload=1/let g:archvim_predownload=1/" "$cache"/archvim-release/init.vim
 rm -rf "$cache"/archvim-release/lua/archvim/predownload
 cp -r "$cache"/archvim-build/predownload "$cache"/archvim-release/lua/archvim
@@ -74,7 +74,7 @@ printf "\n__ARCHVIM_PAYLOAD_EOF__
 cd \$tmpdir
 echo '-- Extracting bundled data...'
 base64 -d < \$tmptgz | tar -zx
-test -f ./install_deps.sh || echo \"ERROR: cannot extract file, make sure you have base64 and tar working\"
+test -f ./scripts/install_deps.sh || echo \"ERROR: cannot extract file, make sure you have base64 and tar working\"
 echo '-- Checking NeoVim version...'
 if which nvim; then
     stat \"\$(which nvim)\" || true
@@ -83,7 +83,7 @@ if which nvim; then
 else
     version=0
 fi
-(which nvim >/dev/null 2>/dev/null && [ \"\$version\" -ge 1$version_min ]) || bash ./install_nvim.sh || echo -e \"\\n\\nERROR: cannot install NeoVim >= 0.9.1! Consider install it manually...\\n错误：无法自动安装 NeoVim 0.9.1 以上的版本！您可能需要手动安装一下……\\n\\n\"
+(which nvim >/dev/null 2>/dev/null && [ \"\$version\" -ge 1$version_min ]) || bash ./scripts/install_nvim.sh || echo -e \"\\n\\nERROR: cannot install NeoVim >= 0.9.1! Consider install it manually...\\n错误：无法自动安装 NeoVim 0.9.1 以上的版本！您可能需要手动安装一下……\\n\\n\"
 nvim --version
 if [ -d ~/.config/nvim ]; then
     echo \"-- Backup existing config to ~/.config/.nvim.backup.\$\$...\"
@@ -95,7 +95,7 @@ rm -rf ~/.config/nvim
 cp -r . ~/.config/nvim
 if [ \"x\$NODEP\" = \"x\" ]; then
     echo '-- Installing dependencies...'
-    bash ~/.config/nvim/install_deps.sh || echo -e \"\\n\\n--\\n--\\n-- WARNING: some dependency installation failed, please check your internet connection.\n-- If you see this message, please report the full terminal output to archibate by opening GitHub issues.\\n-- ArchVim can still run without those dependencies, though.\\n-- You can always try run dependency installation again by running: bash ~/.config/nvim/install_deps.sh\\n\\n--\\n--\\n-- 警告: 某些依赖项安装失败，请检查网络连接。\\n-- ArchVim 仍然可以正常运行，但是可能会缺少某些功能。\\n-- 如果你看到本消息，请通过 GitHub 向小彭老师反馈并贴上终端的完整输出。\\n-- 你也可以手动尝试运行依赖项安装命令：sudo bash ~/.config/nvim/install_deps.sh\\n--\\n--\\n\\n\"
+    bash ~/.config/nvim/scripts/install_deps.sh || echo -e \"\\n\\n--\\n--\\n-- WARNING: some dependency installation failed, please check your internet connection.\n-- If you see this message, please report the full terminal output to archibate by opening GitHub issues.\\n-- ArchVim can still run without those dependencies, though.\\n-- You can always try run dependency installation again by running: bash ~/.config/nvim/scripts/install_deps.sh\\n\\n--\\n--\\n-- 警告: 某些依赖项安装失败，请检查网络连接。\\n-- ArchVim 仍然可以正常运行，但是可能会缺少某些功能。\\n-- 如果你看到本消息，请通过 GitHub 向小彭老师反馈并贴上终端的完整输出。\\n-- 你也可以手动尝试运行依赖项安装命令：sudo bash ~/.config/nvim/scripts/install_deps.sh\\n--\\n--\\n\\n\"
 fi
 echo '-- Synchronizing packer.nvim...'
 # rm -rf ~/.local/share/nvim/site/pack/packer
@@ -132,7 +132,7 @@ fi
 echo '-- Finishing installation...'
 rm -rf \$tmpdir \$tmptgz
 cd ~/.config/nvim
-bash ~/.config/nvim/customize_settings.sh || true
+bash ~/.config/nvim/scripts/customize_settings.sh || true
 
 echo
 echo \"--\"
