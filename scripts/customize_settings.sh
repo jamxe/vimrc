@@ -37,8 +37,9 @@ SetConfig() {
 }
 
 cat << EOF
-==================================================================
+******************************************************
 现在开始为您的个性化定制，如果不确定，可以一路按 ENTER 下去
+******************************************************
 EOF
 
 cat << EOF
@@ -102,6 +103,6 @@ cat << EOF
 --
 -- You may always change these settings later by re-running this script.
 -- 您以后可以随时重新运行本脚本以修改这些上述设置。
--- 脚本路径：~/.config/nvim/customize_settings.sh
+-- 脚本路径：~/.config/nvim/scripts/customize_settings.sh
 --
 EOF
