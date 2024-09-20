@@ -28,8 +28,6 @@ curl -SLf https://142857.red/files/nvimrc-install.sh | bash
 
 推荐为您的终端安装 [Nerd Fonts](https://www.nerdfonts.com/) 字体，并把终端设置为该字体。然后在 `nvim` 中输入 `:lua require'archvim.options'.nerd_fonts = true`，这样就可以显示文件类型图标了。
 
-[![Nerd Fonts](https://private-user-images.githubusercontent.com/123386524/368446307-ea13fb50-71fb-46b2-981d-1cf8746a7403.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MjY4MjM2NzgsIm5iZiI6MTcyNjgyMzM3OCwicGF0aCI6Ii8xMjMzODY1MjQvMzY4NDQ2MzA3LWVhMTNmYjUwLTcxZmItNDZiMi05ODFkLTFjZjg3NDZhNzQwMy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwOTIwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDkyMFQwOTA5MzhaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1iNDZlYmM1MTRjYmFmNGNjMjk4ODE3ZjEyMzZhZTA1ZTZmOTU2Yzk5OTg5ZGJmZjBjZjY2YTI4MTBjZTJkMjI5JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.7wpIzItKwgsjCJ5YJ5rPEBqL8p3-8H5_joTOZ-e2Uzo)](https://www.nerdfonts.com/)
-
 > 小彭老师用的是 JetBrainsMono Nerd Font Regular，字号 16，这是一款专为程序员打造的等宽字体。
 
 如需自己定制插件参数、移除不想要的插件或添加更多插件：可以编辑 `~/.config/nvim/lua/archvim/plugins.lua`，里面有全部的插件列表，删除或添加即可。
