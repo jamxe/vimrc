@@ -13,6 +13,7 @@ export ARCHIBATE_COMPUTER
 compress=z
 version_min=090
 treesitters=(c cpp cuda cmake lua python html javascript css json bash regex markdown diff glsl vim vimdoc)
+commands=(sudo base64 tar mktemp cat tee rm mkdir test cp mv stat grep echo uname)
 
 cache="$PWD/.build_cache"
 payload="$cache"/archvim-release.tar.gz
@@ -46,23 +47,10 @@ rm -rf "$cache"/archvim-release
 
 # https://stackoverflow.com/questions/29418050/package-tar-gz-into-a-shell-script
 printf "#!/bin/bash
-# which tee > /dev/null 2> /dev/null && TEE=(tee /tmp/archvim.log) || TEE=cat
-# (bash | \${TEE[@]}) << __ARCHVIM_SCRIPT_EOF__
 set -e
 echo '-- Welcome to the ArchVim installation script'
 echo '-- 欢迎使用小彭老师 ArchVim 一键安装脚本'
-which sudo > /dev/null
-which base64 > /dev/null
-which tar > /dev/null
-which mktemp > /dev/null
-which cat > /dev/null
-which tee > /dev/null
-which rm > /dev/null
-which mkdir > /dev/null
-which test > /dev/null
-which cp > /dev/null
-which mv > /dev/null
-which stat > /dev/null
+which ${commands[*]} > /dev/null || (echo \"ERROR: One of the following command(s) not found: ${commands[*]}\" && exit 1)
 tmpdir=\"\$(mktemp -d)\"
 tmpzip=\"\$(mktemp)\"
 rm -rf \$tmpdir
@@ -98,7 +86,7 @@ rm -rf ~/.config/nvim
 cp -r . ~/.config/nvim
 if [ \"x\$NODEP\" = \"x\" ]; then
     echo '-- Installing dependencies...'
-    bash ~/.config/nvim/scripts/install_deps.sh || echo -e \"\\n\\n--\\n--\\n-- WARNING: some dependency installation failed, please check your internet connection.\n-- If you see this message, please report the full terminal output to archibate by opening GitHub issues.\\n-- ArchVim can still run without those dependencies, though.\\n-- You can always try run dependency installation again by running: bash ~/.config/nvim/scripts/install_deps.sh\\n\\n--\\n--\\n-- 警告: 某些依赖项安装失败，请检查网络连接。\\n-- ArchVim 仍然可以正常运行，但是可能会缺少某些功能。\\n-- 如果你看到本消息，请通过 GitHub 向小彭老师反馈并贴上终端的完整输出。\\n-- 你也可以手动尝试运行依赖项安装命令：sudo bash ~/.config/nvim/scripts/install_deps.sh\\n--\\n--\\n\\n\"
+    bash ~/.config/nvim/scripts/install_deps.sh || echo -e \"\\n\\n--\\n--\\n-- WARNING: some dependency installation failed, please check your internet connection.\n-- If you see this message, please report the full terminal output to archibate by opening GitHub issues.\\n-- ArchVim can still run without those dependencies, though.\\n-- You can always try re-run dependency installation by running: bash ~/.config/nvim/scripts/install_deps.sh\\n\\n--\\n--\\n-- 警告: 某些依赖项安装失败，请检查包管理器是否配置为国内源并有网络连接。\\n-- ArchVim 仍然可以正常运行，但是可能会缺少某些功能。\\n-- 如果你看到本消息，请通过 GitHub 向小彭老师反馈并贴上终端的完整输出。\\n-- 修复网络问题后，你也可以手动再次尝试安装依赖项：bash ~/.config/nvim/scripts/install_deps.sh\\n--\\n--\\n\\n\"
 fi
 echo '-- Synchronizing packer.nvim...'
 # rm -rf ~/.local/share/nvim/site/pack/packer

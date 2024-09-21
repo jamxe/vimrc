@@ -7,7 +7,7 @@ YesOrNo() {
     else
         prompt="是或否，默认选是 [Y/n] "
     fi
-    echo -n $prompt
+    echo -n "$prompt"
     read -n1 answer < /dev/tty || read answer < /dev/tty || answer=$2
     if [ "x$2" = "xn" ]; then
         if [ "x$answer" != "xy" ]; then
@@ -71,11 +71,11 @@ SetConfig nerd_fonts $?
 
 if [ $? != 0 ]; then
     cat << EOF
-    ==================================================================
-    Did your terminal shows this symbols correctly? 󰅖 (a cross symbol)
-    您的终端是否能正常显示此字符？󰅖（此处应为叉号）
-    ==================================================================
-    EOF
+==================================================================
+Did your terminal shows this symbols correctly? 󰅖 (a cross symbol)
+您的终端是否能正常显示此字符？󰅖（此处应为叉号）
+==================================================================
+EOF
     YesOrNo n
     SetConfig nerd_fonts $?
 fi
