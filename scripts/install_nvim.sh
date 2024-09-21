@@ -3,7 +3,7 @@ set -e
 
 echo "-- NeoVim 0.9.1 or above not found, installing latest for you."
 
-cd "$(dirname $0)"
+cd "$(dirname $0)/.."
 
 install_snap() {
     if ! which apt >/dev/null 2>&1; then

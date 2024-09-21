@@ -10,12 +10,12 @@ if [ "x$ARCHIBATE_COMPUTER" = "x" ]; then
 fi
 unset ARCHIBATE_COMPUTER
 export ARCHIBATE_COMPUTER
-compress=J
+compress=z
 version_min=090
 treesitters=(c cpp cuda cmake lua python html javascript css json bash regex markdown diff glsl vim vimdoc)
 
 cache="$PWD/.build_cache"
-payload="$cache"/archvim-release.tar.xz
+payload="$cache"/archvim-release.tar.gz
 script="$cache"/nvimrc-install.sh
 
 mkdir -p "$cache"
@@ -38,7 +38,7 @@ for x in "$cache"/archvim-release/nvim-treesitter-parser/*.so; do
 done
 cp -r ~/.local/share/nvim/mason/registries/github/mason-org/mason-registry "$cache"/archvim-release
 test -f "$cache"/archvim-nvim.appimage || curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o "$cache"/archvim-nvim.appimage
-cp "$cache"/archvim-nvim.appimage nvim.appimage
+cp "$cache"/archvim-nvim.appimage "$cache"/archvim-release/nvim.appimage
 chmod u+x nvim.appimage
 tar -${compress}cf "$payload" .
 cd "$(dirname "$0")"

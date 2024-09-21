@@ -3,7 +3,7 @@ set -e
 
 echo '-- Automatically installing ArchVim system dependencies...'
 
-cd "$(dirname $0)"
+cd "$(dirname $0)/.."
 
 get_linux_distro() {
     if grep -Eq "Ubuntu" /etc/*-release 2> /dev/null; then
