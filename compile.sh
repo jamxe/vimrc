@@ -5,14 +5,19 @@ if [ "x$ARCHIBATE_COMPUTER" = "x" ]; then
     echo "-- WARNING: End users should use this command to install:"
     echo "-- 警告: 此脚本仅用于编译插件包，而非末端用户！"
     echo "-- 警告: 末端用户请使用此命令安装："
-    echo "curl -sSLf https://142857.red/files/nvimrc-install.sh | bash"
+    echo "curl -SLf https://142857.red/files/nvimrc-install.sh | bash"
     exit 1
 fi
 unset ARCHIBATE_COMPUTER
 export ARCHIBATE_COMPUTER
-cache="$PWD/.build_cache"
+compress=J
 version_min=090
 treesitters=(c cpp cuda cmake lua python html javascript css json bash regex markdown diff glsl vim vimdoc)
+
+cache="$PWD/.build_cache"
+payload="$cache"/archvim-release.tar.xz
+script="$cache"/nvimrc-install.sh
+
 mkdir -p "$cache"
 nvim --headless --cmd "let g:archvim_predownload=2 | let g:archvim_predownload_cachedir='$cache/archvim-build'" -c 'q'
 git --version > /dev/null
@@ -22,7 +27,7 @@ cp -r ./lua ./init.vim ./scripts ./dotfiles "$cache"/archvim-release
 sed -i "s/\"let g:archvim_predownload=1/let g:archvim_predownload=1/" "$cache"/archvim-release/init.vim
 rm -rf "$cache"/archvim-release/lua/archvim/predownload
 cp -r "$cache"/archvim-build/predownload "$cache"/archvim-release/lua/archvim
-rm -rf "$cache"/archvim-release.tar.gz
+rm -rf "$payload"
 cd "$cache"/archvim-release
 mkdir -p "$cache"/archvim-release/nvim-treesitter-parser
 for x in ${treesitters[@]}; do
@@ -35,12 +40,10 @@ cp -r ~/.local/share/nvim/mason/registries/github/mason-org/mason-registry "$cac
 test -f "$cache"/archvim-nvim.appimage || curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o "$cache"/archvim-nvim.appimage
 cp "$cache"/archvim-nvim.appimage nvim.appimage
 chmod u+x nvim.appimage
-tar -zcf "$cache"/archvim-release.tar.gz .
+tar -${compress}cf "$payload" .
 cd "$(dirname "$0")"
 rm -rf "$cache"/archvim-release
 
-payload="$cache"/archvim-release.tar.gz
-script="$cache"/nvimrc-install.sh
 # https://stackoverflow.com/questions/29418050/package-tar-gz-into-a-shell-script
 printf "#!/bin/bash
 # which tee > /dev/null 2> /dev/null && TEE=(tee /tmp/archvim.log) || TEE=cat
@@ -61,19 +64,19 @@ which cp > /dev/null
 which mv > /dev/null
 which stat > /dev/null
 tmpdir=\"\$(mktemp -d)\"
-tmptgz=\"\$(mktemp)\"
+tmpzip=\"\$(mktemp)\"
 rm -rf \$tmpdir
 mkdir -p \$tmpdir
 echo '-- Fetching bundled data...'
 echo '-- 正在下载插件包，请稍等...'
-cat > \$tmptgz << __ARCHVIM_PAYLOAD_EOF__\n" > "$script"
+cat > \$tmpzip << __ARCHVIM_PAYLOAD_EOF__\n" > "$script"
 
 base64 "$payload" >> "$script"
 
 printf "\n__ARCHVIM_PAYLOAD_EOF__
 cd \$tmpdir
 echo '-- Extracting bundled data...'
-base64 -d < \$tmptgz | tar -zx
+base64 -d < \$tmpzip | tar -${compress}x
 test -f ./scripts/install_deps.sh || echo \"ERROR: cannot extract file, make sure you have base64 and tar working\"
 echo '-- Checking NeoVim version...'
 if which nvim; then
@@ -130,7 +133,7 @@ if [ \"x\$(uname -sm)\" != \"xLinux x86_64\" ]; then
     nvim --headless -c \"TSInstallInfo\" -c 'sleep 1 | q!'
 fi
 echo '-- Finishing installation...'
-rm -rf \$tmpdir \$tmptgz
+rm -rf \$tmpdir \$tmpzip
 cd ~/.config/nvim
 bash ~/.config/nvim/scripts/customize_settings.sh || true
 

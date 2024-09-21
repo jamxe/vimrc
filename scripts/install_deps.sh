@@ -104,8 +104,8 @@ ensure_pip() {
 }
 
 install_pacman() {
-    pcall sudo pacman -S --noconfirm ripgrep
-    pcall sudo pacman -S --noconfirm fzf
+    sudo pacman -S --noconfirm ripgrep
+    sudo pacman -S --noconfirm fzf
     sudo pacman -S --noconfirm cmake
     sudo pacman -S --noconfirm make
     sudo pacman -S --noconfirm git
@@ -145,9 +145,9 @@ install_apt() {
         break=
     fi
     ensure_pip
-    pcall "$python" -m pip install -U pyright $break
     pcall "$python" -m pip install -U pynvim $break
     pcall "$python" -m pip install -U openai $break
+    pcall npm install -g pyright
 }
 
 install_yum() {
@@ -166,9 +166,9 @@ install_yum() {
     pcall sudo yum install -y npm
     ensure_pip
     python="$(which python3 || which python)"
-    pcall "$python" -m pip install -U pyright
     pcall "$python" -m pip install -U pynvim
     pcall "$python" -m pip install -U openai
+    pcall npm install -g pyright
 }
 
 
@@ -187,9 +187,9 @@ install_dnf() {
     pcall sudo dnf install -y npm
     ensure_pip
     python="$(which python3 || which python)"
-    pcall "$python" -m pip install -U pyright
     pcall "$python" -m pip install -U pynvim
     pcall "$python" -m pip install -U openai
+    pcall npm install -g pyright
 }
 
 install_zypper() {
@@ -207,9 +207,9 @@ install_zypper() {
     pcall sudo zypper in --no-confirm npm
     ensure_pip
     python="$(which python3 || which python)"
-    pcall "$python" -m pip install -U pyright
     pcall "$python" -m pip install -U pynvim
     pcall "$python" -m pip install -U openai
+    pcall npm install -g pyright
 }
 
 install_brew() {
@@ -228,9 +228,9 @@ install_brew() {
     pcall brew install lua-language-server
     ensure_pip
     python="$(which python3 || which python)"
-    pcall "$python" -m pip install -U pyright
     pcall "$python" -m pip install -U pynvim
     pcall "$python" -m pip install -U openai
+    pcall npm install -g pyright
 }
 
 do_install() {
