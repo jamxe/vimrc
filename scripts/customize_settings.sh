@@ -26,7 +26,7 @@ YesOrNo() {
 }
 
 SetConfig() {
-    echo -n "(设置中，请稍候...)"
+    echo "(设置中，请稍候...)"
     key=$1
     if [ $2 != 0 ]; then
         value=true
@@ -34,6 +34,8 @@ SetConfig() {
         value=false
     fi
     nvim --headless -c "lua require'archvim.options'.$key = $value" -c 'sleep 1 | q!'
+    echo
+    return $2
 }
 
 cat << EOF
@@ -43,19 +45,9 @@ cat << EOF
 EOF
 
 cat << EOF
-==================================================================
-Did your terminal shows this symbols correctly?  (a clock symbol)
-您的终端是否能正常显示此字符？ （此处应为时钟符号）
-==================================================================
-EOF
-YesNo n
-SetConfig nerd_fonts $?
-
-if ! $val; then
-
-cat << EOF
-The symbol ' ' is not showing correctly due to lack of the Nerd Fonts.
-此字符 “ ” 无法显示可能是因为您没有安装 Nerd Fonts 字体。
+-----------------------------------------------------------------------------------------
+If the symbol ' ' is not showing correctly, you might want to install Nerd Fonts.
+此字符 “ ” 若无法显示，可能是因为您没有安装 Nerd Fonts 字体。
 
 Nerd Fonts 官网下载：https://www.nerdfonts.com/
 推荐选择 “JetBrainMono Nerd Fonts” 字体。
@@ -65,7 +57,28 @@ Windows 终端 Nerd Fonts 安装教程：https://medium.com/@vedantkadam541/beau
         
 Worry not, without Nerd Fonts, you may still use NeoVim without the fancy icons.
 别担心，即使没有安装此字体，您仍然可以正常使用 NeoVim，只不过没了一些花哨的图标。
+-----------------------------------------------------------------------------------------
 EOF
+
+cat << EOF
+==================================================================
+Did your terminal shows this symbols correctly?  (a clock symbol)
+您的终端是否能正常显示此字符？ （此处应为时钟符号）
+==================================================================
+EOF
+YesOrNo n
+SetConfig nerd_fonts $?
+
+if [ $? != 0 ]; then
+    cat << EOF
+    ==================================================================
+    Did your terminal shows this symbols correctly? 󰅖 (a cross symbol)
+    您的终端是否能正常显示此字符？󰅖（此处应为叉号）
+    ==================================================================
+    EOF
+    YesOrNo n
+    SetConfig nerd_fonts $?
+fi
 
 cat << EOF
 ==================================================================
@@ -73,7 +86,7 @@ Do you need to use this NeoVim in remote connection (SSH)?'
 您是否需要在远程连接（SSH）中使用此 NeoVim？'
 ==================================================================
 EOF
-YesNo y
+YesOrNo y
 SetConfig disable_notify $?
 
 cat << EOF
@@ -82,7 +95,7 @@ Did you set any background image for the terminal?
 您是否为终端设定了背景贴图（例如二次元壁纸）？
 ==================================================================
 EOF
-YesNo y
+YesOrNo y
 SetConfig transparent_color $?
 
 cat << EOF

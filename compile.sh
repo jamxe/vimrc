@@ -51,7 +51,7 @@ printf "#!/bin/bash
 set -e
 echo '-- Welcome to the ArchVim installation script'
 echo '-- 欢迎使用小彭老师 ArchVim 一键安装脚本'
-which sudo > /dev/null 2> /dev/null && SUDO=sudo || SUDO=
+which sudo > /dev/null
 which base64 > /dev/null
 which tar > /dev/null
 which mktemp > /dev/null
@@ -81,7 +81,7 @@ test -f ./scripts/install_deps.sh || echo \"ERROR: cannot extract file, make sur
 echo '-- Checking NeoVim version...'
 if which nvim; then
     stat \"\$(which nvim)\" || true
-    \$SUDO chmod +x \"\$(which nvim)\" || true
+    sudo chmod +x \"\$(which nvim)\" || true
     version=\"1\$(nvim --version | head -n1 | cut -f2 -dv | sed s/\\\\.//g)\"
 else
     version=0
@@ -163,9 +163,9 @@ echo \"-- 欢迎向我反馈各种问题和建议：https://github.com/archibate
 echo \"--\"
 echo \"-- 如需更新，只需重新下载这个脚本并运行即可，会自动覆盖老的版本。\"
 echo \"-- 如果手动添加了新插件，记得 :PackerSync 和 :PackerCompile 才能生效。\"
-echo \"-- 如需卸载本插件包，只需删除 ~/.config/nvim 文件夹\"
+echo \"-- 如需卸载本插件包，只需删除 ~/.config/nvim 文件夹。\"
 if [ -f ~/.config/.nvim.backup.\$\$ ]; then
-    echo \"-- 想恢复旧配置？把本脚本自动备份的 ~/.config/.nvim.backup.\$\$ 移动回 ~/.config/nvim 即可\"
+    echo \"-- 想恢复旧配置？把本脚本自动备份的 ~/.config/.nvim.backup.\$\$ 移动回 ~/.config/nvim 即可。\"
 fi
 echo \"--\"
 echo \"-- 你可以运行 :checkhealth 来检查 NeoVim 是否工作正常。\"

@@ -9,7 +9,7 @@ require'bufferline'.setup {
         -- show_buffer_icons = false,
         buffer_close_icon = plain and 'x' or nil,
         modified_icon = plain and '*' or nil,
-        close_icon = plain and 'x' or nil,
+        -- close_icon = plain and 'x' or nil,
         left_trunc_marker = plain and '<' or nil,
         right_trunc_marker = plain and '>' or nil,
         offsets = {
