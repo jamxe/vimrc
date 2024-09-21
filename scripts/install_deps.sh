@@ -103,6 +103,24 @@ ensure_pip() {
     pcall $python -m pip --version
 }
 
+install_pip() {
+    ensure_pip
+    python="$(which python3 || which python)"
+    if "$python" -m pip install --help | grep break-system-packages; then
+        args="--break-system-packages"
+    else
+        args=
+    fi
+    index=(-i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple)
+    pcall "$python" -m pip install -U "${index[@]}" pynvim $break
+    pcall "$python" -m pip install -U "${index[@]}" openai $break
+}
+
+install_npm() {
+    registry=--registry=https://registry.npmmirror.com
+    pcall npm install -g pyright $registry
+}
+
 install_pacman() {
     sudo pacman -S --noconfirm ripgrep
     sudo pacman -S --noconfirm fzf
@@ -138,16 +156,8 @@ install_apt() {
     pcall sudo apt-get install -y clang-format
     pcall sudo apt-get install -y nodejs
     pcall sudo apt-get install -y npm
-    python="$(which python3 || which python)"
-    if "$python" -m pip install --help | grep break-system-packages; then
-        break="--break-system-packages"
-    else
-        break=
-    fi
-    ensure_pip
-    pcall "$python" -m pip install -U pynvim $break
-    pcall "$python" -m pip install -U openai $break
-    pcall npm install -g pyright
+    install_pip
+    install_npm
 }
 
 install_yum() {
@@ -164,11 +174,8 @@ install_yum() {
     pcall sudo yum install -y clang-format
     pcall sudo yum install -y nodejs
     pcall sudo yum install -y npm
-    ensure_pip
-    python="$(which python3 || which python)"
-    pcall "$python" -m pip install -U pynvim
-    pcall "$python" -m pip install -U openai
-    pcall npm install -g pyright
+    install_pip
+    install_npm
 }
 
 
@@ -185,11 +192,8 @@ install_dnf() {
     pcall sudo dnf install -y clang-format
     pcall sudo dnf install -y nodejs
     pcall sudo dnf install -y npm
-    ensure_pip
-    python="$(which python3 || which python)"
-    pcall "$python" -m pip install -U pynvim
-    pcall "$python" -m pip install -U openai
-    pcall npm install -g pyright
+    install_pip
+    install_npm
 }
 
 install_zypper() {
@@ -205,11 +209,8 @@ install_zypper() {
     pcall sudo zypper in --no-confirm clang-format
     pcall sudo zypper in --no-confirm nodejs
     pcall sudo zypper in --no-confirm npm
-    ensure_pip
-    python="$(which python3 || which python)"
-    pcall "$python" -m pip install -U pynvim
-    pcall "$python" -m pip install -U openai
-    pcall npm install -g pyright
+    install_pip
+    install_npm
 }
 
 install_brew() {
@@ -226,11 +227,8 @@ install_brew() {
     pcall brew install node
     pcall brew install npm
     pcall brew install lua-language-server
-    ensure_pip
-    python="$(which python3 || which python)"
-    pcall "$python" -m pip install -U pynvim
-    pcall "$python" -m pip install -U openai
-    pcall npm install -g pyright
+    install_pip
+    install_npm
 }
 
 do_install() {
