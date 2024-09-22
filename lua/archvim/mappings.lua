@@ -288,4 +288,15 @@ augroup END
 --     end, { desc = 'Restart NeoVim' })
 -- end
 
+local markdown_augroup = vim.api.nvim_create_augroup("MarkdownAuGroup", {
+    clear = true,
+})
+vim.api.nvim_create_autocmd({"FileType"}, {
+    group = markdown_augroup,
+    pattern = '*.md',
+    callback = function ()
+        vim.keymap.set("n", "mp", "<cmd>PasteImage<CR>", { silent = true })
+    end,
+})
+
 return vim.keymap.set
