@@ -6,7 +6,7 @@ if require'archvim.options'.more_cpp_ftdetect then
     augroup end
     ]]
 end
-if require'archvim.options'.transparent_color then
+if require'archvim.options'.transparent_color and vim.fn.has('gui_running') == 0 then
     vim.cmd [[
     augroup colorscheme_mock
     autocmd!

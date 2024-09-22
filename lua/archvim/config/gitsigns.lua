@@ -6,3 +6,7 @@ require'gitsigns'.setup {
         delay = 2000,
     },
 }
+local success, handler = pcall(require, "scrollbar.handlers.gitsigns")
+if success then
+    handler.setup()
+end
