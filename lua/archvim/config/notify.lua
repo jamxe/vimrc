@@ -29,7 +29,7 @@ vim.notify = function(msg, ...)
     if msg:match("No results for %*%*") then
         -- transform "No results for **qflist**\nBuffer: /home/bate/Codes/cppguidebook/examples/error_code.cpp"
         -- into "No results for **qflist**"
-        msg = msg:gsub("No results for %*%*(%w+)%*%*\nBuffer: .+", "No results for %1")
+        msg = msg:gsub("No results for %*%*(%w+)%*%*\nBuffer:.*", "No results for %1")
     end
 
     old_notify(msg, ...)
