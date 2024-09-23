@@ -19,6 +19,7 @@ set switchbuf=useopen
 set exrc
 set foldtext='+--'
 set wrap
+set cc=80
 set termguicolors
 ]]
 
@@ -51,7 +52,7 @@ augroup end
 --     print(vim.g_printed)
 -- end
 
-vim.lsp.set_log_level("off")
+vim.lsp.set_log_level("warn")
 
 local default_opts = {
     nerd_fonts = true,
@@ -60,6 +61,7 @@ local default_opts = {
     more_cpp_ftdetect = true,
     enable_signature_help = true,
     enable_inlay_hint = true,
+    enable_clipboard = true,
 }
 
 (function()

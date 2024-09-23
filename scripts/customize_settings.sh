@@ -72,8 +72,8 @@ SetConfig nerd_fonts $?
 if [ $? != 0 ]; then
     cat << EOF
 ==================================================================
-Did your terminal shows this symbols correctly? 󰅖 (a cross symbol)
-您的终端是否能正常显示此字符？󰅖（此处应为叉号）
+Did your terminal shows this symbols correctly?  (a cross symbol)
+您的终端是否能正常显示此字符？（此处应为叉号）
 ==================================================================
 EOF
     YesOrNo n
@@ -111,6 +111,15 @@ Would you like to enable inlay hints?'
 EOF
 YesOrNo y
 SetConfig enable_inlay_hint $?
+
+cat << EOF
+==================================================================
+Would you like to shared clipboard between NeoVim and system?
+您是否希望 NeoVim 与系统共享剪贴板？
+==================================================================
+EOF
+YesOrNo y
+SetConfig enable_clipboard $?
 
 cat << EOF
 --

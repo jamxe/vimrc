@@ -12,6 +12,12 @@ vim.keymap.set("i", "kj", "<Esc>", { silent = true })
 vim.keymap.set("t", "jk", "<C-\\><C-n>", { silent = true })
 vim.keymap.set("t", "kj", "<C-\\><C-n>", { silent = true })
 
+-- Ctrl+Insert 复制；Shift+Insert 粘贴
+vim.keymap.set({"n", "v"}, "<C-Insert>", "\"+y", { silent = true })
+vim.keymap.set("i", "<C-Insert>", "<Esc>\"+yya", { silent = true })
+vim.keymap.set({"n", "v"}, "<S-Insert>", "\"+p", { silent = true })
+vim.keymap.set("i", "<S-Insert>", "<C-r>+", { silent = true })
+
 -- Functional wrapper for mapping custom keybindings
 -- local function map(mode, lhs, rhs, opts)
 --     if type(mode) == 'table' then

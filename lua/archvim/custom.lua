@@ -22,10 +22,14 @@ if require'archvim.options'.transparent_color then
     ]]
 end
 
+if not require'archvim.options'.enable_clipboard then
+    vim.cmd [[
+        set clipboard-=unnamedplus
+    ]]
+end
+
 vim.cmd [[
-" colorscheme gruvbox
-" colorscheme nord
-colorscheme zephyr
+silent! colorscheme zephyr
 ]]
 
 -- More custom options goes here
