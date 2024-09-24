@@ -229,7 +229,7 @@ vim.keymap.set({"v", "n"}, "gsi", function()
         end
 end, { desc = "Toggle inlay hint" })
 -- 重启 LSP
-vim.keymap.set({"v", "n"}, "gsu", "<cmd>LspRestart | LspStart<CR>", { silent = true, desc = "Restart LSP" })
+vim.keymap.set({"v", "n"}, "gsu", "<cmd>LspStop | LspStart<CR>", { silent = true, desc = "Restart LSP" })
 -- 开关项目文件树
 vim.keymap.set({"v", "n"}, "gsp", "<cmd>NvimTreeFindFileToggle<CR>", { silent = true, desc = "Toggle Nvim Tree", })
 -- 开关大纲视图
