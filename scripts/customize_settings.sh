@@ -95,7 +95,7 @@ Did you set any background image for the terminal?
 您是否为终端设定了背景贴图（例如二次元壁纸）？
 ==================================================================
 EOF
-YesOrNo y
+YesOrNo n
 SetConfig transparent_color $?
 
 cat << EOF
@@ -109,7 +109,7 @@ Would you like to enable inlay hints?'
 您是否希望开启 Inlay Hint 提示？'
 ==================================================================
 EOF
-YesOrNo y
+YesOrNo n
 SetConfig enable_inlay_hint $?
 
 cat << EOF
