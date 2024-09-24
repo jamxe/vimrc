@@ -332,6 +332,7 @@ local plugins = {
         },
         config = function() require"archvim/config/telescope" end,
     },
+    "ibhagwan/fzf-lua",
     -- {
     --     "nvim-pack/nvim-spectre",
     --     requires = {
