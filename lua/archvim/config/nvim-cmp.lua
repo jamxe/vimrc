@@ -1,4 +1,4 @@
-local lspkind = require('lspkind')
+local has_lspkind, lspkind = pcall(require, 'lspkind')
 local cmp = require'cmp'
 
 local function has_words_before()
@@ -53,7 +53,7 @@ cmp.setup {
         {name = "path"},
         -- {name = "codeium"}, -- INFO: uncomment this for AI completion
         -- {name = "spell", max_item_count = 4},
-		{name = "cmp_yanky", max_item_count = 2},
+		-- {name = "cmp_yanky", max_item_count = 2},
         {name = "calc", max_item_count = 3},
         -- {name = "cmdline"},
         -- {name = "git"},
@@ -173,7 +173,7 @@ cmp.setup {
 
     -- 使用 lspkind-nvim 显示类型图标
     formatting = {
-        format = require'archvim.options'.nerd_fonts and lspkind.cmp_format {
+        format = require'archvim.options'.nerd_fonts and has_lspkind and lspkind.cmp_format {
             mode = 'symbol',
             maxwidth = 50,
             before = function(entry, vim_item)

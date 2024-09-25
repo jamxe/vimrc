@@ -307,7 +307,7 @@ int main() {
 
 **内置终端**
 
-- `<F8>` 或 `gst`
+- `<F8>` 或 `<C-t>`
 - `gsi` 开启/关闭 Inlay Hint 功能
 
 #### 语法树换位 (nvim-treesitter)

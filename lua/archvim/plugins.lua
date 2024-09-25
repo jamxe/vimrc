@@ -18,10 +18,11 @@ local plugins = {
     },
 
     -- auto completions
-    {
-        'gbprod/yanky.nvim',
-        config = function() require'yanky'.setup{} end,
-    },
+    -- {
+        -- 'gbprod/yanky.nvim',
+        -- config = function() require'yanky'.setup{} end,
+        -- cond = function () return require'archvim.options'.enable_clipboard end,
+    -- },
     {
         'hrsh7th/nvim-cmp',
         requires = {
@@ -29,7 +30,10 @@ local plugins = {
             --     'yehuohan/cmp-im',
             --     'yehuohan/cmp-im-zh',
             -- },
-            'onsails/lspkind-nvim',
+            {
+                'onsails/lspkind-nvim',
+                cond = function () return require'archvim.options'.nerd_fonts end,
+            },
             'hrsh7th/cmp-nvim-lsp',
             'hrsh7th/cmp-nvim-lsp-signature-help',
             'hrsh7th/cmp-buffer',
@@ -38,7 +42,7 @@ local plugins = {
             'f3fora/cmp-spell',
             'hrsh7th/cmp-calc',
             'hrsh7th/cmp-emoji',
-            'chrisgrieser/cmp_yanky',
+            -- 'chrisgrieser/cmp_yanky',
             -- 'petertriho/cmp-git',
             'lukas-reineke/cmp-rg',
             -- 'roobert/tailwindcss-colorizer-cmp.nvim',
@@ -481,7 +485,7 @@ autocmd FileType markdown nnoremap <silent> mp :call mdip#MarkdownClipboardImage
     -- },
 
     -- pinyin input method
-    'h-hg/fcitx.nvim',
+    -- 'h-hg/fcitx.nvim',
     -- {
     --     'ZSaberLv0/ZFVimIM',
     --     requires = {
@@ -496,6 +500,19 @@ autocmd FileType markdown nnoremap <silent> mp :call mdip#MarkdownClipboardImage
     -- neovim profiling and debugging
     -- 'dstein64/vim-startuptime',
 }
+
+if false then
+    plugins = (function (plugins)
+        local result = {}
+        for i, v in ipairs(plugins) do
+            if (i >= #plugins * 0.125 and i <= #plugins * 1.0)
+                or v == 'wbthomason/packer.nvim' then
+                result[#result + 1] = v
+            end
+        end
+        return result
+    end)(plugins)
+end
 
 ----- {{{ BEGIN_CIHOU_PREDOWNLOAD
 local archvim_predownload = vim.g.archvim_predownload

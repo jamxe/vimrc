@@ -1,8 +1,8 @@
--- neovim 6.1 required
+-- neovim 9.0+ required
 
+require('archvim.options')
 require('archvim.plugins')
 require('archvim.mappings')
-require('archvim.options')
 require('archvim.custom')
 
 function print(...)
