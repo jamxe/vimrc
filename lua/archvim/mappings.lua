@@ -166,7 +166,10 @@ vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], { noremap = true })
 
 -- 开关终端
 -- vim.keymap.set({"v", "n", "i", "t"}, "<C-t>", "<cmd>ToggleTerm<CR>", { silent = true })
-vim.keymap.set({"v", "n", "i", "t"}, "<F8>", "<cmd>F8<CR>", { silent = true, noremap = false })
+vim.keymap.set({"v", "n", "i", "t"}, "<F8>", "<C-t>", { silent = true, noremap = false })
+vim.keymap.set({"v"}, "<C-S-t>", "<cmd>ToggleTermSendVisualSelection<CR>", { silent = true })
+vim.keymap.set({"n", "i"}, "<C-S-t>", "<cmd>ToggleTermSendCurrentLine<CR>", { silent = true })
+vim.keymap.set({"t"}, "<C-S-t>", "<cmd>ToggleTermToggleAll<CR>", { silent = true })
 -- 格式化代码
 vim.keymap.set({'v'}, 'g=', [[<Cmd>Neoformat<CR>]])
 vim.keymap.set({'n'}, 'g=', function ()

@@ -336,6 +336,8 @@ curl -SLf https://142857.red/files/nvimrc-install.sh | bash
 - `2<F8>` 或 `2<C-t>` 打开 2 号终端
 - 以此类推
 
+- `<C-S-t>` 将当前行的文本或选中的部分作为命令执行
+
 **文件树
 
 - `y` 拷贝
