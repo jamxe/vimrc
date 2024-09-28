@@ -38,7 +38,7 @@ vim.keymap.set("n", "<leader>p", "<cmd>Telescope git_status initial_mode=insert<
 -- 查找当前项目文件中的文字
 vim.keymap.set("n", "<leader>k", "<cmd>Telescope live_grep initial_mode=insert<CR>")
 -- 模糊查找当前文件中的文字
-vim.keymap.set("n", "<leader><leader>", "<cmd>Telescope current_buffer_fuzzy_find initial_mode=insert<CR>")
+vim.keymap.set("n", "<leader>.", "<cmd>Telescope current_buffer_fuzzy_find initial_mode=insert<CR>")
 -- 查找所有已打开文件
 vim.keymap.set("n", "<leader>b", "<cmd>Telescope buffers<CR>")
 -- 查找 vim 的跳转记录
@@ -71,3 +71,5 @@ vim.keymap.set("n", "<leader>a", "<cmd>Telescope diagnostics<CR>")
 vim.keymap.set("n", "<leader>q", "<cmd>Telescope quickfix<CR>")
 -- 查看所有 Vim 通知
 vim.keymap.set("n", "<leader>n", "<cmd>Telescope notify<CR>")
+-- 模糊查询
+vim.keymap.set({"v", "n"}, "<leader><leader>", "<cmd>FzfLua<CR>", { silent = true, desc = "Fuzzy Find" })

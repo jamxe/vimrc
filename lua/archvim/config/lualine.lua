@@ -42,7 +42,8 @@ local cmake_component = {
             end
         end,
         cond = function()
-            return cmake.is_cmake_project() and vim.bo.buftype == ''
+            return cmake.is_cmake_project() and (
+                vim.bo.buftype == '' or vim.bo.buftype == 'quickfix')
         end,
         on_click = function(n, mouse)
             if (n == 1) then

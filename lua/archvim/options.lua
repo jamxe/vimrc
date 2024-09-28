@@ -7,7 +7,6 @@ set updatetime=400
 set nu nornu ru ls=2
 set et sts=0 ts=4 sw=4
 set signcolumn=number
-set bri wrap
 set nohls
 set listchars=tab:▸\ ,trail:⋅,extends:❯,precedes:❮
 set cinoptions=j1,(0,ws,Ws,g0,:0,=0,l1
@@ -18,7 +17,8 @@ set clipboard+=unnamedplus
 set switchbuf=useopen
 set exrc
 set foldtext='+--'
-set wrap
+set bri wrap
+set cc=80
 set termguicolors
 ]]
 
@@ -51,7 +51,7 @@ augroup end
 --     print(vim.g_printed)
 -- end
 
-vim.lsp.set_log_level("off")
+vim.lsp.set_log_level("warn")
 
 local default_opts = {
     nerd_fonts = true,
@@ -60,6 +60,7 @@ local default_opts = {
     more_cpp_ftdetect = true,
     enable_signature_help = true,
     enable_inlay_hint = true,
+    enable_clipboard = true,
 }
 
 (function()

@@ -6,6 +6,8 @@ require("aerial").setup({
     --     -- vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr })
     -- end,
     nerd_font = require'archvim.options'.nerd_fonts and "auto" or false,
+    use_icon_provider = require'archvim.options'.nerd_fonts,
+    dense = not require'archvim.options'.nerd_fonts,
     layout = {
         max_width = { 40, 0.25 },
         min_width = 16,

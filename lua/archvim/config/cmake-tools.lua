@@ -1,7 +1,7 @@
 require("cmake-tools").setup {
     cmake_command = "cmake", -- this is used to specify cmake command path
     cmake_regenerate_on_save = false, -- auto generate when save CMakeLists.txt
-    cmake_generate_options = { "-DCMAKE_EXPORT_COMPILE_COMMANDS=1" }, -- this will be passed when invoke `CMakeGenerate`
+    cmake_generate_options = { "-GNinja", "-DCMAKE_EXPORT_COMPILE_COMMANDS=1" }, -- this will be passed when invoke `CMakeGenerate`
     cmake_build_options = {}, -- this will be passed when invoke `CMakeBuild`
     -- support macro expansion:
     --       ${kit}
@@ -68,16 +68,18 @@ require("cmake-tools").setup {
             quickfix = {
                 show = "always", -- "always", "only_on_error"
                 position = "belowright", -- "bottom", "top"
-                size = 10,
+                size = 6,
                 encoding = "utf-8",
                 auto_close_when_success = true, -- typically, you can use it with the "always" option; it will auto-close the quickfix buffer if the execution is successful.
             },
             toggleterm = {
                 -- direction = "horizontal", -- 'vertical' | 'horizontal' | 'tab' | 'float'
-                direction = "tab", -- 'vertical' | 'horizontal' | 'tab' | 'float'
-                close_on_exit = false, -- whether close the terminal when exit
+                -- direction = "tab", -- 'vertical' | 'horizontal' | 'tab' | 'float'
+                -- close_on_exit = false, -- whether close the terminal when exit
+                direction = "vertical", -- 'vertical' | 'horizontal' | 'tab' | 'float'
+                close_on_exit = true, -- whether close the terminal when exit
+                singleton = false, -- single instance, autocloses the opened one, if present
                 auto_scroll = true, -- whether auto scroll to the bottom
-                singleton = true, -- single instance, autocloses the opened one, if present
             },
             overseer = {},
             terminal = {

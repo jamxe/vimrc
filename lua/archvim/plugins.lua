@@ -207,10 +207,10 @@ local plugins = {
     -- 'tikhomirov/vim-glsl',
 
     -- git support
-    {
-        'lewis6991/gitsigns.nvim',
-        config = function() require'archvim/config/gitsigns' end,
-    },
+    -- {
+    --     'lewis6991/gitsigns.nvim',
+    --     config = function() require'archvim/config/gitsigns' end,
+    -- },
     -- 'tpope/vim-fugitive',
     {
         "NeogitOrg/neogit",
@@ -332,6 +332,7 @@ local plugins = {
         },
         config = function() require"archvim/config/telescope" end,
     },
+    "ibhagwan/fzf-lua",
     -- {
     --     "nvim-pack/nvim-spectre",
     --     requires = {
@@ -421,7 +422,7 @@ local plugins = {
     -- },
     {
         os.getenv('ARCHIBATE_COMPUTER') and '/home/bate/Codes/gpt4o.nvim' or 'archibate/gpt4o',
-        run = ':sil! UpdateRemotePlugins',
+        run = ':UpdateRemotePlugins',
     },
     {
         os.getenv('ARCHIBATE_COMPUTER') and '/home/bate/Codes/genius.nvim' or 'archibate/genius.nvim',
@@ -464,21 +465,14 @@ local plugins = {
     --     ft = { "markdown" },
     -- },
     {
-        'HakonHarnes/img-clip.nvim',
-        config = function()
-            require'img-clip'.setup{}
-        end,
+        'ferrine/md-img-paste.vim',
+        config = function() vim.cmd [[
+let g:mdip_imgdir = 'img' " save image in ./img
+let g:mdip_imgname = 'image'
+autocmd FileType markdown nnoremap <silent> mp :call mdip#MarkdownClipboardImage()<CR>
+        ]] end,
         ft = { "markdown" },
     },
---     {
---         'ferrine/md-img-paste.vim',
---         config = function() vim.cmd [[
--- let g:mdip_imgdir = 'img' " save image in ./img
--- let g:mdip_imgname = 'image'
--- autocmd FileType markdown nnoremap <silent> mp :call mdip#MarkdownClipboardImage()<CR>
---         ]] end,
---         ft = { "markdown" },
---     },
     -- {
     --     'chomosuke/typst-preview.nvim',
     --     tag = 'v0.3.*',

@@ -6,7 +6,7 @@ if require'archvim.options'.more_cpp_ftdetect then
     augroup end
     ]]
 end
-if require'archvim.options'.transparent_color and vim.fn.has('gui_running') == 0 then
+if require'archvim.options'.transparent_color then
     vim.cmd [[
     augroup colorscheme_mock
     autocmd!
@@ -22,10 +22,14 @@ if require'archvim.options'.transparent_color and vim.fn.has('gui_running') == 0
     ]]
 end
 
+if not require'archvim.options'.enable_clipboard then
+    vim.cmd [[
+        set clipboard-=unnamedplus
+    ]]
+end
+
 vim.cmd [[
-" colorscheme gruvbox
-" colorscheme nord
-colorscheme zephyr
+silent! colorscheme zephyr
 ]]
 
 -- More custom options goes here

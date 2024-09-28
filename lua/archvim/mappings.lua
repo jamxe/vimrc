@@ -12,6 +12,12 @@ vim.keymap.set("i", "kj", "<Esc>", { silent = true })
 vim.keymap.set("t", "jk", "<C-\\><C-n>", { silent = true })
 vim.keymap.set("t", "kj", "<C-\\><C-n>", { silent = true })
 
+-- Ctrl+Insert 复制；Shift+Insert 粘贴
+vim.keymap.set({"n", "v"}, "<C-Insert>", "\"+y", { silent = true })
+vim.keymap.set("i", "<C-Insert>", "<Esc>\"+yya", { silent = true })
+vim.keymap.set({"n", "v"}, "<S-Insert>", "\"+p", { silent = true })
+vim.keymap.set("i", "<S-Insert>", "<C-r>+", { silent = true })
+
 -- Functional wrapper for mapping custom keybindings
 -- local function map(mode, lhs, rhs, opts)
 --     if type(mode) == 'table' then
@@ -217,28 +223,30 @@ vim.keymap.set("n", "gsd", function()
     })
 end, { desc = 'Diagnostics under cursor' })
 -- 开关 Inlay Hint
-vim.keymap.set("n", "gsi", function()
+vim.keymap.set({"v", "n"}, "gsi", function()
         if vim.lsp.inlay_hint ~= nil then
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
         end
 end, { desc = "Toggle inlay hint" })
+-- 重启 LSP
+vim.keymap.set({"v", "n"}, "gsu", "<cmd>LspStop | LspStart<CR>", { silent = true, desc = "Restart LSP" })
 -- 开关项目文件树
-vim.keymap.set("n", "gsp", "<cmd>NvimTreeFindFileToggle<CR>", { silent = true, desc = "Toggle Nvim Tree", })
+vim.keymap.set({"v", "n"}, "gsp", "<cmd>NvimTreeFindFileToggle<CR>", { silent = true, desc = "Toggle Nvim Tree", })
 -- 开关大纲视图
-vim.keymap.set("n", "gso", "<cmd>AerialToggle!<CR>", { desc = "Toggle aerial outline" })
+vim.keymap.set({"v", "n"}, "gso", "<cmd>AerialToggle!<CR>", { desc = "Toggle aerial outline" })
 -- 查找类型定义
-vim.keymap.set("n", "gy", "<cmd>Telescope lsp_type_definitions<CR>", { desc = 'Goto type definition' })
+vim.keymap.set({"v", "n"}, "gy", "<cmd>Telescope lsp_type_definitions<CR>", { desc = 'Goto type definition' })
 -- 查找所有引用
-vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>", { desc = 'Find references' })
+vim.keymap.set({"v", "n"}, "gr", "<cmd>Telescope lsp_references<CR>", { desc = 'Find references' })
 -- 查找函数实现
-vim.keymap.set("n", "gY", "<cmd>Telescope lsp_implementations<CR>", { desc = 'Find implementations' })
+vim.keymap.set({"v", "n"}, "gY", "<cmd>Telescope lsp_implementations<CR>", { desc = 'Find implementations' })
 -- 查看全部
-vim.keymap.set("n", "gz", "<cmd>Trouble lsp toggle<CR>")
+vim.keymap.set({"v", "n"}, "gz", "<cmd>Trouble lsp toggle<CR>")
 -- 查看类型继承图
-vim.keymap.set("n", "gst", function ()
+vim.keymap.set({"v", "n"}, "gst", function ()
     vim.lsp.buf.typehierarchy("subtypes")
 end, { desc = 'List derived class hierarchy' })
-vim.keymap.set("n", "gsT", function ()
+vim.keymap.set({"v", "n"}, "gsT", function ()
     vim.lsp.buf.typehierarchy("supertypes")
 end, { desc = 'List base class hierarchy' })
 -- 头文件/源文件跳转
@@ -287,16 +295,5 @@ augroup END
 --         ]]
 --     end, { desc = 'Restart NeoVim' })
 -- end
-
-local markdown_augroup = vim.api.nvim_create_augroup("MarkdownAuGroup", {
-    clear = true,
-})
-vim.api.nvim_create_autocmd({"FileType"}, {
-    group = markdown_augroup,
-    pattern = '*.md',
-    callback = function ()
-        vim.keymap.set("n", "mp", "<cmd>PasteImage<CR>", { silent = true })
-    end,
-})
 
 return vim.keymap.set
