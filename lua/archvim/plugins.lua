@@ -356,6 +356,10 @@ local plugins = {
         config = function() require'archvim/config/bufferline' end,
     },
     {
+        "tiagovla/scope.nvim",
+        config = function() require'scope'.setup{} end,
+    },
+    {
         'nvim-tree/nvim-tree.lua',
         config = function() require'archvim/config/nvim-tree' end,
     },

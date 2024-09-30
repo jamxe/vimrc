@@ -43,6 +43,7 @@ end
 require'lspconfig'.pyright.setup{
     on_attach = pyright_on_attach,
 }
+-- require'lspconfig'.pylyzer.setup{}
 require'lspconfig'.lua_ls.setup{}
 require'lspconfig'.cmake.setup{}
 -- require'lspconfig'.rust_analyzer.setup{}

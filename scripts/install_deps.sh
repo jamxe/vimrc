@@ -112,8 +112,11 @@ install_pip() {
         args=
     fi
     index=(-i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple)
-    pcall "$python" -m pip install -U "${index[@]}" pynvim $break
-    pcall "$python" -m pip install -U "${index[@]}" openai $break
+
+    packages=(pynvim openai tiktoken)
+    for package in "${packages[@]}"; do
+        pcall "$python" -m pip install -U "${index[@]}" $package $break
+    done
 }
 
 install_npm() {
@@ -138,6 +141,7 @@ install_pacman() {
     sudo pacman -S --noconfirm pyright
     sudo pacman -S --noconfirm python-pynvim
     sudo pacman -S --noconfirm python-openai
+    sudo pacman -S --noconfirm python-tiktoken
 }
 
 install_apt() {

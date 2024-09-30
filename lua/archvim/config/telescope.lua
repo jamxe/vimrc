@@ -41,6 +41,8 @@ vim.keymap.set("n", "<leader>k", "<cmd>Telescope live_grep initial_mode=insert<C
 vim.keymap.set("n", "<leader>.", "<cmd>Telescope current_buffer_fuzzy_find initial_mode=insert<CR>")
 -- 查找所有已打开文件
 vim.keymap.set("n", "<leader>b", "<cmd>Telescope buffers<CR>")
+-- 查找当前 Tab 中所有已打开文件
+vim.keymap.set("n", "<leader>B", "<cmd>Telescope scope buffers<CR>")
 -- 查找 vim 的跳转记录
 vim.keymap.set("n", "<leader>j", "<cmd>Telescope jumplist initial_mode=insert<CR>")
 -- 查找 vim 的标记

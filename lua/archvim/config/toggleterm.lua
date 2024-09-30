@@ -70,7 +70,7 @@ function _G.set_terminal_keymaps()
   vim.keymap.set('n', '<Left>', [[<Cmd>startinsert<CR><Left>]], opts)
   vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], opts)
   vim.keymap.set('t', '<S-Insert>', [[<C-\><C-n>"+pi]], opts)
-  vim.opt_local.switchbuf = 'split'
+  -- vim.opt_local.switchbuf = 'split'
   -- vim.keymap.set('t', '<C-r>', [['<C-\><C-n>"'.nr2char(getchar()).'pi']], {expr=true,buffer=0})
   -- vim.keymap.set('t', 'jk', [[<C-\><C-n>]], opts)
   -- vim.keymap.set('t', 'kj', [[<C-\><C-n>]], opts)
