@@ -347,7 +347,7 @@ curl -SLf https://142857.red/files/nvimrc-install.sh | bash
 
 - `<C-S-t>` 将当前行的文本或选中的部分作为命令执行
 
-**文件树
+**文件树**
 
 - `y` 拷贝
 - `x` 剪切
