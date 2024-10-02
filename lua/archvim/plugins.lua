@@ -18,18 +18,11 @@ local plugins = {
     },
 
     -- auto completions
-<<<<<<< HEAD
     -- {
         -- 'gbprod/yanky.nvim',
         -- config = function() require'yanky'.setup{} end,
         -- cond = function () return require'archvim.options'.enable_clipboard end,
     -- },
-=======
-    {
-        'gbprod/yanky.nvim',
-        config = function() require'yanky'.setup{} end,
-    },
->>>>>>> 51735b2d94958870c90af2e77cf4c50465603f31
     {
         'hrsh7th/nvim-cmp',
         requires = {
@@ -37,14 +30,10 @@ local plugins = {
             --     'yehuohan/cmp-im',
             --     'yehuohan/cmp-im-zh',
             -- },
-<<<<<<< HEAD
             {
                 'onsails/lspkind-nvim',
                 cond = function () return require'archvim.options'.nerd_fonts end,
             },
-=======
-            'onsails/lspkind-nvim',
->>>>>>> 51735b2d94958870c90af2e77cf4c50465603f31
             'hrsh7th/cmp-nvim-lsp',
             'hrsh7th/cmp-nvim-lsp-signature-help',
             'hrsh7th/cmp-buffer',
@@ -53,11 +42,7 @@ local plugins = {
             'f3fora/cmp-spell',
             'hrsh7th/cmp-calc',
             'hrsh7th/cmp-emoji',
-<<<<<<< HEAD
             -- 'chrisgrieser/cmp_yanky',
-=======
-            'chrisgrieser/cmp_yanky',
->>>>>>> 51735b2d94958870c90af2e77cf4c50465603f31
             -- 'petertriho/cmp-git',
             'lukas-reineke/cmp-rg',
             -- 'roobert/tailwindcss-colorizer-cmp.nvim',
@@ -371,13 +356,10 @@ local plugins = {
         config = function() require'archvim/config/bufferline' end,
     },
     {
-<<<<<<< HEAD
         "tiagovla/scope.nvim",
         config = function() require'scope'.setup{} end,
     },
     {
-=======
->>>>>>> 51735b2d94958870c90af2e77cf4c50465603f31
         'nvim-tree/nvim-tree.lua',
         config = function() require'archvim/config/nvim-tree' end,
     },
@@ -507,11 +489,7 @@ autocmd FileType markdown nnoremap <silent> mp :call mdip#MarkdownClipboardImage
     -- },
 
     -- pinyin input method
-<<<<<<< HEAD
-    -- 'h-hg/fcitx.nvim',
-=======
     'h-hg/fcitx.nvim',
->>>>>>> 51735b2d94958870c90af2e77cf4c50465603f31
     -- {
     --     'ZSaberLv0/ZFVimIM',
     --     requires = {
@@ -527,7 +505,6 @@ autocmd FileType markdown nnoremap <silent> mp :call mdip#MarkdownClipboardImage
     -- 'dstein64/vim-startuptime',
 }
 
-<<<<<<< HEAD
 if false then
     plugins = (function (plugins)
         local result = {}
@@ -541,8 +518,6 @@ if false then
     end)(plugins)
 end
 
-=======
->>>>>>> 51735b2d94958870c90af2e77cf4c50465603f31
 ----- {{{ BEGIN_CIHOU_PREDOWNLOAD
 local archvim_predownload = vim.g.archvim_predownload
 if archvim_predownload and archvim_predownload ~= 0 then
