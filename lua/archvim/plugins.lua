@@ -146,6 +146,7 @@ local plugins = {
     --     },
     -- },
     "MunifTanjim/nui.nvim",
+    'stevearc/dressing.nvim',
 
     -- dap and debuggers
     -- {
