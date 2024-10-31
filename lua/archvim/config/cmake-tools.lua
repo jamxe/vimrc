@@ -79,7 +79,7 @@ require("cmake-tools").setup {
                 direction = "vertical", -- 'vertical' | 'horizontal' | 'tab' | 'float'
                 close_on_exit = true, -- whether close the terminal when exit
                 singleton = false, -- single instance, autocloses the opened one, if present
-                auto_scroll = true, -- whether auto scroll to the bottom
+                auto_scroll = false, -- whether auto scroll to the bottom
             },
             overseer = {},
             terminal = {
