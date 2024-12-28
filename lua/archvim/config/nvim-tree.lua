@@ -17,9 +17,25 @@ require'nvim-tree'.setup {
     },
     renderer = {
         icons = {
+            web_devicons = {
+                file = {
+                    enable = true,
+                    color = true,
+                },
+                folder = {
+                    enable = false,
+                    color = true,
+                },
+            },
             show = {
                 file = true,
                 folder = true,
+                folder_arrow = true,
+                git = true,
+                modified = true,
+                hidden = false,
+                diagnostics = true,
+                bookmarks = true,
             },
         },
     },
