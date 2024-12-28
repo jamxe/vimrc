@@ -441,6 +441,21 @@ local plugins = {
         },
         config = function() require"archvim/config/genius" end,
     },
+    -- {
+    --     "yetone/avante.nvim",
+    --     -- run = "make",
+    --     run = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false",
+    --     requires = {
+    --         "nvim-treesitter/nvim-treesitter",
+    --         "stevearc/dressing.nvim",
+    --         "nvim-lua/plenary.nvim",
+    --         "MunifTanjim/nui.nvim",
+    --     },
+    --     config = function()
+    --         require'avante_lib'.load()
+    --         require'avante'.setup{}
+    --     end,
+    -- },
     -- 'madox2/vim-ai',
     -- 'Exafunction/codeium.vim',
     -- {
@@ -455,6 +470,8 @@ local plugins = {
     -- },
 
     -- markdown editing
+    -- "HakonHarnes/img-clip.nvim",
+    -- 'MeanderingProgrammer/render-markdown.nvim',
     {
         'iamcco/markdown-preview.nvim',
         run = function() vim.fn["mkdp#util#install"]() end,
