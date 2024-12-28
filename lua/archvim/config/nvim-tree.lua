@@ -14,7 +14,15 @@ require'nvim-tree'.setup {
     },
     filters = {
         custom = { "^.git$" },
-    }
+    },
+    renderer = {
+        icons = {
+            show = {
+                file = true,
+                folder = true,
+            },
+        },
+    },
 }
 
 -- vim.cmd [[

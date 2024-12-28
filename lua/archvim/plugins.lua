@@ -9,11 +9,11 @@ local plugins = {
     },
     {
         'nvim-tree/nvim-web-devicons',
-        config = function()
-            if require'archvim.options'.nerd_fonts then
-                require'nvim-tree.renderer.components.icons'.devicons = require "nvim-web-devicons"
-            end
-        end,
+        -- config = function()
+        --     if require'archvim.options'.nerd_fonts then
+        --         require'nvim-tree.renderer.components.devicons'.devicons = require "nvim-web-devicons"
+        --     end
+        -- end,
         cond = function () return require'archvim.options'.nerd_fonts end,
     },
 

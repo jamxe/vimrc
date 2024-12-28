@@ -18,7 +18,7 @@ set switchbuf=useopen
 set exrc
 set foldtext='+--'
 set bri wrap
-set cc=80
+" set cc=80
 set termguicolors
 ]]
 
