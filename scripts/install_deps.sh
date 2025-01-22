@@ -193,6 +193,7 @@ install_dnf() {
     sudo dnf install -y python3 || sudo dnf install -y python
     sudo dnf install -y curl
     pcall sudo dnf install -y clangd
+    pcall sudo dnf install -y clang-tools-extra
     pcall sudo dnf install -y clang-format
     pcall sudo dnf install -y nodejs
     pcall sudo dnf install -y npm
